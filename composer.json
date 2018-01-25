@@ -1,0 +1,12 @@
+{
+  "name": "damax/user",
+  "type": "library",
+  "description": "User authentication and management.",
+  "license": [ "MIT" ],
+  "autoload": {
+    "psr-4": { "Damax\\User\\": "src/" }
+  },
+  "autoload-dev": {
+    "psr-4": { "Damax\\User\\Tests\\": "tests/" }
+  }
+}
