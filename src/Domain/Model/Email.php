@@ -44,6 +44,6 @@ final class Email
 
     private function __construct(string $email)
     {
-        $this->email = $email;
+        $this->email = strtolower($email);
     }
 }

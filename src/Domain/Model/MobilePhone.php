@@ -7,7 +7,12 @@ namespace Damax\User\Domain\Model;
 final class MobilePhone
 {
     private $number;
-    private $verified;
+    private $verified = false;
+
+    public static function fromString($number): self
+    {
+        return new self((int) ltrim((string) $number, '+'));
+    }
 
     public static function fromNumber(int $number): self
     {

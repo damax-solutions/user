@@ -12,12 +12,12 @@ final class Password
     private $salt;
     private $expiresAt;
 
-    public static function for3Months(string $password, string $salt): self
+    public static function valid3Months(string $password, string $salt): self
     {
         return new self($password, $salt, '3 months');
     }
 
-    public static function for6Months(string $password, string $salt): self
+    public static function valid6Months(string $password, string $salt): self
     {
         return new self($password, $salt, '6 months');
     }
@@ -34,13 +34,13 @@ final class Password
 
     public function expired(): bool
     {
-        return new DateTimeImmutable() >= $this->expiresAt;
+        return self::now() >= $this->expiresAt;
     }
 
     public function invalidate(): self
     {
         $password = clone $this;
-        $password->expiresAt = new DateTimeImmutable();
+        $password->expiresAt = self::now();
 
         return $password;
     }
@@ -49,6 +49,11 @@ final class Password
     {
         $this->password = $password;
         $this->salt = $salt;
-        $this->expiresAt = (new DateTimeImmutable())->modify($period);
+        $this->expiresAt = self::now()->modify($period);
+    }
+
+    private static function now(): DateTimeImmutable
+    {
+        return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s', time()));
     }
 }

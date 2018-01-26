@@ -10,14 +10,19 @@ class Name
     private $lastName;
     private $middleName;
 
-    public function __construct(string $firstName, string $lastName = null, string $middleName = null)
+    public static function fromArray(array $data): self
+    {
+        return new self($data['first_name'] ?? null, $data['last_name'] ?? null, $data['middle_name'] ?? null);
+    }
+
+    public function __construct(string $firstName = null, string $lastName = null, string $middleName = null)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->middleName = $middleName;
     }
 
-    public function firstName(): string
+    public function firstName(): ?string
     {
         return $this->firstName;
     }

@@ -4,7 +4,6 @@
   "description": "User authentication and management.",
   "license": [ "MIT" ],
   "autoload": {
-    "php": ">=7.2",
     "psr-4": { "Damax\\User\\": "src/" }
   },
   "autoload-dev": {
@@ -16,11 +15,18 @@
     }
   },
   "require": {
+    "php": ">=7.1",
+    "ext-intl": "*",
     "symfony/intl": "^4.0",
-    "ramsey/uuid": "^3.7"
+    "ramsey/uuid": "^3.7",
+    "simple-bus/message-bus": "^3.0",
+    "pagerfanta/pagerfanta": "^1.0",
+    "doctrine/collections": "^1.5",
+    "beberlei/assert": "^2.9"
   },
   "require-dev": {
-    "symfony/phpunit-bridge": "^4.0"
+    "symfony/phpunit-bridge": "^4.0",
+    "symfony/security-core": "^4.0"
   },
   "config": {
     "bin-dir": "bin/"

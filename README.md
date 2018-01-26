@@ -22,4 +22,5 @@ Running tests:
 
 ```bash
 $ docker run --rm -v $(pwd):/app -w="/app" damax-user/php ./bin/simple-phpunit
+$ docker run --rm -v $(pwd):/app -w="/app" damax-user/php ./bin/phpunit-coverage
 ```

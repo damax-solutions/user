@@ -32,6 +32,6 @@ final class Timezone
 
     private function __construct(string $id)
     {
-        $this->id = strtolower($id);
+        $this->id = $id;
     }
 }

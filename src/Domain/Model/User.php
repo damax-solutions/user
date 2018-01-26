@@ -6,11 +6,13 @@ namespace Damax\User\Domain\Model;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\UuidInterface;
 
 class User
 {
     private $id;
+    private $roles;
     private $email;
     private $mobilePhone;
     private $password;
@@ -25,6 +27,7 @@ class User
     public function __construct(UuidInterface $id, Email $email, MobilePhone $mobilePhone, Password $password, Name $name, Timezone $timezone, Locale $locale)
     {
         $this->id = $id;
+        $this->roles = new ArrayCollection();
         $this->email = $email;
         $this->mobilePhone = $mobilePhone;
         $this->password = $password;
@@ -37,6 +40,38 @@ class User
     public function id(): UuidInterface
     {
         return $this->id;
+    }
+
+    /**
+     * @return Role[]
+     */
+    public function roles(): array
+    {
+        return $this->roles->toArray();
+    }
+
+    public function addRole(Role $role)
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles->add($role);
+        }
+    }
+
+    public function removeRole(Role $role)
+    {
+        if ($this->roles->contains($role)) {
+            $this->roles->removeElement($role);
+        }
+    }
+
+    /**
+     * @return string[]
+     */
+    public function permissions(): array
+    {
+        return array_reduce($this->roles(), function (array $acc, Role $role) {
+            return array_merge($acc, $role->permissions());
+        }, []);
     }
 
     public function email(): Email
