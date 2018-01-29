@@ -59,7 +59,7 @@ class UserProviderTest extends TestCase
         $this->expectException(UnsupportedUserException::class);
         $this->expectExceptionMessage('User of type "Symfony\Component\Security\Core\User\User" is not supported.');
 
-        $this->provider->refreshUser(new SymfonyUser('johndoe@domain.abc', 'qwerty'));
+        $this->provider->refreshUser(new SymfonyUser('john.doe@domain.abc', 'qwerty'));
     }
 
     /**
@@ -68,15 +68,15 @@ class UserProviderTest extends TestCase
     public function it_throws_exception_when_loading_missing_user_by_email()
     {
         $this->expectException(UsernameNotFoundException::class);
-        $this->expectExceptionMessage('User "johndoe@domain.abc" not found.');
+        $this->expectExceptionMessage('User "john.doe@domain.abc" not found.');
 
         $this->repository
             ->expects($this->once())
             ->method('byEmail')
-            ->with(Email::fromString('johndoe@domain.abc'))
+            ->with(Email::fromString('john.doe@domain.abc'))
         ;
 
-        $this->provider->loadUserByUsername('johndoe@domain.abc');
+        $this->provider->loadUserByUsername('john.doe@domain.abc');
     }
 
     /**
@@ -106,7 +106,7 @@ class UserProviderTest extends TestCase
         $this->repository
             ->expects($this->once())
             ->method('byEmail')
-            ->with(Email::fromString('johndoe@domain.abc'))
+            ->with(Email::fromString('john.doe@domain.abc'))
             ->willReturn($johndoe)
         ;
 
@@ -116,7 +116,7 @@ class UserProviderTest extends TestCase
             ->willReturn($user = $this->createMock(UserInterface::class))
         ;
 
-        $this->assertSame($user, $this->provider->loadUserByUsername('johndoe@domain.abc'));
+        $this->assertSame($user, $this->provider->loadUserByUsername('john.doe@domain.abc'));
     }
 
     /**

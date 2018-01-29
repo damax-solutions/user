@@ -18,7 +18,7 @@ class JohnDoeUser extends User
     public function __construct()
     {
         $id = Uuid::fromString('ce08c4e8-d9eb-435b-9eab-edc252b450e1');
-        $email = Email::fromString('johndoe@damax.solutions');
+        $email = Email::fromString('john.doe@domain.abc');
         $mobilePhone = MobilePhone::fromNumber(123);
         $password = Password::valid3Months('qwerty', 'XYZ');
         $name = Name::fromArray(['first_name' => 'John', 'last_name' => 'Doe']);

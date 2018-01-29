@@ -42,14 +42,16 @@ class ConfigurableUserFactoryTest extends TestCase
         ;
 
         $user = $this->factory->create([
-            'email' => 'johndoe@domain.abc',
+            'email' => 'john.doe@domain.abc',
             'mobile_phone' => '123',
             'password' => 'qwerty',
-            'first_name' => 'John',
-            'last_name' => 'Doe',
+            'name' => [
+                'first_name' => 'John',
+                'last_name' => 'Doe',
+            ],
         ]);
 
-        $this->assertEquals('johndoe@domain.abc', $user->email()->email());
+        $this->assertEquals('john.doe@domain.abc', $user->email()->email());
         $this->assertEquals(123, $user->mobilePhone()->number());
         $this->assertEquals('Europe/Riga', $user->timezone()->id());
         $this->assertEquals('ru', $user->locale()->code());
@@ -81,9 +83,10 @@ class ConfigurableUserFactoryTest extends TestCase
         $factory = new ConfigurableUserFactory($this->idGenerator, new PlainEncoder('XYZ'), $config);
 
         $user = $factory->create([
-            'email' => 'johndoe@domain.abc',
+            'email' => 'john.doe@domain.abc',
             'mobile_phone' => '123',
             'password' => 'qwerty',
+            'name' => [],
         ]);
 
         $this->assertFalse($user->password()->expired());
@@ -98,7 +101,7 @@ class ConfigurableUserFactoryTest extends TestCase
         $this->expectExceptionMessage('The element with key "password" was not found');
 
         $this->factory->create([
-            'email' => 'johndoe@domain.abc',
+            'email' => 'john.doe@domain.abc',
             'mobile_phone' => '123',
             'password' => null,
         ]);

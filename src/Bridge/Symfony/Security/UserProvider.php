@@ -25,10 +25,10 @@ class UserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username): UserInterface
     {
-        if (is_numeric($username)) {
-            $user = $this->repository->byMobilePhone(MobilePhone::fromString($username));
-        } else {
+        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
             $user = $this->repository->byEmail(Email::fromString($username));
+        } else {
+            $user = $this->repository->byMobilePhone(MobilePhone::fromString($username));
         }
 
         if (null === $user) {

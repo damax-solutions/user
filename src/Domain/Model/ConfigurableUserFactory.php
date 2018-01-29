@@ -27,12 +27,13 @@ class ConfigurableUserFactory implements UserFactory
             ->keyIsset('email')
             ->keyIsset('mobile_phone')
             ->keyIsset('password')
+            ->keyIsset('name')
         ;
 
         $email = Email::fromString($data['email']);
         $mobilePhone = MobilePhone::fromString($data['mobile_phone']);
         $password = $this->encoder->encode($data['password']);
-        $name = Name::fromArray($data);
+        $name = Name::fromArray($data['name']);
 
         if ($this->config->invalidatePassword()) {
             $password = $password->invalidate();

@@ -20,9 +20,4 @@ interface UserRepository extends IdGenerator
     public function save(User $user): void;
 
     public function size(): int;
-
-    /**
-     * @return User[]
-     */
-    public function all(): array;
 }

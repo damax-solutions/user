@@ -14,11 +14,11 @@ class EmailTest extends TestCase
      */
     public function it_compares_emails()
     {
-        $email1 = Email::fromString('johndoe@domain.abc');
+        $email1 = Email::fromString('john.doe@domain.abc');
         $email2 = Email::fromString('janedoe@domain.abc');
 
         $this->assertFalse($email1->sameAs($email2));
-        $this->assertTrue($email1->sameAs(Email::fromString('johndoe@domain.abc')));
+        $this->assertTrue($email1->sameAs(Email::fromString('john.doe@domain.abc')));
     }
 
     /**
@@ -26,7 +26,7 @@ class EmailTest extends TestCase
      */
     public function it_verifies_email()
     {
-        $email = Email::fromString('johndoe@domain.abc');
+        $email = Email::fromString('john.doe@domain.abc');
         $this->assertFalse($email->verified());
 
         $verified = $email->verify();
@@ -40,9 +40,9 @@ class EmailTest extends TestCase
      */
     public function it_creates_from_string()
     {
-        $email = Email::fromString('JohnDoe@domain.abc');
+        $email = Email::fromString('john.doe@domain.abc');
 
-        $this->assertEquals('johndoe@domain.abc', $email->email());
-        $this->assertEquals('johndoe@domain.abc', (string) $email);
+        $this->assertEquals('john.doe@domain.abc', $email->email());
+        $this->assertEquals('john.doe@domain.abc', (string) $email);
     }
 }
