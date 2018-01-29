@@ -10,6 +10,7 @@ use Damax\User\Application\Service\PasswordService;
 use Damax\User\Doctrine\Orm\UserRepository;
 use Damax\User\Domain\Model\Password;
 use Damax\User\Domain\Password\Encoder;
+use Damax\User\Tests\Domain\Model\JaneDoeUser;
 use Damax\User\Tests\Domain\Model\JohnDoeUser;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -58,6 +59,8 @@ class PasswordServiceTest extends TestCase
      */
     public function it_changes_password()
     {
+        $editor = new JaneDoeUser();
+
         $user = new JohnDoeUser();
 
         $this->users
@@ -65,6 +68,12 @@ class PasswordServiceTest extends TestCase
             ->method('byEmail')
             ->with('john.doe@domain.abc')
             ->willReturn($user)
+        ;
+        $this->users
+            ->expects($this->once())
+            ->method('byId')
+            ->with('02158a54-0510-11e8-a654-005056806fb2')
+            ->willReturn($editor)
         ;
         $this->users
             ->expects($this->once())
@@ -80,9 +89,11 @@ class PasswordServiceTest extends TestCase
 
         $command = new ChangePassword();
         $command->userId = 'john.doe@domain.abc';
+        $command->editorId = '02158a54-0510-11e8-a654-005056806fb2';
         $command->newPassword = '123456';
 
         $this->service->changePassword($command);
         $this->assertSame($password, $user->password());
+        $this->assertSame($editor, $user->updatedBy());
     }
 }

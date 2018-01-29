@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Service;
 
+use Damax\User\Application\Command\DisableUser;
+use Damax\User\Application\Command\EnableUser;
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\UserDto;
 use Damax\User\Domain\Model\UserRepository;
@@ -37,20 +39,24 @@ class UserService
         return new Pagerfanta(new CallableDecoratorAdapter($adapter, [$this->assembler, 'toUserDto']));
     }
 
-    public function enable(string $userId): UserDto
+    public function enable(EnableUser $command): UserDto
     {
-        $user = $this->getUser($userId);
-        $user->enable();
+        $editor = $this->getUser($command->editorId);
+
+        $user = $this->getUser($command->userId);
+        $user->enable($editor);
 
         $this->users->save($user);
 
         return $this->assembler->toUserDto($user);
     }
 
-    public function disable(string $userId): UserDto
+    public function disable(DisableUser $command): UserDto
     {
-        $user = $this->getUser($userId);
-        $user->disable();
+        $editor = $this->getUser($command->editorId);
+
+        $user = $this->getUser($command->userId);
+        $user->disable($editor);
 
         $this->users->save($user);
 

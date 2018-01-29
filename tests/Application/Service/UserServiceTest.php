@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Damax\User\Tests\Application\Service;
 
+use Damax\User\Application\Command\DisableUser;
+use Damax\User\Application\Command\EnableUser;
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\UserDto;
 use Damax\User\Application\Service\UserService;
 use Damax\User\Domain\Model\UserRepository;
+use Damax\User\Tests\Domain\Model\JaneDoeUser;
 use Damax\User\Tests\Domain\Model\JohnDoeUser;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
@@ -90,13 +93,18 @@ class UserServiceTest extends TestCase
      */
     public function it_disables_user()
     {
+        $editor = new JaneDoeUser();
+
         $user = new JohnDoeUser();
 
         $this->users
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('byId')
-            ->with('ce08c4e8-d9eb-435b-9eab-edc252b450e1')
-            ->willReturn($user)
+            ->withConsecutive(
+                ['02158a54-0510-11e8-a654-005056806fb2'],
+                ['ce08c4e8-d9eb-435b-9eab-edc252b450e1']
+            )
+            ->willReturnOnConsecutiveCalls($editor, $user)
         ;
         $this->users
             ->expects($this->once())
@@ -110,9 +118,15 @@ class UserServiceTest extends TestCase
             ->willReturn($dto = new UserDto())
         ;
 
+        $command = new DisableUser();
+        $command->userId = 'ce08c4e8-d9eb-435b-9eab-edc252b450e1';
+        $command->editorId = '02158a54-0510-11e8-a654-005056806fb2';
+
         $this->assertTrue($user->enabled());
-        $this->assertSame($dto, $this->service->disable('ce08c4e8-d9eb-435b-9eab-edc252b450e1'));
+
+        $this->assertSame($dto, $this->service->disable($command));
         $this->assertFalse($user->enabled());
+        $this->assertSame($editor, $user->updatedBy());
     }
 
     /**
@@ -120,14 +134,19 @@ class UserServiceTest extends TestCase
      */
     public function it_enables_user()
     {
+        $editor = new JaneDoeUser();
+
         $user = new JohnDoeUser();
-        $user->disable();
+        $user->disable($user);
 
         $this->users
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('byId')
-            ->with('ce08c4e8-d9eb-435b-9eab-edc252b450e1')
-            ->willReturn($user)
+            ->withConsecutive(
+                ['02158a54-0510-11e8-a654-005056806fb2'],
+                ['ce08c4e8-d9eb-435b-9eab-edc252b450e1']
+            )
+            ->willReturnOnConsecutiveCalls($editor, $user)
         ;
         $this->users
             ->expects($this->once())
@@ -141,8 +160,14 @@ class UserServiceTest extends TestCase
             ->willReturn($dto = new UserDto())
         ;
 
+        $command = new EnableUser();
+        $command->userId = 'ce08c4e8-d9eb-435b-9eab-edc252b450e1';
+        $command->editorId = '02158a54-0510-11e8-a654-005056806fb2';
+
         $this->assertFalse($user->enabled());
-        $this->assertSame($dto, $this->service->enable('ce08c4e8-d9eb-435b-9eab-edc252b450e1'));
+
+        $this->assertSame($dto, $this->service->enable($command));
         $this->assertTrue($user->enabled());
+        $this->assertSame($editor, $user->updatedBy());
     }
 }

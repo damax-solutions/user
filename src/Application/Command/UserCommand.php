@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Command;
 
-class ChangePassword extends UserCommand
+abstract class UserCommand
 {
     /**
      * @var string
      */
-    public $newPassword;
+    public $userId;
+
+    /**
+     * @var string|null
+     */
+    public $editorId;
 }

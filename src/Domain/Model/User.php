@@ -21,10 +21,12 @@ class User
     private $locale;
     private $createdAt;
     private $updatedAt;
+    private $createdBy;
+    private $updatedBy;
     private $enabled = true;
     private $lastLoginAt;
 
-    public function __construct(UuidInterface $id, Email $email, MobilePhone $mobilePhone, Password $password, Name $name, Timezone $timezone, Locale $locale)
+    public function __construct(UuidInterface $id, Email $email, MobilePhone $mobilePhone, Password $password, Name $name, Timezone $timezone, Locale $locale, User $creator = null)
     {
         $this->id = $id;
         $this->roles = new ArrayCollection();
@@ -35,6 +37,7 @@ class User
         $this->timezone = $timezone;
         $this->locale = $locale;
         $this->createdAt = $this->updatedAt = new DateTimeImmutable();
+        $this->createdBy = $this->updatedBy = $creator ?? $this;
     }
 
     public function id(): UuidInterface
@@ -114,6 +117,16 @@ class User
         return $this->updatedAt;
     }
 
+    public function createdBy(): User
+    {
+        return $this->createdBy;
+    }
+
+    public function updatedBy(): User
+    {
+        return $this->updatedBy;
+    }
+
     public function enabled(): bool
     {
         return $this->enabled;
@@ -125,33 +138,37 @@ class User
         $this->updatedAt = new DateTimeImmutable();
     }
 
-    public function changePassword(Password $password)
+    public function changePassword(Password $password, User $editor = null)
     {
         $this->password = $password;
         $this->updatedAt = new DateTimeImmutable();
+        $this->updatedBy = $editor ?? $this;
     }
 
-    public function changeProfileInfo(Name $name, Timezone $timezone, Locale $locale)
+    public function changeProfileInfo(Name $name, Timezone $timezone, Locale $locale, User $editor = null)
     {
         $this->name = $name;
         $this->timezone = $timezone;
         $this->locale = $locale;
         $this->updatedAt = new DateTimeImmutable();
+        $this->updatedBy = $editor ?? $this;
     }
 
-    public function enable()
+    public function enable(User $editor)
     {
         if (!$this->enabled) {
             $this->enabled = true;
             $this->updatedAt = new DateTimeImmutable();
+            $this->updatedBy = $editor;
         }
     }
 
-    public function disable()
+    public function disable(User $editor)
     {
         if ($this->enabled) {
             $this->enabled = false;
             $this->updatedAt = new DateTimeImmutable();
+            $this->updatedBy = $editor;
         }
     }
 
