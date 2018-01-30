@@ -10,7 +10,7 @@ class Name
     private $lastName;
     private $middleName;
 
-    public static function fromArray(array $data): self
+    public static function fromArray($data): self
     {
         return new self($data['first_name'] ?? null, $data['last_name'] ?? null, $data['middle_name'] ?? null);
     }

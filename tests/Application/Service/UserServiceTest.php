@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Damax\User\Tests\Application\Service;
 
+use Damax\User\Application\Command\ChangeUserInfo;
 use Damax\User\Application\Command\DisableUser;
 use Damax\User\Application\Command\EnableUser;
 use Damax\User\Application\Dto\Assembler;
+use Damax\User\Application\Dto\NameDto;
 use Damax\User\Application\Dto\UserDto;
 use Damax\User\Application\Service\UserService;
 use Damax\User\Domain\Model\UserRepository;
@@ -169,5 +171,54 @@ class UserServiceTest extends TestCase
         $this->assertSame($dto, $this->service->enable($command));
         $this->assertTrue($user->enabled());
         $this->assertSame($editor, $user->updatedBy());
+    }
+
+    /**
+     * @test
+     */
+    public function it_changes_user_info()
+    {
+        $command = new ChangeUserInfo();
+        $command->userId = 'ce08c4e8-d9eb-435b-9eab-edc252b450e1';
+        $command->editorId = '02158a54-0510-11e8-a654-005056806fb2';
+        $command->timezone = 'Europe/Moscow';
+        $command->locale = 'ru';
+
+        $command->name = new NameDto();
+        $command->name->lastName = 'Smith';
+        $command->name->firstName = 'John';
+
+        $editor = new JaneDoeUser();
+        $user = new JohnDoeUser();
+
+        $this->users
+            ->expects($this->exactly(2))
+            ->method('byId')
+            ->withConsecutive(
+                ['02158a54-0510-11e8-a654-005056806fb2'],
+                ['ce08c4e8-d9eb-435b-9eab-edc252b450e1']
+            )
+            ->willReturnOnConsecutiveCalls($editor, $user)
+        ;
+        $this->users
+            ->expects($this->once())
+            ->method('save')
+            ->with($this->identicalTo($user))
+        ;
+        $this->assembler
+            ->expects($this->once())
+            ->method('toUserDto')
+            ->with($this->identicalTo($user))
+            ->willReturn($dto = new UserDto())
+        ;
+
+        $this->assertSame($dto, $this->service->changeInfo($command));
+
+        $this->assertEquals('Europe/Moscow', $user->timezone()->id());
+        $this->assertEquals('ru', $user->locale()->code());
+        $this->assertSame($editor, $user->updatedBy());
+        $this->assertEquals('John', $user->name()->firstName());
+        $this->assertEquals('Smith', $user->name()->lastName());
+        $this->assertNull($user->name()->middleName());
     }
 }

@@ -21,7 +21,7 @@ class ConfigurableUserFactory implements UserFactory
         $this->config = $config;
     }
 
-    public function create(array $data): User
+    public function create($data): User
     {
         Assert::that($data)
             ->keyIsset('email')

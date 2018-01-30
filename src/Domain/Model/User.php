@@ -72,7 +72,7 @@ class User
      */
     public function permissions(): array
     {
-        return array_reduce($this->roles(), function (array $acc, Role $role) {
+        return array_reduce($this->roles(), function (array $acc, Role $role): array {
             return array_merge($acc, $role->permissions());
         }, []);
     }
@@ -145,7 +145,7 @@ class User
         $this->updatedBy = $editor ?? $this;
     }
 
-    public function changeProfileInfo(Name $name, Timezone $timezone, Locale $locale, User $editor = null)
+    public function changeInfo(Name $name, Timezone $timezone, Locale $locale, User $editor = null)
     {
         $this->name = $name;
         $this->timezone = $timezone;

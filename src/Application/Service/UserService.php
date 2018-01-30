@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Service;
 
+use Damax\User\Application\Command\ChangeUserInfo;
 use Damax\User\Application\Command\DisableUser;
 use Damax\User\Application\Command\EnableUser;
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\UserDto;
+use Damax\User\Domain\Model\Locale;
+use Damax\User\Domain\Model\Name;
+use Damax\User\Domain\Model\Timezone;
 use Damax\User\Domain\Model\UserRepository;
 use Damax\User\Pagerfanta\CallableDecoratorAdapter;
 use Pagerfanta\Pagerfanta;
@@ -57,6 +61,22 @@ class UserService
 
         $user = $this->getUser($command->userId);
         $user->disable($editor);
+
+        $this->users->save($user);
+
+        return $this->assembler->toUserDto($user);
+    }
+
+    public function changeInfo(ChangeUserInfo $command): UserDto
+    {
+        $editor = $command->editorId ? $this->getUser($command->editorId) : null;
+
+        $name = Name::fromArray($command->name);
+        $timezone = Timezone::fromId($command->timezone);
+        $locale = Locale::fromCode($command->locale);
+
+        $user = $this->getUser($command->userId);
+        $user->changeInfo($name, $timezone, $locale, $editor);
 
         $this->users->save($user);
 

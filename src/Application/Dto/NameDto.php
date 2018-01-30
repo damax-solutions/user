@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Dto;
 
-class NameDto
+use ArrayAccess;
+use Damax\User\Application\AsArrayTrait;
+
+class NameDto implements ArrayAccess
 {
+    use AsArrayTrait;
+
     /**
      * @var string
      */
