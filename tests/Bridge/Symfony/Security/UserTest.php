@@ -18,7 +18,7 @@ class UserTest extends TestCase
 
     protected function setUp()
     {
-        $this->user = new User('abc', '123', ['ROLE_ADMIN'], 'qwerty', 'XYZ', false, 'Europe/Riga', 'ru', true);
+        $this->user = (new UserFactory())->create('abc', ['ROLE_ADMIN']);
     }
 
     /**
@@ -76,8 +76,10 @@ class UserTest extends TestCase
      */
     public function it_compares_to_users_for_equality()
     {
-        $user1 = new User('abc', '123', ['ROLE_ADMIN'], 'qwerty', 'XYZ', false, 'Europe/Riga', 'ru', true);
-        $user2 = new User('def', '123', ['ROLE_ADMIN'], 'qwerty', 'XYZ', false, 'Europe/Riga', 'ru', true);
+        $factory = new UserFactory();
+
+        $user1 = $factory->create('abc', ['ROLE_ADMIN']);
+        $user2 = $factory->create('def', ['ROLE_ADMIN']);
 
         $this->assertTrue($this->user->isEqualTo($user1));
         $this->assertFalse($this->user->isEqualTo($user2));

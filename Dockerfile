@@ -16,3 +16,8 @@ RUN curl -sS -o /tmp/icu.tar.gz -L http://download.icu-project.org/files/icu4c/5
 # intl
 RUN docker-php-ext-configure intl --with-icu-dir=/usr/local \
     && docker-php-ext-install intl
+
+# Composer
+RUN cd /usr/local/bin \
+    && php -r "readfile('https://getcomposer.org/installer');" | php \
+    && mv composer.phar composer

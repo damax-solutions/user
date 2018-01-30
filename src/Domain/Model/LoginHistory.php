@@ -16,20 +16,24 @@ class LoginHistory implements ContainsRecordedMessages
     use PrivateMessageRecorderCapabilities;
 
     private $id;
-    private $userId;
+    private $user;
+    private $username;
     private $clientIp;
+    private $serverIp;
     private $userAgent;
     private $createdAt;
 
-    public function __construct(UuidInterface $id, UuidInterface $userId, string $clientIp, string $userAgent)
+    public function __construct(UuidInterface $id, User $user, string $username, string $clientIp, string $serverIp, string $userAgent)
     {
         $this->id = $id;
-        $this->userId = $userId;
+        $this->user = $user;
+        $this->username = $username;
         $this->clientIp = $clientIp;
+        $this->serverIp = $serverIp;
         $this->userAgent = $userAgent;
         $this->createdAt = new DateTimeImmutable();
 
-        $this->record(new LoginRecorded($userId, $clientIp, $userAgent, $this->createdAt));
+        $this->record(new LoginRecorded($user->id(), $clientIp, $userAgent, $this->createdAt));
     }
 
     public function id(): UuidInterface
@@ -37,14 +41,24 @@ class LoginHistory implements ContainsRecordedMessages
         return $this->id;
     }
 
-    public function userId(): UuidInterface
+    public function user(): User
     {
-        return $this->userId;
+        return $this->user;
+    }
+
+    public function username(): string
+    {
+        return $this->username;
     }
 
     public function clientIp(): string
     {
         return $this->clientIp;
+    }
+
+    public function serverIp(): string
+    {
+        return $this->serverIp;
     }
 
     public function userAgent(): string

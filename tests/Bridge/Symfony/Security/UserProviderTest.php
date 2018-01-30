@@ -162,6 +162,6 @@ class UserProviderTest extends TestCase
             ->willReturn($user = $this->createMock(UserInterface::class))
         ;
 
-        $this->assertSame($user, $this->provider->refreshUser(new User('abc', '123', [], 'qwerty', 'XYZ', false, 'Europe/Riga', 'ru', true)));
+        $this->assertSame($user, $this->provider->refreshUser((new UserFactory())->create()));
     }
 }

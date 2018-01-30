@@ -26,7 +26,9 @@ class Assembler
         $dto = new UserLoginDto();
 
         $dto->id = (string) $loginHistory->id();
+        $dto->username = $loginHistory->username();
         $dto->clientIp = $loginHistory->clientIp();
+        $dto->serverIp = $loginHistory->serverIp();
         $dto->userAgent = $loginHistory->userAgent();
         $dto->createdAt = $loginHistory->createdAt();
 

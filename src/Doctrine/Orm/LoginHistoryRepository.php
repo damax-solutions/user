@@ -47,7 +47,7 @@ class LoginHistoryRepository extends EntityRepository implements LoginHistoryRep
     {
         return $this
             ->createQueryBuilder('l')
-            ->where('l.userId = :user_id')
+            ->where('IDENTITY(l.user) = :user_id')
             ->orderBy('l.createdAt', 'DESC')
             ->setParameter('user_id', $userId)
         ;

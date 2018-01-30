@@ -15,7 +15,7 @@ $ docker run --rm --user $(id -u):$(id -g) -v $(pwd):/app -w="/app" herloct/php-
 Update dependencies:
 
 ```bash
-$ docker run --rm -v $(pwd):/app -w="/app" composer update
+$ docker run --rm -v $(pwd):/app -w="/app" damax-user/php update
 ```
 
 Running tests:

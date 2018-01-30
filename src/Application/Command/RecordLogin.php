@@ -2,21 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Application\Dto;
+namespace Damax\User\Application\Command;
 
-use DateTimeInterface;
-
-class UserLoginDto
+class RecordLogin
 {
     /**
      * @var string
      */
-    public $id;
-
-    /**
-     * @var string
-     */
-    public $username;
+    public $userId;
 
     /**
      * @var string
@@ -32,9 +25,4 @@ class UserLoginDto
      * @var string
      */
     public $userAgent;
-
-    /**
-     * @var DateTimeInterface
-     */
-    public $createdAt;
 }

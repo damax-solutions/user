@@ -26,9 +26,13 @@
   "require-dev": {
     "symfony/phpunit-bridge": "^4.0",
     "symfony/security-core": "^4.0",
-    "doctrine/orm": "^2.6"
+    "doctrine/orm": "^2.6",
+    "symfony/http-kernel": "^4.0",
+    "symfony/translation": "^4.0",
+    "symfony/security-http": "^4.0"
   },
   "config": {
-    "bin-dir": "bin/"
+    "bin-dir": "bin/",
+    "sort-packages": true
   }
 }

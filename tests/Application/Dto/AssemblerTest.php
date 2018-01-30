@@ -46,13 +46,17 @@ class AssemblerTest extends TestCase
     {
         $dto = $this->assembler->toUserLoginDto(new LoginHistory(
             Uuid::fromString('0f0519b2-1d9f-4e3f-9ad4-b0c1fc1e0ecc'),
-            Uuid::fromString('ce08c4e8-d9eb-435b-9eab-edc252b450e1'),
+            new JohnDoeUser(),
+            'john.doe@domain.abc',
             '192.168.99.100',
+            '192.168.99.1',
             'Chrome'
         ));
 
         $this->assertEquals('0f0519b2-1d9f-4e3f-9ad4-b0c1fc1e0ecc', $dto->id);
+        $this->assertEquals('john.doe@domain.abc', $dto->username);
         $this->assertEquals('192.168.99.100', $dto->clientIp);
+        $this->assertEquals('192.168.99.1', $dto->serverIp);
         $this->assertEquals('Chrome', $dto->userAgent);
     }
 
