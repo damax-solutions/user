@@ -20,10 +20,10 @@ class UserRepository implements UserRepositoryInterface
     private $em;
     private $className;
 
-    public function __construct(EntityManagerInterface $em, string $className = User::class)
+    public function __construct(EntityManagerInterface $em, string $userClassName)
     {
         $this->em = $em;
-        $this->className = $className;
+        $this->className = $userClassName;
     }
 
     public function nextId(): UuidInterface

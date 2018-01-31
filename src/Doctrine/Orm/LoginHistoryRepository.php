@@ -6,7 +6,6 @@ namespace Damax\User\Doctrine\Orm;
 
 use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\LoginHistoryRepository as LoginHistoryRepositoryInterface;
-use Damax\User\Domain\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
@@ -19,10 +18,10 @@ class LoginHistoryRepository implements LoginHistoryRepositoryInterface
     private $em;
     private $className;
 
-    public function __construct(EntityManagerInterface $em, string $className = User::class)
+    public function __construct(EntityManagerInterface $em, string $loginHistoryClassName)
     {
         $this->em = $em;
-        $this->className = $className;
+        $this->className = $loginHistoryClassName;
     }
 
     public function nextId(): UuidInterface
