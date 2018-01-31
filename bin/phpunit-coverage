@@ -2,7 +2,7 @@
 
 rm -rf ./build
 
-phpdbg -qrr ./bin/simple-phpunit \
+phpdbg -qrr ./vendor/bin/simple-phpunit \
     --coverage-clover=build/coverage.xml \
     --log-junit=build/junit.xml \
     --coverage-html=build/phpunit

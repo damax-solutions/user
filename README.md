@@ -15,12 +15,12 @@ $ docker run --rm --user $(id -u):$(id -g) -v $(pwd):/app -w="/app" herloct/php-
 Update dependencies:
 
 ```bash
-$ docker run --rm -v $(pwd):/app -w="/app" damax-user/php update
+$ docker run --rm -v $(pwd):/app -w="/app" damax-user/php composer update
 ```
 
 Running tests:
 
 ```bash
-$ docker run --rm -v $(pwd):/app -w="/app" damax-user/php ./bin/simple-phpunit
+$ docker run --rm -v $(pwd):/app -w="/app" damax-user/php ./vendor/bin/simple-phpunit
 $ docker run --rm -v $(pwd):/app -w="/app" damax-user/php ./bin/phpunit-coverage
 ```
