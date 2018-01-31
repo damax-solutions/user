@@ -7,8 +7,10 @@ namespace Damax\User\Domain\Model;
 use Pagerfanta\Pagerfanta;
 use Ramsey\Uuid\UuidInterface;
 
-interface LoginHistoryRepository extends IdGenerator
+interface LoginHistoryRepository
 {
+    public function nextId(): UuidInterface;
+
     public function save(LoginHistory $login): void;
 
     public function paginateByUserId(UuidInterface $userId): Pagerfanta;

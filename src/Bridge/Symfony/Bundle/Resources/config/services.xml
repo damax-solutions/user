@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <defaults autowire="true" autoconfigure="true" public="false" />
+
+        <!-- Commands -->
+
+        <prototype namespace="Damax\User\Bridge\Symfony\Console\Command\" resource="../../../Console/Command" />
+
+        <!-- Application -->
+
+        <prototype namespace="Damax\User\Application\Service\" resource="../../../../../Application/Service" />
+
+        <service id="Damax\User\Application\Dto\Assembler" />
+
+        <!-- Domain -->
+
+        <prototype namespace="Damax\User\Domain\Password\" resource="../../../../../Domain/Password" />
+
+        <service id="Damax\User\Domain\Model\UserFactory" class="Damax\User\Domain\Model\ConfigurableUserFactory" />
+
+        <service id="Damax\User\Domain\Configuration" />
+
+    </services>
+</container>

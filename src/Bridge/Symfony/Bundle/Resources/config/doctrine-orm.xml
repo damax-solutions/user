@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <defaults autowire="true" public="false" />
+
+        <prototype namespace="Damax\User\Doctrine\Orm\" resource="../../../../../Doctrine/Orm" />
+
+        <service id="Damax\User\Domain\Model\UserRepository" alias="Damax\User\Doctrine\Orm\UserRepository" />
+
+        <service id="Damax\User\Domain\Model\LoginHistoryRepository" alias="Damax\User\Doctrine\Orm\LoginHistoryRepository" />
+
+    </services>
+</container>

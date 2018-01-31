@@ -7,8 +7,10 @@ namespace Damax\User\Domain\Model;
 use Pagerfanta\Pagerfanta;
 use Ramsey\Uuid\UuidInterface;
 
-interface UserRepository extends IdGenerator
+interface UserRepository
 {
+    public function nextId(): UuidInterface;
+
     public function byId(UuidInterface $id): ?User;
 
     public function byEmail(Email $email): ?User;

@@ -6,15 +6,25 @@ namespace Damax\User\Doctrine\Orm;
 
 use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\LoginHistoryRepository as LoginHistoryRepositoryInterface;
-use Doctrine\ORM\EntityRepository;
+use Damax\User\Domain\Model\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class LoginHistoryRepository extends EntityRepository implements LoginHistoryRepositoryInterface
+class LoginHistoryRepository implements LoginHistoryRepositoryInterface
 {
+    private $em;
+    private $className;
+
+    public function __construct(EntityManagerInterface $em, string $className = User::class)
+    {
+        $this->em = $em;
+        $this->className = $className;
+    }
+
     public function nextId(): UuidInterface
     {
         return Uuid::uuid4();
@@ -22,8 +32,8 @@ class LoginHistoryRepository extends EntityRepository implements LoginHistoryRep
 
     public function save(LoginHistory $login): void
     {
-        $this->getEntityManager()->persist($login);
-        $this->getEntityManager()->flush($login);
+        $this->em->persist($login);
+        $this->em->flush($login);
     }
 
     public function paginateByUserId(UuidInterface $userId): Pagerfanta
@@ -45,8 +55,10 @@ class LoginHistoryRepository extends EntityRepository implements LoginHistoryRep
 
     private function createQueryBuilderByUserId(UuidInterface $userId): QueryBuilder
     {
-        return $this
-            ->createQueryBuilder('l')
+        return $this->em
+            ->createQueryBuilder()
+            ->select('l')
+            ->from($this->className, 'l')
             ->where('IDENTITY(l.user) = :user_id')
             ->orderBy('l.createdAt', 'DESC')
             ->setParameter('user_id', $userId)

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <defaults autowire="true" public="false" />
+
+        <prototype namespace="Damax\User\Bridge\Symfony\Security\" resource="../../../Security" />
+
+        <service id="Damax\User\Domain\Password\Encoder" alias="Damax\User\Bridge\Symfony\Security\PasswordEncoder" />
+
+        <service id="Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface">
+            <factory service="security.encoder_factory" method="getEncoder" />
+            <argument>Damax\User\Bridge\Symfony\Security\User</argument>
+        </service>
+
+    </services>
+</container>

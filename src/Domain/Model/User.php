@@ -26,7 +26,7 @@ class User
     private $enabled = true;
     private $lastLoginAt;
 
-    public function __construct(UuidInterface $id, Email $email, MobilePhone $mobilePhone, Password $password, Name $name, Timezone $timezone, Locale $locale, User $creator = null)
+    public function __construct(UuidInterface $id, Email $email, MobilePhone $mobilePhone, Password $password, Name $name, Timezone $timezone, Locale $locale, self $creator = null)
     {
         $this->id = $id;
         $this->roles = new ArrayCollection();
@@ -117,12 +117,12 @@ class User
         return $this->updatedAt;
     }
 
-    public function createdBy(): User
+    public function createdBy(): self
     {
         return $this->createdBy;
     }
 
-    public function updatedBy(): User
+    public function updatedBy(): self
     {
         return $this->updatedBy;
     }
@@ -138,14 +138,14 @@ class User
         $this->updatedAt = new DateTimeImmutable();
     }
 
-    public function changePassword(Password $password, User $editor = null)
+    public function changePassword(Password $password, self $editor = null)
     {
         $this->password = $password;
         $this->updatedAt = new DateTimeImmutable();
         $this->updatedBy = $editor ?? $this;
     }
 
-    public function changeInfo(Name $name, Timezone $timezone, Locale $locale, User $editor = null)
+    public function changeInfo(Name $name, Timezone $timezone, Locale $locale, self $editor = null)
     {
         $this->name = $name;
         $this->timezone = $timezone;
@@ -154,7 +154,7 @@ class User
         $this->updatedBy = $editor ?? $this;
     }
 
-    public function enable(User $editor)
+    public function enable(self $editor)
     {
         if (!$this->enabled) {
             $this->enabled = true;
@@ -163,7 +163,7 @@ class User
         }
     }
 
-    public function disable(User $editor)
+    public function disable(self $editor)
     {
         if ($this->enabled) {
             $this->enabled = false;

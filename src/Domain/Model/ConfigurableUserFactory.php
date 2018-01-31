@@ -10,13 +10,13 @@ use Damax\User\Domain\Password\Encoder;
 
 class ConfigurableUserFactory implements UserFactory
 {
-    private $idGenerator;
+    private $users;
     private $encoder;
     private $config;
 
-    public function __construct(IdGenerator $idGenerator, Encoder $encoder, Configuration $config)
+    public function __construct(UserRepository $users, Encoder $encoder, Configuration $config)
     {
-        $this->idGenerator = $idGenerator;
+        $this->users = $users;
         $this->encoder = $encoder;
         $this->config = $config;
     }
@@ -39,6 +39,6 @@ class ConfigurableUserFactory implements UserFactory
             $password = $password->invalidate();
         }
 
-        return new User($this->idGenerator->nextId(), $email, $mobilePhone, $password, $name, $this->config->defaultTimezone(), $this->config->defaultLocale());
+        return new User($this->users->nextId(), $email, $mobilePhone, $password, $name, $this->config->defaultTimezone(), $this->config->defaultLocale());
     }
 }
