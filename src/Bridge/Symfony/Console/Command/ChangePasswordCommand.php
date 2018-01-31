@@ -17,6 +17,8 @@ use Throwable;
 
 class ChangePasswordCommand extends Command
 {
+    protected static $defaultName = 'damax:user:change-password';
+
     private $service;
     private $validator;
 
@@ -31,7 +33,6 @@ class ChangePasswordCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('damax:user:change-password')
             ->setDescription('Change user password.')
             ->addArgument('user-id', InputArgument::REQUIRED, 'User id, email or mobile phone.')
             ->addArgument('password', InputArgument::REQUIRED, 'New password.')

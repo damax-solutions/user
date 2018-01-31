@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Console\Command;
 
-use Damax\User\Application\Command\RegisterUser;
 use Damax\User\Application\Service\RegistrationService;
+use Damax\User\Bridge\Symfony\Bundle\Form\Type\RegisterUserType;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -14,6 +14,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class RegisterUserCommand extends Command
 {
+    protected static $defaultName = 'damax:user:register';
+
     private $service;
 
     public function __construct(RegistrationService $service)
@@ -26,7 +28,6 @@ class RegisterUserCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('damax:user:register')
             ->setDescription('Register new user.')
             ->addOption('editor-id', null, InputOption::VALUE_REQUIRED, 'Editor id, email or mobile phone.')
         ;
@@ -37,13 +38,7 @@ class RegisterUserCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->title('Register new user');
 
-        $command = new RegisterUser();
-
-        /*
-        $helper = $this->getHelper('form');
-
-        $command = $helper->interactUsingForm(CreateUserType::class, $input, $output);
-        */
+        $command = $this->getHelper('form')->interactUsingForm(RegisterUserType::class, $input, $output);
 
         $user = $this->service->registerUser($command);
 
@@ -56,7 +51,7 @@ class RegisterUserCommand extends Command
             ['Middle name', $user->name->middleName ?? '-'],
             ['Timezone', $user->timezone],
             ['Locale', $user->locale],
-            ['Enabled', $user->enabled ? 'X' : '-'],
+            ['Enabled', $user->enabled ? '+' : '-'],
         ]);
     }
 }

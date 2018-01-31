@@ -14,6 +14,8 @@ use Throwable;
 
 class ShowUserCommand extends Command
 {
+    protected static $defaultName = 'damax:user:show';
+
     private $service;
 
     public function __construct(UserService $service)
@@ -26,7 +28,6 @@ class ShowUserCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('damax:user:show')
             ->setDescription('Show user.')
             ->addArgument('user-id', InputArgument::REQUIRED, 'User id, email or mobile phone.')
         ;
@@ -54,7 +55,7 @@ class ShowUserCommand extends Command
             ['Middle name', $user->name->middleName ?? '-'],
             ['Timezone', $user->timezone],
             ['Locale', $user->locale],
-            ['Enabled', $user->enabled ? 'X' : '-'],
+            ['Enabled', $user->enabled ? '+' : '-'],
         ]);
     }
 }

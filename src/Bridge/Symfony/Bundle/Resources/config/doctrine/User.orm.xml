@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity table="users" name="Damax\User\Domain\Model\User" change-tracking-policy="DEFERRED_EXPLICIT">
+        <unique-constraints>
+            <unique-constraint columns="email_value" name="email_idx" />
+            <unique-constraint columns="mobile_phone_number" name="mobile_phone_number_idx" />
+        </unique-constraints>
+
+        <id name="id" type="uuid">
+            <generator strategy="NONE" />
+        </id>
+
+        <field name="createdAt" type="datetimetz" />
+        <field name="updatedAt" type="datetimetz" />
+        <field name="enabled" type="boolean" />
+        <field name="lastLoginAt" type="datetimetz" nullable="true" />
+
+        <embedded name="email" class="Email" />
+        <embedded name="mobilePhone" class="MobilePhone" />
+        <embedded name="password" class="Password" />
+        <embedded name="name" class="Name" use-column-prefix="false" />
+        <embedded name="timezone" class="Timezone" />
+        <embedded name="locale" class="Locale" />
+
+        <many-to-one field="createdBy" target-entity="User">
+            <join-column name="created_by" />
+        </many-to-one>
+
+        <many-to-one field="updatedBy" target-entity="User">
+            <join-column name="updated_by" />
+        </many-to-one>
+    </entity>
+
+</doctrine-mapping>
