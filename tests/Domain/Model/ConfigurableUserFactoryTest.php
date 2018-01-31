@@ -6,7 +6,7 @@ namespace Damax\User\Tests\Domain\Model;
 
 use Assert\InvalidArgumentException;
 use Damax\User\Domain\Model\ConfigurableUserFactory;
-use Damax\User\Domain\Model\IdGenerator;
+use Damax\User\Domain\Model\UserRepository;
 use Damax\User\Domain\Password\PlainEncoder;
 use Damax\User\Tests\Domain\DefaultConfiguration;
 use PHPUnit\Framework\TestCase;
@@ -16,9 +16,9 @@ use Ramsey\Uuid\Uuid;
 class ConfigurableUserFactoryTest extends TestCase
 {
     /**
-     * @var IdGenerator|PHPUnit_Framework_MockObject_MockObject
+     * @var UserRepository|PHPUnit_Framework_MockObject_MockObject
      */
-    private $idGenerator;
+    private $users;
 
     /**
      * @var ConfigurableUserFactory
@@ -27,8 +27,8 @@ class ConfigurableUserFactoryTest extends TestCase
 
     protected function setUp()
     {
-        $this->idGenerator = $this->createMock(IdGenerator::class);
-        $this->factory = new ConfigurableUserFactory($this->idGenerator, new PlainEncoder('XYZ'), new DefaultConfiguration());
+        $this->users = $this->createMock(UserRepository::class);
+        $this->factory = new ConfigurableUserFactory($this->users, new PlainEncoder('XYZ'), new DefaultConfiguration());
     }
 
     /**
@@ -36,7 +36,7 @@ class ConfigurableUserFactoryTest extends TestCase
      */
     public function it_creates_user()
     {
-        $this->idGenerator
+        $this->users
             ->method('nextId')
             ->willReturn(Uuid::fromString('ce08c4e8-d9eb-435b-9eab-edc252b450e1'))
         ;
@@ -80,7 +80,7 @@ class ConfigurableUserFactoryTest extends TestCase
             }
         };
 
-        $factory = new ConfigurableUserFactory($this->idGenerator, new PlainEncoder('XYZ'), $config);
+        $factory = new ConfigurableUserFactory($this->users, new PlainEncoder('XYZ'), $config);
 
         $user = $factory->create([
             'email' => 'john.doe@domain.abc',

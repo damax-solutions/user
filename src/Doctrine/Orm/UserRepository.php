@@ -39,7 +39,10 @@ class UserRepository implements UserRepositoryInterface
 
     public function byId(UuidInterface $id): ?User
     {
-        return $this->em->find($this->className, $id);
+        /** @var User $user */
+        $user = $this->em->find($this->className, $id);
+
+        return $user;
     }
 
     public function byEmail(Email $email): ?User
