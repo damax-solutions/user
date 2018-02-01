@@ -7,9 +7,11 @@ namespace Damax\User\Tests\Application\Service;
 use Damax\User\Application\Command\RegisterUser;
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\UserDto;
+use Damax\User\Application\Exception\UserAlreadyExists;
 use Damax\User\Application\Service\RegistrationService;
 use Damax\User\Domain\Model\UserFactory;
 use Damax\User\Domain\Model\UserRepository;
+use Damax\User\Tests\Domain\Model\JaneDoeUser;
 use Damax\User\Tests\Domain\Model\JohnDoeUser;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -47,14 +49,70 @@ class RegistrationServiceTest extends TestCase
     /**
      * @test
      */
+    public function it_throws_exception_when_user_exists_with_email()
+    {
+        $command = new RegisterUser();
+        $command->email = 'john.doe@domain.abc';
+
+        $this->users
+            ->method('byEmail')
+            ->with('john.doe@domain.abc')
+            ->willReturn(new JohnDoeUser())
+        ;
+
+        $this->expectException(UserAlreadyExists::class);
+        $this->expectExceptionMessage('User with email "john.doe@domain.abc" already exists.');
+
+        $this->service->registerUser($command);
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_exception_when_user_exists_with_mobile_phone()
+    {
+        $command = new RegisterUser();
+        $command->email = 'john.doe@domain.abc';
+        $command->mobilePhone = '123';
+
+        $this->users
+            ->method('byEmail')
+            ->with('john.doe@domain.abc')
+        ;
+        $this->users
+            ->method('byMobilePhone')
+            ->with('123')
+            ->willReturn(new JohnDoeUser())
+        ;
+
+        $this->expectException(UserAlreadyExists::class);
+        $this->expectExceptionMessage('User with mobile phone "123" already exists.');
+
+        $this->service->registerUser($command);
+    }
+
+    /**
+     * @test
+     */
     public function it_registers_user()
     {
         $command = new RegisterUser();
+        $command->email = 'john.doe@domain.abc';
+        $command->mobilePhone = '123';
+        $command->creatorId = 'jane.doe@domain.abc';
 
+        $this->users
+            ->method('byEmail')
+            ->withConsecutive(
+                ['john.doe@domain.abc'],
+                ['jane.doe@domain.abc']
+            )
+            ->willReturnOnConsecutiveCalls(null, $creator = new JaneDoeUser())
+        ;
         $this->userFactory
             ->expects($this->once())
             ->method('create')
-            ->with($this->identicalTo($command))
+            ->with($this->identicalTo($command), $this->identicalTo($creator))
             ->willReturn($user = new JohnDoeUser())
         ;
         $this->users

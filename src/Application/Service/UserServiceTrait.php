@@ -7,6 +7,7 @@ namespace Damax\User\Application\Service;
 use Damax\User\Application\Exception\UserNotFound;
 use Damax\User\Domain\Model\Email;
 use Damax\User\Domain\Model\MobilePhone;
+use Damax\User\Domain\Model\User;
 use Damax\User\Domain\Model\UserRepository;
 use Ramsey\Uuid\Uuid;
 
@@ -20,7 +21,7 @@ trait UserServiceTrait
     /**
      * @throws UserNotFound
      */
-    private function getUser(string $id)
+    private function getUser(string $id): User
     {
         if (filter_var($id, FILTER_VALIDATE_EMAIL)) {
             if (null === $user = $this->users->byEmail(Email::fromString($id))) {

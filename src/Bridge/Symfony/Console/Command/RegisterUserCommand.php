@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Throwable;
 
 class RegisterUserCommand extends Command
 {
@@ -43,7 +44,13 @@ class RegisterUserCommand extends Command
         $command = $this->getHelper('form')->interactUsingForm(RegisterUserType::class, $input, $output);
         $command->creatorId = $input->getOption('creator-id');
 
-        $user = $this->service->registerUser($command);
+        try {
+            $user = $this->service->registerUser($command);
+        } catch (Throwable $e) {
+            $io->error($e->getMessage());
+
+            return;
+        }
 
         $io->table(['Field', 'Value'], [
             ['Id', $user->id],
