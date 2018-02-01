@@ -6,5 +6,5 @@ namespace Damax\User\Domain\Model;
 
 interface UserFactory
 {
-    public function create($data): User;
+    public function create($data, User $creator = null): User;
 }

@@ -12,6 +12,8 @@ use Damax\User\Domain\Model\UserRepository;
 
 class RegistrationService
 {
+    use UserServiceTrait;
+
     private $userFactory;
     private $users;
     private $assembler;
@@ -25,7 +27,9 @@ class RegistrationService
 
     public function registerUser(RegisterUser $command): UserDto
     {
-        $user = $this->userFactory->create($command);
+        $creator = $command->creatorId ? $this->getUser($command->creatorId) : null;
+
+        $user = $this->userFactory->create($command, $creator);
 
         $this->users->save($user);
 

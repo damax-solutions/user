@@ -31,4 +31,9 @@ class RegisterUser implements ArrayAccess
      * @var NameDto
      */
     public $name;
+
+    /**
+     * @var string|null
+     */
+    public $creatorId;
 }

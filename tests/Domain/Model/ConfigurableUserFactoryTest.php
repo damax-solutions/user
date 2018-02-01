@@ -36,6 +36,8 @@ class ConfigurableUserFactoryTest extends TestCase
      */
     public function it_creates_user()
     {
+        $creator = new JaneDoeUser();
+
         $this->users
             ->method('nextId')
             ->willReturn(Uuid::fromString('ce08c4e8-d9eb-435b-9eab-edc252b450e1'))
@@ -49,13 +51,15 @@ class ConfigurableUserFactoryTest extends TestCase
                 'first_name' => 'John',
                 'last_name' => 'Doe',
             ],
-        ]);
+        ], $creator);
 
         $this->assertEquals('john.doe@domain.abc', $user->email()->email());
         $this->assertEquals(123, $user->mobilePhone()->number());
         $this->assertEquals('Europe/Riga', $user->timezone()->id());
         $this->assertEquals('ru', $user->locale()->code());
         $this->assertTrue($user->enabled());
+        $this->assertSame($creator, $user->createdBy());
+        $this->assertSame($creator, $user->updatedBy());
 
         // Name
         $this->assertEquals('John', $user->name()->firstName());

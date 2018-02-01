@@ -1,3 +1,7 @@
 label:
     first_name: Имя
+    last_name: Фамилия
+    middle_name: Отчество
     email: Эл. почта
+    mobile_phone: Мобильный телефон
+    password: Пароль

@@ -21,7 +21,7 @@ class ConfigurableUserFactory implements UserFactory
         $this->config = $config;
     }
 
-    public function create($data): User
+    public function create($data, User $creator = null): User
     {
         Assert::that($data)
             ->keyIsset('email')
@@ -39,6 +39,6 @@ class ConfigurableUserFactory implements UserFactory
             $password = $password->invalidate();
         }
 
-        return new User($this->users->nextId(), $email, $mobilePhone, $password, $name, $this->config->defaultTimezone(), $this->config->defaultLocale());
+        return new User($this->users->nextId(), $email, $mobilePhone, $password, $name, $this->config->defaultTimezone(), $this->config->defaultLocale(), $creator);
     }
 }

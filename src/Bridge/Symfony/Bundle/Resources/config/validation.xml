@@ -12,6 +12,7 @@
     <class name="Damax\User\Application\Command\ChangePassword">
         <property name="newPassword">
             <constraint name="NotBlank" />
+            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Password" />
         </property>
     </class>
 
@@ -25,6 +26,7 @@
         </property>
         <property name="password">
             <constraint name="NotBlank" />
+            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Password" />
         </property>
         <property name="name">
             <constraint name="Valid" />
