@@ -26,6 +26,14 @@ class PermissionService
     }
 
     /**
+     * @return PermissionDto[]
+     */
+    public function fetchAll(): array
+    {
+        return array_map([$this->assembler, 'toPermissionDto'], $this->permissions->all());
+    }
+
+    /**
      * @throws PermissionAlreadyExists
      */
     public function create(CreatePermission $command): PermissionDto

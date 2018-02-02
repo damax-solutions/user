@@ -11,3 +11,9 @@ permission:
         code: Code
         category: Category
         description: Description
+
+role:
+    label:
+        code: Code
+        name: Name
+        permissions: Permissions

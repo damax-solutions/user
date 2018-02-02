@@ -11,6 +11,10 @@
 
         <prototype namespace="Damax\User\Bridge\Symfony\Console\Command\" resource="../../../Console/Command" />
 
+        <!-- Forms -->
+
+        <prototype namespace="Damax\User\Bridge\Symfony\Bundle\Form\" resource="../../Form" />
+
         <!-- Application -->
 
         <prototype namespace="Damax\User\Application\Service\" resource="../../../../../Application/Service" />
@@ -24,6 +28,8 @@
         <service id="Damax\User\Domain\Model\UserFactory" class="Damax\User\Domain\Model\ConfigurableUserFactory" />
 
         <service id="Damax\User\Domain\Model\PermissionFactory" class="Damax\User\Domain\Model\DefaultPermissionFactory" />
+
+        <service id="Damax\User\Domain\Model\RoleFactory" class="Damax\User\Domain\Model\DefaultRoleFactory" />
 
         <service id="Damax\User\Domain\Configuration" />
 

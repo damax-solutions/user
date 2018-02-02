@@ -13,6 +13,11 @@ interface PermissionRepository
      */
     public function byCategory(string $category): array;
 
+    /**
+     * @return Permission[]
+     */
+    public function all(): array;
+
     public function save(Permission $permission): void;
 
     public function remove(Permission $permission): void;

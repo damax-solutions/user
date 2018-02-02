@@ -10,16 +10,16 @@ class UserNotFound extends RuntimeException
 {
     public static function byId(string $id): self
     {
-        return new static(sprintf('User by id "%s" not found.', $id));
+        return new self(sprintf('User by id "%s" not found.', $id));
     }
 
     public static function byEmail(string $email): self
     {
-        return new static(sprintf('User by email "%s" not found.', $email));
+        return new self(sprintf('User by email "%s" not found.', $email));
     }
 
     public static function byMobilePhone(string $mobilePhone): self
     {
-        return new static(sprintf('User by mobile phone "%s" not found.', $mobilePhone));
+        return new self(sprintf('User by mobile phone "%s" not found.', $mobilePhone));
     }
 }

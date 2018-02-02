@@ -7,6 +7,7 @@ namespace Damax\User\Application\Dto;
 use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\Name;
 use Damax\User\Domain\Model\Permission;
+use Damax\User\Domain\Model\Role;
 use Damax\User\Domain\Model\User;
 
 class Assembler
@@ -61,6 +62,17 @@ class Assembler
         $dto->code = $permission->code();
         $dto->category = $permission->category();
         $dto->description = $permission->description();
+
+        return $dto;
+    }
+
+    public function toRoleDto(Role $role): RoleDto
+    {
+        $dto = new RoleDto();
+
+        $dto->code = $role->code();
+        $dto->name = $role->name();
+        $dto->permissions = $role->permissions();
 
         return $dto;
     }

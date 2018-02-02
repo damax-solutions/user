@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Console\Command;
 
-use Damax\User\Application\Service\PermissionService;
+use Damax\User\Application\Service\RoleService;
 use Damax\User\Bridge\Symfony\Console\Style;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,13 +12,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
-class DeletePermissionCommand extends Command
+class ShowRoleCommand extends Command
 {
-    protected static $defaultName = 'damax:user:permission:delete';
+    protected static $defaultName = 'damax:user:role:show';
 
     private $service;
 
-    public function __construct(PermissionService $service)
+    public function __construct(RoleService $service)
     {
         parent::__construct();
 
@@ -28,19 +28,18 @@ class DeletePermissionCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Delete permission.')
-            ->addArgument('code', InputArgument::REQUIRED, 'Permission code.')
+            ->setDescription('Show role.')
+            ->addArgument('code', InputArgument::REQUIRED, 'Role code.')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new Style($input, $output);
-        $io->title('Delete permission');
+        $io->title('Show role');
 
         try {
-            $io->permission($this->service->delete($input->getArgument('code')));
-            $io->success('Permission deleted.');
+            $io->role($this->service->fetch($input->getArgument('code')));
         } catch (Throwable $e) {
             $io->error($e->getMessage());
         }

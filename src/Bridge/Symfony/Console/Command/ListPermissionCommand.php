@@ -12,9 +12,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ShowPermissionCommand extends Command
+class ListPermissionCommand extends Command
 {
-    protected static $defaultName = 'damax:user:permission:show';
+    protected static $defaultName = 'damax:user:permission:list';
 
     private $service;
 
@@ -28,7 +28,7 @@ class ShowPermissionCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Show permissions.')
+            ->setDescription('List permissions.')
             ->addArgument('category', InputArgument::REQUIRED, 'Permission category.')
         ;
     }
@@ -36,18 +36,12 @@ class ShowPermissionCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $io->title('Show permissions');
-
-        $items = $this->service->fetchByCategory($input->getArgument('category'));
+        $io->title('List permissions');
 
         $row = function (PermissionDto $permission) {
-            return [
-                $permission->code,
-                $permission->category,
-                $permission->description ?: '-',
-            ];
+            return [$permission->code, $permission->category, $permission->description];
         };
 
-        $io->table(['Code', 'Category', 'Description'], array_map($row, $items));
+        $io->table(['Code', 'Category', 'Description'], array_map($row, $this->service->fetchByCategory($input->getArgument('category'))));
     }
 }

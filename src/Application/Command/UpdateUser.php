@@ -6,7 +6,7 @@ namespace Damax\User\Application\Command;
 
 use Damax\User\Application\Dto\NameDto;
 
-class ChangeUserInfo extends UserCommand
+class UpdateUser extends UserCommand
 {
     /**
      * @var NameDto

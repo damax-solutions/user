@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity table="user_role" name="Damax\User\Domain\Model\Role" change-tracking-policy="DEFERRED_EXPLICIT">
+        <id name="code" type="string" length="32">
+            <generator strategy="NONE" />
+        </id>
+
+        <field name="name" />
+        <field name="permissions" type="json_array" />
+    </entity>
+
+</doctrine-mapping>

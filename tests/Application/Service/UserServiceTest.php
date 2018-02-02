@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Damax\User\Tests\Application\Service;
 
-use Damax\User\Application\Command\ChangeUserInfo;
 use Damax\User\Application\Command\DisableUser;
 use Damax\User\Application\Command\EnableUser;
+use Damax\User\Application\Command\UpdateUser;
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\NameDto;
 use Damax\User\Application\Dto\UserDto;
@@ -176,9 +176,9 @@ class UserServiceTest extends TestCase
     /**
      * @test
      */
-    public function it_changes_user_info()
+    public function it_updates_user()
     {
-        $command = new ChangeUserInfo();
+        $command = new UpdateUser();
         $command->userId = 'ce08c4e8-d9eb-435b-9eab-edc252b450e1';
         $command->editorId = '02158a54-0510-11e8-a654-005056806fb2';
         $command->timezone = 'Europe/Moscow';
@@ -212,7 +212,7 @@ class UserServiceTest extends TestCase
             ->willReturn($dto = new UserDto())
         ;
 
-        $this->assertSame($dto, $this->service->changeInfo($command));
+        $this->assertSame($dto, $this->service->update($command));
 
         $this->assertEquals('Europe/Moscow', $user->timezone()->id());
         $this->assertEquals('ru', $user->locale()->code());

@@ -6,10 +6,10 @@ namespace Damax\User\Application\Exception;
 
 use RuntimeException;
 
-class PermissionAlreadyExists extends RuntimeException
+class RoleAlreadyExists extends RuntimeException
 {
     public static function withCode(string $code): self
     {
-        return new self(sprintf('Permission with code "%s" already exists.', $code));
+        return new self(sprintf('Role with code "%s" already exists.', $code));
     }
 }

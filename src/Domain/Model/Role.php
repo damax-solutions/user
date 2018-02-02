@@ -13,6 +13,7 @@ class Role
     public function __construct(string $code, string $name, array $permissions)
     {
         $this->code = strtolower($code);
+        $this->name = $name;
         $this->permissions = $permissions;
     }
 
@@ -32,6 +33,12 @@ class Role
     public function permissions(): array
     {
         return $this->permissions;
+    }
+
+    public function update(string $name, array $permissions)
+    {
+        $this->name = $name;
+        $this->permissions = array_values(array_unique($permissions));
     }
 
     public function __toString(): string

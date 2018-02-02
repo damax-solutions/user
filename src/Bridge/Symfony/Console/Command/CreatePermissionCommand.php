@@ -8,10 +8,10 @@ use Damax\User\Application\Command\CreatePermission;
 use Damax\User\Application\Dto\PermissionDto;
 use Damax\User\Application\Service\PermissionService;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\PermissionType;
+use Damax\User\Bridge\Symfony\Console\Style;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Throwable;
 
 class CreatePermissionCommand extends Command
@@ -34,7 +34,7 @@ class CreatePermissionCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $io = new SymfonyStyle($input, $output);
+        $io = new Style($input, $output);
         $io->title('Create permission');
 
         /** @var PermissionDto $dto */
@@ -43,20 +43,12 @@ class CreatePermissionCommand extends Command
         $command = new CreatePermission();
         $command->permission = $dto;
 
-        try {
-            $permission = $this->service->create($command);
-        } catch (Throwable $e) {
-            $io->newLine();
-            $io->error($e->getMessage());
-
-            return;
-        }
-
         $io->newLine();
-        $io->table(['Field', 'Value'], [
-            ['Code', $permission->code],
-            ['Category', $permission->category],
-            ['Description', $permission->description ?: '-'],
-        ]);
+
+        try {
+            $io->permission($this->service->create($command));
+        } catch (Throwable $e) {
+            $io->error($e->getMessage());
+        }
     }
 }

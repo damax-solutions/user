@@ -145,7 +145,7 @@ class User
         $this->updatedBy = $editor ?? $this;
     }
 
-    public function changeInfo(Name $name, Timezone $timezone, Locale $locale, self $editor = null)
+    public function update(Name $name, Timezone $timezone, Locale $locale, self $editor = null)
     {
         $this->name = $name;
         $this->timezone = $timezone;

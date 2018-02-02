@@ -40,6 +40,18 @@ class PermissionRepository implements PermissionRepositoryInterface
         ;
     }
 
+    /**
+     * @return Permission[]
+     */
+    public function all(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.code', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     public function save(Permission $permission): void
     {
         $this->em->persist($permission);

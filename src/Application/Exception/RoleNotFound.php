@@ -6,10 +6,10 @@ namespace Damax\User\Application\Exception;
 
 use RuntimeException;
 
-class PermissionNotFound extends RuntimeException
+class RoleNotFound extends RuntimeException
 {
     public static function byCode(string $code): self
     {
-        return new self(sprintf('Permission by code "%s" not found.', $code));
+        return new self(sprintf('Role by code "%s" not found.', $code));
     }
 }

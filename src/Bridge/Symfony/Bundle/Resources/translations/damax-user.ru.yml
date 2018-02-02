@@ -11,3 +11,9 @@ permission:
         code: Код
         category: Категория
         description: Описание
+
+role:
+    label:
+        code: Код
+        name: Название
+        permissions: Полномочия
