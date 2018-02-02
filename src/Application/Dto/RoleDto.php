@@ -7,7 +7,7 @@ namespace Damax\User\Application\Dto;
 use ArrayAccess;
 use Damax\User\Application\AsArrayTrait;
 
-class RoleDto implements ArrayAccess
+class RoleDto extends RoleBodyDto implements ArrayAccess
 {
     use AsArrayTrait;
 
@@ -15,14 +15,4 @@ class RoleDto implements ArrayAccess
      * @var string
      */
     public $code;
-
-    /**
-     * @var string
-     */
-    public $name;
-
-    /**
-     * @var string[]
-     */
-    public $permissions = [];
 }

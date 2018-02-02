@@ -81,8 +81,8 @@ class RoleService
      */
     public function update(UpdateRole $command): RoleDto
     {
-        if (null === $role = $this->roles->byCode($command->role->code)) {
-            throw RoleNotFound::byCode($command->role->code);
+        if (null === $role = $this->roles->byCode($command->code)) {
+            throw RoleNotFound::byCode($command->code);
         }
 
         $role->update($command->role->name, $command->role->permissions);
