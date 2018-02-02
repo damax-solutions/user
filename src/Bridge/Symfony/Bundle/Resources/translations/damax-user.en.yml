@@ -5,3 +5,9 @@ label:
     email: Email
     mobile_phone: Mobile phone
     password: Password
+
+permission:
+    label:
+        code: Code
+        category: Category
+        description: Description

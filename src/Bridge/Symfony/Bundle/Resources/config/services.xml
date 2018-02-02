@@ -23,6 +23,8 @@
 
         <service id="Damax\User\Domain\Model\UserFactory" class="Damax\User\Domain\Model\ConfigurableUserFactory" />
 
+        <service id="Damax\User\Domain\Model\PermissionFactory" class="Damax\User\Domain\Model\DefaultPermissionFactory" />
+
         <service id="Damax\User\Domain\Configuration" />
 
     </services>

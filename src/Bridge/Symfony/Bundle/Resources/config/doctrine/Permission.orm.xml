@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity table="user_permission" name="Damax\User\Domain\Model\Permission" change-tracking-policy="DEFERRED_EXPLICIT">
+        <id name="code" type="string" length="64">
+            <generator strategy="NONE" />
+        </id>
+
+        <field name="category" />
+        <field name="description" type="text" nullable="true" />
+    </entity>
+
+</doctrine-mapping>

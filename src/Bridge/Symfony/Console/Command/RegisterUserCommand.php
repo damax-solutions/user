@@ -47,11 +47,13 @@ class RegisterUserCommand extends Command
         try {
             $user = $this->service->registerUser($command);
         } catch (Throwable $e) {
+            $io->newLine();
             $io->error($e->getMessage());
 
             return;
         }
 
+        $io->newLine();
         $io->table(['Field', 'Value'], [
             ['Id', $user->id],
             ['Email', $user->email],

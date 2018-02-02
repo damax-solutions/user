@@ -9,7 +9,6 @@ use Damax\User\Domain\Model\MobilePhone;
 use Damax\User\Domain\Model\User;
 use Damax\User\Domain\Model\UserRepository as UserRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Ramsey\Uuid\Uuid;
@@ -17,8 +16,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class UserRepository implements UserRepositoryInterface
 {
-    private $em;
-    private $className;
+    use OrmRepositoryTrait;
 
     public function __construct(EntityManagerInterface $em, string $userClassName)
     {
@@ -47,7 +45,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function byEmail(Email $email): ?User
     {
-        return $this->createQueryBuilder()
+        return $this->createQueryBuilder('u')
             ->where('u.email.email = :email')
             ->setParameter('email', (string) $email)
             ->getQuery()
@@ -57,7 +55,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function byMobilePhone(MobilePhone $mobilePhone): ?User
     {
-        return $this->createQueryBuilder()
+        return $this->createQueryBuilder('u')
             ->where('u.mobilePhone.number = :number')
             ->setParameter('number', $mobilePhone->number())
             ->getQuery()
@@ -67,7 +65,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function paginate(): Pagerfanta
     {
-        $qb = $this->createQueryBuilder()
+        $qb = $this->createQueryBuilder('u')
             ->addSelect('r')
             ->leftJoin('u.roles', 'r')
             ->orderBy('u.createdAt', 'DESC')
@@ -78,19 +76,10 @@ class UserRepository implements UserRepositoryInterface
 
     public function size(): int
     {
-        return (int) $this->createQueryBuilder()
+        return (int) $this->createQueryBuilder('u')
             ->select('COUNT(u)')
             ->getQuery()
             ->getSingleScalarResult()
-        ;
-    }
-
-    private function createQueryBuilder(): QueryBuilder
-    {
-        return $this->em
-            ->createQueryBuilder()
-            ->select('u')
-            ->from($this->className, 'u')
         ;
     }
 }

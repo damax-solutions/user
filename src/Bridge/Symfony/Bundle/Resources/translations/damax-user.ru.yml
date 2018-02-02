@@ -5,3 +5,9 @@ label:
     email: Эл. почта
     mobile_phone: Мобильный телефон
     password: Пароль
+
+permission:
+    label:
+        code: Код
+        category: Категория
+        description: Описание

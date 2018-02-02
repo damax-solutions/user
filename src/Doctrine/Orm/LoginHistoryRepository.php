@@ -15,8 +15,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class LoginHistoryRepository implements LoginHistoryRepositoryInterface
 {
-    private $em;
-    private $className;
+    use OrmRepositoryTrait;
 
     public function __construct(EntityManagerInterface $em, string $loginHistoryClassName)
     {
@@ -54,10 +53,7 @@ class LoginHistoryRepository implements LoginHistoryRepositoryInterface
 
     private function createQueryBuilderByUserId(UuidInterface $userId): QueryBuilder
     {
-        return $this->em
-            ->createQueryBuilder()
-            ->select('l')
-            ->from($this->className, 'l')
+        return $this->createQueryBuilder('l')
             ->where('IDENTITY(l.user) = :user_id')
             ->orderBy('l.createdAt', 'DESC')
             ->setParameter('user_id', $userId)

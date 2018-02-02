@@ -7,6 +7,7 @@ namespace Damax\User\Bridge\Symfony\Bundle\DependencyInjection;
 use Damax\User\Domain\Configuration as UserConfiguration;
 use Damax\User\Domain\Model\Locale;
 use Damax\User\Domain\Model\LoginHistory;
+use Damax\User\Domain\Model\Permission;
 use Damax\User\Domain\Model\Timezone;
 use Damax\User\Domain\Model\User;
 use Symfony\Component\Config\FileLocator;
@@ -41,5 +42,6 @@ class DamaxUserExtension extends ConfigurableExtension
 
         $container->setParameter('damax.user.user_class', User::class);
         $container->setParameter('damax.user.login_history_class', LoginHistory::class);
+        $container->setParameter('damax.user.permission_class', Permission::class);
     }
 }

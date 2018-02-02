@@ -8,6 +8,7 @@
         <defaults autowire="true" public="false">
             <bind key="$userClassName">%damax.user.user_class%</bind>
             <bind key="$loginHistoryClassName">%damax.user.login_history_class%</bind>
+            <bind key="$permissionClassName">%damax.user.permission_class%</bind>
         </defaults>
 
         <prototype namespace="Damax\User\Doctrine\Orm\" resource="../../../../../Doctrine/Orm" />
@@ -15,6 +16,8 @@
         <service id="Damax\User\Domain\Model\UserRepository" alias="Damax\User\Doctrine\Orm\UserRepository" />
 
         <service id="Damax\User\Domain\Model\LoginHistoryRepository" alias="Damax\User\Doctrine\Orm\LoginHistoryRepository" />
+
+        <service id="Damax\User\Domain\Model\PermissionRepository" alias="Damax\User\Doctrine\Orm\PermissionRepository" />
 
     </services>
 </container>
