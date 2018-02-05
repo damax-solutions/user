@@ -8,6 +8,8 @@ use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\NameDto;
 use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\Name;
+use Damax\User\Domain\Model\Permission;
+use Damax\User\Tests\Domain\Model\AdminRole;
 use Damax\User\Tests\Domain\Model\JohnDoeUser;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
@@ -80,5 +82,31 @@ class AssemblerTest extends TestCase
         $this->assertSame($dto->updatedAt, $user->updatedAt());
         $this->assertSame($now, $user->lastLoginAt());
         $this->assertInstanceOf(NameDto::class, $dto->name);
+    }
+
+    /**
+     * @test
+     */
+    public function it_converts_permission_to_dto()
+    {
+        $permission = new Permission('user_create', 'User', 'Create user functionality.');
+
+        $dto = $this->assembler->toPermissionDto($permission);
+
+        $this->assertEquals('user_create', $dto->code);
+        $this->assertEquals('User', $dto->category);
+        $this->assertEquals('Create user functionality.', $dto->description);
+    }
+
+    /**
+     * @test
+     */
+    public function it_converts_role_to_dto()
+    {
+        $dto = $this->assembler->toRoleDto(new AdminRole());
+
+        $this->assertEquals('admin', $dto->code);
+        $this->assertEquals('Admin', $dto->name);
+        $this->assertEquals(['user_create', 'user_edit', 'user_delete'], $dto->permissions);
     }
 }

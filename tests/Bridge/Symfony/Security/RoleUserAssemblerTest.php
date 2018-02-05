@@ -19,7 +19,7 @@ class RoleUserAssemblerTest extends TestCase
     public function it_assembles_user()
     {
         $johndoe = new JohnDoeUser();
-        $johndoe->addRole(new AdminRole());
+        $johndoe->assignRole(new AdminRole());
 
         /** @var User $user */
         $user = (new RoleUserAssembler())->assemble($johndoe);

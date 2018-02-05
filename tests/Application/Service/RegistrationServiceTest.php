@@ -43,7 +43,7 @@ class RegistrationServiceTest extends TestCase
         $this->userFactory = $this->createMock(UserFactory::class);
         $this->users = $this->createMock(UserRepository::class);
         $this->assembler = $this->createMock(Assembler::class);
-        $this->service = new RegistrationService($this->userFactory, $this->users, $this->assembler);
+        $this->service = new RegistrationService($this->users, $this->userFactory, $this->assembler);
     }
 
     /**

@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Damax\User\Tests\Application\Service;
 
+use Damax\User\Application\Command\AssignUserRole;
 use Damax\User\Application\Command\DisableUser;
 use Damax\User\Application\Command\EnableUser;
+use Damax\User\Application\Command\RemoveUserRole;
 use Damax\User\Application\Command\UpdateUser;
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\NameDto;
 use Damax\User\Application\Dto\UserDto;
 use Damax\User\Application\Service\UserService;
+use Damax\User\Domain\Model\RoleRepository;
 use Damax\User\Domain\Model\UserRepository;
+use Damax\User\Tests\Domain\Model\AdminRole;
 use Damax\User\Tests\Domain\Model\JaneDoeUser;
 use Damax\User\Tests\Domain\Model\JohnDoeUser;
 use Pagerfanta\Adapter\ArrayAdapter;
@@ -27,6 +31,11 @@ class UserServiceTest extends TestCase
     private $users;
 
     /**
+     * @var RoleRepository|PHPUnit_Framework_MockObject_MockObject
+     */
+    private $roles;
+
+    /**
      * @var Assembler|PHPUnit_Framework_MockObject_MockObject
      */
     private $assembler;
@@ -39,8 +48,9 @@ class UserServiceTest extends TestCase
     protected function setUp()
     {
         $this->users = $this->createMock(UserRepository::class);
+        $this->roles = $this->createMock(RoleRepository::class);
         $this->assembler = $this->createMock(Assembler::class);
-        $this->service = new UserService($this->users, $this->assembler);
+        $this->service = new UserService($this->users, $this->roles, $this->assembler);
     }
 
     /**
@@ -220,5 +230,101 @@ class UserServiceTest extends TestCase
         $this->assertEquals('John', $user->name()->firstName());
         $this->assertEquals('Smith', $user->name()->lastName());
         $this->assertNull($user->name()->middleName());
+    }
+
+    /**
+     * @test
+     */
+    public function it_assigns_role()
+    {
+        $command = new AssignUserRole();
+        $command->userId = 'ce08c4e8-d9eb-435b-9eab-edc252b450e1';
+        $command->editorId = '02158a54-0510-11e8-a654-005056806fb2';
+        $command->role = 'admin';
+
+        $user = new JohnDoeUser();
+        $editor = new JaneDoeUser();
+        $admin = new AdminRole();
+
+        $this->users
+            ->expects($this->exactly(2))
+            ->method('byId')
+            ->withConsecutive(
+                ['02158a54-0510-11e8-a654-005056806fb2'],
+                ['ce08c4e8-d9eb-435b-9eab-edc252b450e1']
+            )
+            ->willReturnOnConsecutiveCalls($editor, $user)
+        ;
+        $this->roles
+            ->expects($this->once())
+            ->method('byCode')
+            ->with('admin')
+            ->willReturn($admin)
+        ;
+        $this->users
+            ->expects($this->once())
+            ->method('save')
+            ->with($this->identicalTo($user))
+        ;
+        $this->assembler
+            ->expects($this->once())
+            ->method('toUserDto')
+            ->with($this->identicalTo($user))
+            ->willReturn($dto = new UserDto())
+        ;
+
+        $this->assertSame($dto, $this->service->assignRole($command));
+
+        $this->assertSame($editor, $user->updatedBy());
+        $this->assertSame([$admin], $user->roles());
+    }
+
+    /**
+     * @test
+     */
+    public function it_removes_role()
+    {
+        $command = new RemoveUserRole();
+        $command->userId = 'ce08c4e8-d9eb-435b-9eab-edc252b450e1';
+        $command->editorId = '02158a54-0510-11e8-a654-005056806fb2';
+        $command->role = 'admin';
+
+        $user = new JohnDoeUser();
+        $editor = new JaneDoeUser();
+        $admin = new AdminRole();
+
+        $user->assignRole($admin);
+
+        $this->users
+            ->expects($this->exactly(2))
+            ->method('byId')
+            ->withConsecutive(
+                ['02158a54-0510-11e8-a654-005056806fb2'],
+                ['ce08c4e8-d9eb-435b-9eab-edc252b450e1']
+            )
+            ->willReturnOnConsecutiveCalls($editor, $user)
+        ;
+        $this->roles
+            ->expects($this->once())
+            ->method('byCode')
+            ->with('admin')
+            ->willReturn($admin)
+        ;
+        $this->users
+            ->expects($this->once())
+            ->method('save')
+            ->with($this->identicalTo($user))
+        ;
+        $this->assembler
+            ->expects($this->once())
+            ->method('toUserDto')
+            ->with($this->identicalTo($user))
+            ->willReturn($dto = new UserDto())
+        ;
+
+        $this->assertSame($dto, $this->service->removeRole($command));
+
+        $this->assertSame($editor, $user->updatedBy());
+        $this->assertSame([], $user->roles());
     }
 }
