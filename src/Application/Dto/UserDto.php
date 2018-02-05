@@ -14,6 +14,11 @@ class UserDto
     public $id;
 
     /**
+     * @var string[]
+     */
+    public $roles = [];
+
+    /**
      * @var string
      */
     public $email;

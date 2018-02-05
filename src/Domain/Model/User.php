@@ -53,18 +53,28 @@ class User
         return $this->roles->toArray();
     }
 
-    public function addRole(Role $role)
-    {
-        if (!$this->roles->contains($role)) {
-            $this->roles->add($role);
-        }
-    }
-
-    public function removeRole(Role $role)
+    public function assignRole(Role $role, self $editor = null)
     {
         if ($this->roles->contains($role)) {
-            $this->roles->removeElement($role);
+            return;
         }
+
+        $this->roles->add($role);
+
+        $this->updatedAt = new DateTimeImmutable();
+        $this->updatedBy = $editor ?? $this;
+    }
+
+    public function removeRole(Role $role, self $editor = null)
+    {
+        if (!$this->roles->contains($role)) {
+            return;
+        }
+
+        $this->roles->removeElement($role);
+
+        $this->updatedAt = new DateTimeImmutable();
+        $this->updatedBy = $editor ?? $this;
     }
 
     /**
@@ -72,9 +82,11 @@ class User
      */
     public function permissions(): array
     {
-        return array_reduce($this->roles(), function (array $acc, Role $role): array {
+        $reduce = function (array $acc, Role $role): array {
             return array_merge($acc, $role->permissions());
-        }, []);
+        };
+
+        return array_reduce($this->roles(), $reduce, []);
     }
 
     public function email(): Email

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Bridge\Symfony\Console\Command;
+namespace Damax\User\Bridge\Symfony\Console\Command\User;
 
 use Damax\User\Application\Command\ChangePassword;
 use Damax\User\Application\Service\PasswordService;

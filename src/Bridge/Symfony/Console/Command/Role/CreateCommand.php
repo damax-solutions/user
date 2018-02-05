@@ -2,19 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Bridge\Symfony\Console\Command;
+namespace Damax\User\Bridge\Symfony\Console\Command\Role;
 
+use Damax\User\Application\Command\CreateRole;
+use Damax\User\Application\Dto\RoleDto;
 use Damax\User\Application\Service\RoleService;
+use Damax\User\Bridge\Symfony\Bundle\Form\Type\RoleType;
 use Damax\User\Bridge\Symfony\Console\Style;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
-class ShowRoleCommand extends Command
+class CreateCommand extends Command
 {
-    protected static $defaultName = 'damax:user:role:show';
+    protected static $defaultName = 'damax:user:role:create';
 
     private $service;
 
@@ -27,19 +29,24 @@ class ShowRoleCommand extends Command
 
     protected function configure()
     {
-        $this
-            ->setDescription('Show role.')
-            ->addArgument('code', InputArgument::REQUIRED, 'Role code.')
-        ;
+        $this->setDescription('Create role.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new Style($input, $output);
-        $io->title('Show role');
+        $io->title('Create role');
+
+        /** @var RoleDto $dto */
+        $dto = $this->getHelper('form')->interactUsingForm(RoleType::class, $input, $output);
+
+        $command = new CreateRole();
+        $command->role = $dto;
+
+        $io->newLine();
 
         try {
-            $io->role($this->service->fetch($input->getArgument('code')));
+            $io->role($this->service->create($command));
         } catch (Throwable $e) {
             $io->error($e->getMessage());
         }

@@ -9,13 +9,13 @@ use Damax\User\Application\Command\UpdateRole;
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\RoleDto;
 use Damax\User\Application\Exception\RoleAlreadyExists;
-use Damax\User\Application\Exception\RoleNotFound;
 use Damax\User\Domain\Model\RoleFactory;
 use Damax\User\Domain\Model\RoleRepository;
 
 class RoleService
 {
-    private $roles;
+    use RoleServiceTrait;
+
     private $factory;
     private $assembler;
 
@@ -26,16 +26,9 @@ class RoleService
         $this->assembler = $assembler;
     }
 
-    /**
-     * @throws RoleNotFound
-     */
     public function fetch(string $code): RoleDto
     {
-        if (null === $role = $this->roles->byCode($code)) {
-            throw RoleNotFound::byCode($code);
-        }
-
-        return $this->assembler->toRoleDto($role);
+        return $this->assembler->toRoleDto($this->getRole($code));
     }
 
     /**
@@ -62,28 +55,18 @@ class RoleService
         return $this->assembler->toRoleDto($role);
     }
 
-    /**
-     * @throws RoleNotFound
-     */
     public function delete(string $code): RoleDto
     {
-        if (null === $role = $this->roles->byCode($code)) {
-            throw RoleNotFound::byCode($code);
-        }
+        $role = $this->getRole($code);
 
         $this->roles->remove($role);
 
         return $this->assembler->toRoleDto($role);
     }
 
-    /**
-     * @throws RoleNotFound
-     */
     public function update(UpdateRole $command): RoleDto
     {
-        if (null === $role = $this->roles->byCode($command->code)) {
-            throw RoleNotFound::byCode($command->code);
-        }
+        $role = $this->getRole($command->code);
 
         $role->update($command->role->name, $command->role->permissions);
 

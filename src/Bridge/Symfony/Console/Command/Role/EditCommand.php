@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Bridge\Symfony\Console\Command;
+namespace Damax\User\Bridge\Symfony\Console\Command\Role;
 
 use Damax\User\Application\Command\UpdateRole;
 use Damax\User\Application\Dto\RoleBodyDto;
@@ -13,8 +13,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Throwable;
 
-class EditRoleCommand extends Command
+class EditCommand extends Command
 {
     protected static $defaultName = 'damax:user:role:edit';
 
@@ -51,7 +52,7 @@ class EditRoleCommand extends Command
 
         try {
             $io->role($this->service->update($command));
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $io->error($e->getMessage());
         }
     }

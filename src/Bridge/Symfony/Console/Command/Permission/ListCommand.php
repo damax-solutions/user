@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Bridge\Symfony\Console\Command;
+namespace Damax\User\Bridge\Symfony\Console\Command\Permission;
 
 use Damax\User\Application\Dto\PermissionDto;
 use Damax\User\Application\Service\PermissionService;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ListPermissionCommand extends Command
+class ListCommand extends Command
 {
     protected static $defaultName = 'damax:user:permission:list';
 
@@ -39,7 +39,7 @@ class ListPermissionCommand extends Command
         $io->title('List permissions');
 
         $row = function (PermissionDto $permission) {
-            return [$permission->code, $permission->category, $permission->description];
+            return [$permission->code, $permission->category, $permission->description ?: '-'];
         };
 
         $io->table(['Code', 'Category', 'Description'], array_map($row, $this->service->fetchByCategory($input->getArgument('category'))));

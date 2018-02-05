@@ -18,13 +18,12 @@ class RegistrationService
     use UserServiceTrait;
 
     private $userFactory;
-    private $users;
     private $assembler;
 
-    public function __construct(UserFactory $userFactory, UserRepository $users, Assembler $assembler)
+    public function __construct(UserRepository $users, UserFactory $userFactory, Assembler $assembler)
     {
-        $this->userFactory = $userFactory;
         $this->users = $users;
+        $this->userFactory = $userFactory;
         $this->assembler = $assembler;
     }
 

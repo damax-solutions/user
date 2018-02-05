@@ -12,7 +12,6 @@ class PasswordService
 {
     use UserServiceTrait;
 
-    private $users;
     private $encoder;
 
     public function __construct(UserRepository $users, Encoder $encoder)

@@ -32,6 +32,17 @@
         <many-to-one field="updatedBy" target-entity="User">
             <join-column name="updated_by" />
         </many-to-one>
+        
+        <many-to-many field="roles" target-entity="Role">
+            <join-table name="user_role_map">
+                <join-columns>
+                    <join-column nullable="false" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column nullable="false" name="role" referenced-column-name="code" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
     </entity>
 
 </doctrine-mapping>

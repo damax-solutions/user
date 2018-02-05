@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Bridge\Symfony\Console\Command;
+namespace Damax\User\Bridge\Symfony\Console\Command\Role;
 
 use Damax\User\Application\Dto\RoleDto;
 use Damax\User\Application\Service\RoleService;
@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ListRoleCommand extends Command
+class ListCommand extends Command
 {
     protected static $defaultName = 'damax:user:role:list';
 

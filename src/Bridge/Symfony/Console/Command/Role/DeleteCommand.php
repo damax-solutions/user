@@ -2,21 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Bridge\Symfony\Console\Command;
+namespace Damax\User\Bridge\Symfony\Console\Command\Role;
 
-use Damax\User\Application\Command\CreateRole;
-use Damax\User\Application\Dto\RoleDto;
 use Damax\User\Application\Service\RoleService;
-use Damax\User\Bridge\Symfony\Bundle\Form\Type\RoleType;
 use Damax\User\Bridge\Symfony\Console\Style;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
-class CreateRoleCommand extends Command
+class DeleteCommand extends Command
 {
-    protected static $defaultName = 'damax:user:role:create';
+    protected static $defaultName = 'damax:user:role:delete';
 
     private $service;
 
@@ -29,24 +27,20 @@ class CreateRoleCommand extends Command
 
     protected function configure()
     {
-        $this->setDescription('Create role.');
+        $this
+            ->setDescription('Delete role.')
+            ->addArgument('code', InputArgument::REQUIRED, 'Role code.')
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new Style($input, $output);
-        $io->title('Create role');
-
-        /** @var RoleDto $dto */
-        $dto = $this->getHelper('form')->interactUsingForm(RoleType::class, $input, $output);
-
-        $command = new CreateRole();
-        $command->role = $dto;
-
-        $io->newLine();
+        $io->title('Delete role');
 
         try {
-            $io->role($this->service->create($command));
+            $io->role($this->service->delete($input->getArgument('code')));
+            $io->success('Role deleted.');
         } catch (Throwable $e) {
             $io->error($e->getMessage());
         }

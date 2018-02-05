@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Bridge\Symfony\Console\Command;
+namespace Damax\User\Bridge\Symfony\Console\Command\Permission;
 
 use Damax\User\Application\Service\PermissionService;
 use Damax\User\Bridge\Symfony\Console\Style;
@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
-class DeletePermissionCommand extends Command
+class DeleteCommand extends Command
 {
     protected static $defaultName = 'damax:user:permission:delete';
 

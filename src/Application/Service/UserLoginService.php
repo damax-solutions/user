@@ -18,7 +18,6 @@ class UserLoginService
 {
     use UserServiceTrait;
 
-    private $users;
     private $logins;
     private $assembler;
 

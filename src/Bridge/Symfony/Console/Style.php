@@ -39,6 +39,7 @@ class Style
             ['Timezone', $user->timezone],
             ['Locale', $user->locale],
             ['Enabled', $user->enabled ? '+' : '-'],
+            ['Roles', implode("\n", $user->roles) ?: '-'],
         ]);
     }
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Bridge\Symfony\Console\Command;
+namespace Damax\User\Bridge\Symfony\Console\Command\Permission;
 
 use Damax\User\Application\Command\CreatePermission;
 use Damax\User\Application\Dto\PermissionDto;
@@ -14,7 +14,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
-class CreatePermissionCommand extends Command
+class CreateCommand extends Command
 {
     protected static $defaultName = 'damax:user:permission:create';
 
