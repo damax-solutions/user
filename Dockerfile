@@ -1,5 +1,12 @@
 FROM php:7.2-cli
 
+LABEL maintainer="dmitri@devmachine.net"
+
+# Composer
+RUN cd /usr/local/bin \
+    && php -r "readfile('https://getcomposer.org/installer');" | php \
+    && mv composer.phar composer
+
 # zip
 RUN apt-get update && apt-get install -y zlib1g-dev \
     && docker-php-ext-install zip \
@@ -17,7 +24,5 @@ RUN curl -sS -o /tmp/icu.tar.gz -L http://download.icu-project.org/files/icu4c/5
 RUN docker-php-ext-configure intl --with-icu-dir=/usr/local \
     && docker-php-ext-install intl
 
-# Composer
-RUN cd /usr/local/bin \
-    && php -r "readfile('https://getcomposer.org/installer');" | php \
-    && mv composer.phar composer
+# Tools
+RUN apt-get update && apt-get install -y git && rm -r /var/lib/apt/lists/*

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Damax\User\Application\Command;
 
 use ArrayAccess;
-use Damax\User\Application\AsArrayTrait;
+use Damax\Common\Application\AsArrayTrait;
 use Damax\User\Application\Dto\NameDto;
 
 class RegisterUser implements ArrayAccess

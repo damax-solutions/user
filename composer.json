@@ -17,6 +17,7 @@
   "require": {
     "php": ">=7.1",
     "beberlei/assert": "^2.9",
+    "damax/common": "0.1.*@dev",
     "doctrine/collections": "^1.5",
     "pagerfanta/pagerfanta": "^1.0",
     "ramsey/uuid": "^3.7",
@@ -41,5 +42,11 @@
   },
   "config": {
     "sort-packages": true
+  },
+  "repositories": {
+    "damax-common": {
+      "type": "vcs",
+      "url": "git@bitbucket.org:damaxsolutions/damax-common.git"
+    }
   }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Damax\User\Application\Dto;
 
 use ArrayAccess;
-use Damax\User\Application\AsArrayTrait;
+use Damax\Common\Application\AsArrayTrait;
 
 class RoleDto extends RoleBodyDto implements ArrayAccess
 {
