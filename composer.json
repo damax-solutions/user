@@ -46,7 +46,7 @@
   "repositories": {
     "damax-common": {
       "type": "vcs",
-      "url": "git@bitbucket.org:damaxsolutions/damax-common.git"
+      "url": "https://bitbucket.org/damaxsolutions/damax-common"
     }
   }
 }

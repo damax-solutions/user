@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Service;
 
+use Damax\Common\Pagerfanta\CallableDecoratorAdapter;
 use Damax\User\Application\Command\AssignUserRole;
 use Damax\User\Application\Command\DisableUser;
 use Damax\User\Application\Command\EnableUser;
@@ -16,7 +17,6 @@ use Damax\User\Domain\Model\Name;
 use Damax\User\Domain\Model\RoleRepository;
 use Damax\User\Domain\Model\Timezone;
 use Damax\User\Domain\Model\UserRepository;
-use Damax\User\Pagerfanta\CallableDecoratorAdapter;
 use Pagerfanta\Pagerfanta;
 
 class UserService

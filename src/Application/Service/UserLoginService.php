@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Service;
 
+use Damax\Common\Pagerfanta\CallableDecoratorAdapter;
 use Damax\User\Application\Command\RecordLogin;
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\UserLoginDto;
 use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\LoginHistoryRepository;
 use Damax\User\Domain\Model\UserRepository;
-use Damax\User\Pagerfanta\CallableDecoratorAdapter;
 use Pagerfanta\Pagerfanta;
 use Ramsey\Uuid\Uuid;
 
