@@ -36,10 +36,10 @@
         <many-to-many field="roles" target-entity="Role">
             <join-table name="user_role_map">
                 <join-columns>
-                    <join-column nullable="false" />
+                    <join-column nullable="false" on-delete="CASCADE" />
                 </join-columns>
                 <inverse-join-columns>
-                    <join-column nullable="false" name="role" referenced-column-name="code" />
+                    <join-column nullable="false" name="role" referenced-column-name="code" on-delete="CASCADE" />
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
