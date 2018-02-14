@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Damax\User\Domain\Model;
 
+use Damax\User\Domain\Event\UserRegistered;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\UuidInterface;
+use SimpleBus\Message\Recorder\PrivateMessageRecorderCapabilities;
 
 class User
 {
+    use PrivateMessageRecorderCapabilities;
+
     private $id;
     private $roles;
     private $email;
@@ -38,6 +42,8 @@ class User
         $this->locale = $locale;
         $this->createdAt = $this->updatedAt = new DateTimeImmutable();
         $this->createdBy = $this->updatedBy = $creator ?? $this;
+
+        $this->record(new UserRegistered($id, $this->createdAt));
     }
 
     public function id(): UuidInterface
