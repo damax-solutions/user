@@ -32,6 +32,13 @@ class Configuration implements ConfigurationInterface
                 ->end()
 
                 ->booleanNode('invalidate_password')->defaultTrue()->end()
+
+                /*
+                ->enumNode('mailer')
+                    ->values(['debug', 'swift'])
+                    ->defaultValue('debug')
+                ->end()
+                */
             ->end()
         ;
 

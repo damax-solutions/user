@@ -67,12 +67,12 @@
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/damaxsolutions/damax-common.git",
-                "reference": "f0b5eef7f44f0291af95890a70a9cdad88b77c39"
+                "reference": "36cdc87b93832c9def6055680105be44c9d7e0aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/damaxsolutions/damax-common/get/f0b5eef7f44f0291af95890a70a9cdad88b77c39.zip",
-                "reference": "f0b5eef7f44f0291af95890a70a9cdad88b77c39",
+                "url": "https://bitbucket.org/damaxsolutions/damax-common/get/36cdc87b93832c9def6055680105be44c9d7e0aa.zip",
+                "reference": "36cdc87b93832c9def6055680105be44c9d7e0aa",
                 "shasum": ""
             },
             "require-dev": {
@@ -85,7 +85,8 @@
                 "symfony/console": "^4.0",
                 "symfony/dependency-injection": "^4.0",
                 "symfony/http-kernel": "^4.0",
-                "symfony/phpunit-bridge": "^4.0"
+                "symfony/phpunit-bridge": "^4.0",
+                "twig/twig": "^2.4"
             },
             "type": "library",
             "extra": {
@@ -109,9 +110,9 @@
             "description": "Common libraries.",
             "homepage": "https://bitbucket.org/damaxsolutions/damax-common",
             "support": {
-                "source": "https://bitbucket.org/damaxsolutions/damax-common/src/f0b5eef7f44f0291af95890a70a9cdad88b77c39/?at=master"
+                "source": "https://bitbucket.org/damaxsolutions/damax-common/src/36cdc87b93832c9def6055680105be44c9d7e0aa/?at=master"
             },
-            "time": "2018-02-15T11:58:59+00:00"
+            "time": "2018-02-15T15:05:45+00:00"
         },
         {
             "name": "doctrine/collections",

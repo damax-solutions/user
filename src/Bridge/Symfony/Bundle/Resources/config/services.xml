@@ -45,7 +45,9 @@
 
         <!-- Mailer -->
 
-        <service id="Damax\User\Domain\Mailer\Mailer" class="Damax\User\Domain\Mailer\DebugMailer" />
+        <service id="Damax\User\Domain\Mailer\Mailer" />
+
+        <service id="Damax\User\Bridge\Mailer\SwiftMailer" />
 
     </services>
 </container>
