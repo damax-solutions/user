@@ -6,7 +6,7 @@ namespace Damax\User\Domain\Mailer;
 
 use Damax\User\Domain\Model\User;
 
-interface RegistrationMailer
+interface Mailer
 {
     public function sendRegistrationEmail(User $user): void;
 }

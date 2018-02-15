@@ -39,5 +39,13 @@
             <tag name="event_subscriber" subscribes_to="Damax\User\Domain\Event\LoginRecorded" method="onLoginRecorded" />
         </service>
 
+        <service id="Damax\User\Domain\Listener\MailerListener" public="true">
+            <tag name="event_subscriber" subscribes_to="Damax\User\Domain\Event\UserRegistered" method="onUserRegistered" />
+        </service>
+
+        <!-- Mailer -->
+
+        <service id="Damax\User\Domain\Mailer\Mailer" class="Damax\User\Domain\Mailer\DebugMailer" />
+
     </services>
 </container>

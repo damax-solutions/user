@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Bridge\SwiftMailer;
+namespace Damax\User\Bridge\Mailer;
 
-use Damax\User\Domain\Mailer\RegistrationMailer as RegistrationMailerInterface;
+use Damax\User\Domain\Mailer\Mailer;
 use Damax\User\Domain\Model\User;
 use Swift_Mailer;
 use Swift_Message;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig_Environment;
 
-class RegistrationMailer implements RegistrationMailerInterface
+class SwiftMailer implements Mailer
 {
     private $swift;
     private $urlGenerator;

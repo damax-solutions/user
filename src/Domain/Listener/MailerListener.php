@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Damax\User\Domain\Listener;
 
 use Damax\User\Domain\Event\UserRegistered;
-use Damax\User\Domain\Mailer\RegistrationMailer;
+use Damax\User\Domain\Mailer\Mailer;
 use Damax\User\Domain\Model\UserRepository;
 
-class UserMailerListener
+class MailerListener
 {
     private $users;
     private $mailer;
 
-    public function __construct(UserRepository $users, RegistrationMailer $mailer)
+    public function __construct(UserRepository $users, Mailer $mailer)
     {
         $this->users = $users;
         $this->mailer = $mailer;
