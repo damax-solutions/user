@@ -67,12 +67,12 @@
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/damaxsolutions/damax-common.git",
-                "reference": "5c9ce07a047140ecba830867b5ff6ed183efab98"
+                "reference": "f0b5eef7f44f0291af95890a70a9cdad88b77c39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/damaxsolutions/damax-common/get/5c9ce07a047140ecba830867b5ff6ed183efab98.zip",
-                "reference": "5c9ce07a047140ecba830867b5ff6ed183efab98",
+                "url": "https://bitbucket.org/damaxsolutions/damax-common/get/f0b5eef7f44f0291af95890a70a9cdad88b77c39.zip",
+                "reference": "f0b5eef7f44f0291af95890a70a9cdad88b77c39",
                 "shasum": ""
             },
             "require-dev": {
@@ -109,9 +109,9 @@
             "description": "Common libraries.",
             "homepage": "https://bitbucket.org/damaxsolutions/damax-common",
             "support": {
-                "source": "https://bitbucket.org/damaxsolutions/damax-common/src/5c9ce07a047140ecba830867b5ff6ed183efab98/?at=master"
+                "source": "https://bitbucket.org/damaxsolutions/damax-common/src/f0b5eef7f44f0291af95890a70a9cdad88b77c39/?at=master"
             },
-            "time": "2018-02-15T11:02:40+00:00"
+            "time": "2018-02-15T11:58:59+00:00"
         },
         {
             "name": "doctrine/collections",
