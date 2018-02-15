@@ -9,8 +9,8 @@
         </id>
 
         <field name="username" />
-        <field name="clientIp" />
-        <field name="serverIp" />
+        <field name="clientIp" length="16" />
+        <field name="serverIp" length="16" />
         <field name="userAgent" />
         <field name="createdAt" type="datetimetz" />
 

@@ -67,18 +67,24 @@
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/damaxsolutions/damax-common.git",
-                "reference": "425a8c2014ea8b3bb48a12c91ac9b5849c03ba5e"
+                "reference": "5c9ce07a047140ecba830867b5ff6ed183efab98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/damaxsolutions/damax-common/get/2c367733c7b6988e13b1c6b56209ec6da889acbe.zip",
-                "reference": "425a8c2014ea8b3bb48a12c91ac9b5849c03ba5e",
+                "url": "https://bitbucket.org/damaxsolutions/damax-common/get/5c9ce07a047140ecba830867b5ff6ed183efab98.zip",
+                "reference": "5c9ce07a047140ecba830867b5ff6ed183efab98",
                 "shasum": ""
             },
             "require-dev": {
                 "doctrine/inflector": "^1.3",
                 "friendsofphp/php-cs-fixer": "^2.10",
+                "matthiasnoback/symfony-dependency-injection-test": "^2.3",
                 "pagerfanta/pagerfanta": "^1.0",
+                "simple-bus/message-bus": "^3.0",
+                "symfony/config": "^4.0",
+                "symfony/console": "^4.0",
+                "symfony/dependency-injection": "^4.0",
+                "symfony/http-kernel": "^4.0",
                 "symfony/phpunit-bridge": "^4.0"
             },
             "type": "library",
@@ -97,12 +103,15 @@
                     "Damax\\Common\\Tests\\": "tests/"
                 }
             },
+            "license": [
+                "MIT"
+            ],
             "description": "Common libraries.",
             "homepage": "https://bitbucket.org/damaxsolutions/damax-common",
             "support": {
-                "source": "https://bitbucket.org/damaxsolutions/damax-common/src/425a8c2014ea8b3bb48a12c91ac9b5849c03ba5e/?at=master"
+                "source": "https://bitbucket.org/damaxsolutions/damax-common/src/5c9ce07a047140ecba830867b5ff6ed183efab98/?at=master"
             },
-            "time": "2018-02-08T08:35:34+00:00"
+            "time": "2018-02-15T11:02:40+00:00"
         },
         {
             "name": "doctrine/collections",

@@ -33,5 +33,11 @@
 
         <service id="Damax\User\Domain\Configuration" />
 
+        <!-- Listeners -->
+
+        <service id="Damax\User\Domain\Listener\UserLoginListener">
+            <tag name="event_subscriber" subscribes_to="Damax\User\Domain\Event\LoginRecorded" method="onLoginRecorded" />
+        </service>
+
     </services>
 </container>
