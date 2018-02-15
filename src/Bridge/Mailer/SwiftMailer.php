@@ -18,12 +18,12 @@ class SwiftMailer implements Mailer
     private $nameFormatter;
     private $options;
 
-    public function __construct(Swift_Mailer $swift, EmailRenderer $renderer, NameFormatter $nameFormatter, array $options)
+    public function __construct(Swift_Mailer $swift, EmailRenderer $renderer, NameFormatter $nameFormatter, array $mailerOptions)
     {
         $this->swift = $swift;
         $this->renderer = $renderer;
         $this->nameFormatter = $nameFormatter;
-        $this->options = $options;
+        $this->options = $mailerOptions;
     }
 
     public function sendRegistrationEmail(User $user): void

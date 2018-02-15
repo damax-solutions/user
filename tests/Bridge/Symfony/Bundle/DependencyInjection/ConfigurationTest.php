@@ -31,7 +31,7 @@ class ConfigurationTest extends TestCase
                 'adapter' => 'swift',
                 'sender_email' => 'no-reply@localhost',
                 'sender_name' => null,
-                'registration_template' => '@DamaxUserBundle/Resources/views/Emails/registration.twig',
+                'registration_template' => '@DamaxUser/Emails/registration.twig',
             ],
         ]);
     }

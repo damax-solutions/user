@@ -5,7 +5,9 @@
 
     <services>
 
-        <defaults autowire="true" autoconfigure="true" public="false" />
+        <defaults autowire="true" autoconfigure="true" public="false">
+            <bind key="$mailerOptions">%damax.user.mailer_options%</bind>
+        </defaults>
 
         <!-- Commands -->
 

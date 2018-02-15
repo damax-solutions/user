@@ -63,7 +63,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                         ->scalarNode('registration_template')
                             ->cannotBeEmpty()
-                            ->defaultValue('@DamaxUserBundle/Resources/views/Emails/registration.twig')
+                            ->defaultValue('@DamaxUser/Emails/registration.twig')
                         ->end()
                     ->end()
                 ->end()

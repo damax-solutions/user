@@ -72,7 +72,10 @@ class DamaxUserExtension extends ConfigurableExtension
             $mailerClass = SwiftMailer::class;
         }
 
+        unset($config['adapter']);
+
         $container->setAlias(Mailer::class, $mailerClass);
+        $container->setParameter('damax.user.mailer_options', $config);
 
         return $this;
     }
