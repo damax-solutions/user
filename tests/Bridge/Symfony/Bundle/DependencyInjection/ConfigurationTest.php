@@ -26,6 +26,13 @@ class ConfigurationTest extends TestCase
             'default_timezone' => 'Europe/Riga',
             'default_locale' => 'en',
             'invalidate_password' => true,
+            'name_formatter' => 'russian',
+            'mailer' => [
+                'adapter' => 'swift',
+                'sender_email' => 'no-reply@localhost',
+                'sender_name' => null,
+                'registration_template' => '@DamaxUserBundle/Resources/views/Emails/registration.twig',
+            ],
         ]);
     }
 
@@ -39,6 +46,13 @@ class ConfigurationTest extends TestCase
             'default_timezone' => 'Europe/Moscow',
             'default_locale' => 'ru',
             'invalidate_password' => false,
+            'name_formatter' => 'james_bond',
+            'mailer' => [
+                'adapter' => 'debug',
+                'sender_email' => 'no-reply@domain.abc',
+                'sender_name' => 'Administrator',
+                'registration_template' => 'template.html',
+            ],
         ];
 
         $this->assertProcessedConfigurationEquals([$config], [
@@ -46,6 +60,13 @@ class ConfigurationTest extends TestCase
             'default_timezone' => 'Europe/Moscow',
             'default_locale' => 'ru',
             'invalidate_password' => false,
+            'name_formatter' => 'james_bond',
+            'mailer' => [
+                'adapter' => 'debug',
+                'sender_email' => 'no-reply@domain.abc',
+                'sender_name' => 'Administrator',
+                'registration_template' => 'template.html',
+            ],
         ]);
     }
 

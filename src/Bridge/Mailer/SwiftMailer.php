@@ -28,7 +28,7 @@ class SwiftMailer implements Mailer
 
     public function sendRegistrationEmail(User $user): void
     {
-        $template = $this->renderer->renderTemplate($this->options['template'], ['user' => $user]);
+        $template = $this->renderer->renderTemplate($this->options['registration_template'], ['user' => $user]);
 
         $message = (new Swift_Message())
             ->setTo($user->email()->email(), $this->nameFormatter->full($user->name()))

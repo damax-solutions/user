@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\DependencyInjection;
 
+use Damax\User\Bridge\Mailer\SwiftMailer;
 use Damax\User\Domain\Configuration as UserConfiguration;
+use Damax\User\Domain\Mailer\DebugMailer;
+use Damax\User\Domain\Mailer\Mailer;
 use Damax\User\Domain\Model\Locale;
 use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\Permission;
 use Damax\User\Domain\Model\Role;
 use Damax\User\Domain\Model\Timezone;
 use Damax\User\Domain\Model\User;
+use Damax\User\Domain\NameFormatter\NameFormatter;
+use Doctrine\Common\Inflector\Inflector;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -45,5 +50,30 @@ class DamaxUserExtension extends ConfigurableExtension
         $container->setParameter('damax.user.login_history_class', LoginHistory::class);
         $container->setParameter('damax.user.permission_class', Permission::class);
         $container->setParameter('damax.user.role_class', Role::class);
+
+        $this
+            ->configureNameFormatter($config, $container)
+            ->configureMailer($config['mailer'], $container)
+        ;
+    }
+
+    private function configureNameFormatter(array $config, ContainerBuilder $container): self
+    {
+        $container->setAlias(NameFormatter::class, 'Damax\\User\\Domain\\NameFormatter\\' . Inflector::classify($config['name_formatter']) . 'NameFormatter');
+
+        return $this;
+    }
+
+    private function configureMailer(array $config, ContainerBuilder $container): self
+    {
+        $mailerClass = DebugMailer::class;
+
+        if ('swift' === $config['adapter']) {
+            $mailerClass = SwiftMailer::class;
+        }
+
+        $container->setAlias(Mailer::class, $mailerClass);
+
+        return $this;
     }
 }

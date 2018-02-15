@@ -13,6 +13,10 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
 
+        $emailValidator = function (string $email): bool {
+            return !filter_var($email, FILTER_VALIDATE_EMAIL);
+        };
+
         $rootNode = $treeBuilder->root('damax_user');
         $rootNode
             ->children()
@@ -33,12 +37,36 @@ class Configuration implements ConfigurationInterface
 
                 ->booleanNode('invalidate_password')->defaultTrue()->end()
 
-                /*
-                ->enumNode('mailer')
-                    ->values(['debug', 'swift'])
-                    ->defaultValue('debug')
+                ->enumNode('name_formatter')
+                    ->values(['russian', 'james_bond'])
+                    ->defaultValue('russian')
                 ->end()
-                */
+
+                ->arrayNode('mailer')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->enumNode('adapter')
+                            ->values(['debug', 'swift'])
+                            ->defaultValue('swift')
+                        ->end()
+                        ->scalarNode('sender_email')
+                            ->validate()
+                                ->ifTrue($emailValidator)
+                                ->thenInvalid('Invalid email.')
+                            ->end()
+                            ->cannotBeEmpty()
+                            ->defaultValue('no-reply@localhost')
+                        ->end()
+                        ->scalarNode('sender_name')
+                            ->cannotBeEmpty()
+                            ->defaultNull()
+                        ->end()
+                        ->scalarNode('registration_template')
+                            ->cannotBeEmpty()
+                            ->defaultValue('@DamaxUserBundle/Resources/views/Emails/registration.twig')
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

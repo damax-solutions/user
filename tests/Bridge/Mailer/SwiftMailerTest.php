@@ -36,7 +36,7 @@ class SwiftMailerTest extends TestCase
         $this->swift = $this->createMock(Swift_Mailer::class);
         $this->renderer = $this->createMock(EmailRenderer::class);
         $this->mailer = new SwiftMailer($this->swift, $this->renderer, new JamesBondNameFormatter(), [
-            'template' => 'template.twig',
+            'registration_template' => 'template.twig',
             'sender_email' => 'jane.doe@domain.abc',
             'sender_name' => 'Jane Doe',
         ]);

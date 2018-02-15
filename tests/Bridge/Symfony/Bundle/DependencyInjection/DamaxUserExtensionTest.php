@@ -6,8 +6,12 @@ namespace Damax\User\Tests\Bridge\Symfony\Bundle\DependencyInjection;
 
 use Damax\User\Bridge\Symfony\Bundle\DependencyInjection\DamaxUserExtension;
 use Damax\User\Domain\Configuration;
+use Damax\User\Domain\Mailer\DebugMailer;
+use Damax\User\Domain\Mailer\Mailer;
 use Damax\User\Domain\Model\Locale;
 use Damax\User\Domain\Model\Timezone;
+use Damax\User\Domain\NameFormatter\JamesBondNameFormatter;
+use Damax\User\Domain\NameFormatter\NameFormatter;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 class DamaxUserExtensionTest extends AbstractExtensionTestCase
@@ -21,6 +25,10 @@ class DamaxUserExtensionTest extends AbstractExtensionTestCase
             'default_locale' => 'ru',
             'default_timezone' => 'Europe/Moscow',
             'invalidate_password' => false,
+            'name_formatter' => 'james_bond',
+            'mailer' => [
+                'adapter' => 'debug',
+            ],
         ]);
 
         $configuration = $this->container->getDefinition(Configuration::class);
@@ -33,6 +41,9 @@ class DamaxUserExtensionTest extends AbstractExtensionTestCase
 
         $this->assertContainerBuilderHasParameter('damax.user.user_class');
         $this->assertContainerBuilderHasParameter('damax.user.login_history_class');
+
+        $this->assertContainerBuilderHasAlias(NameFormatter::class, JamesBondNameFormatter::class);
+        $this->assertContainerBuilderHasAlias(Mailer::class, DebugMailer::class);
     }
 
     protected function getContainerExtensions(): array
