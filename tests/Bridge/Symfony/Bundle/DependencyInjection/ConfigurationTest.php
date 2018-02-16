@@ -26,7 +26,7 @@ class ConfigurationTest extends TestCase
             'default_timezone' => 'Europe/Riga',
             'default_locale' => 'en',
             'invalidate_password' => true,
-            'name_formatter' => 'russian',
+            'name_formatter' => 'standard',
             'mailer' => [
                 'adapter' => 'swift',
                 'sender_email' => 'no-reply@localhost',

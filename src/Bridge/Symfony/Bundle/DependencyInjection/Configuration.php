@@ -38,8 +38,8 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('invalidate_password')->defaultTrue()->end()
 
                 ->enumNode('name_formatter')
-                    ->values(['russian', 'james_bond'])
-                    ->defaultValue('russian')
+                    ->values(['standard', 'russian', 'james_bond'])
+                    ->defaultValue('standard')
                 ->end()
 
                 ->arrayNode('mailer')
