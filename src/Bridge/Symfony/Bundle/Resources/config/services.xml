@@ -35,6 +35,8 @@
 
         <prototype namespace="Damax\User\Domain\TokenGenerator\" resource="../../../../../Domain/TokenGenerator" />
 
+        <service id="Damax\User\Domain\TokenGenerator\TokenGenerator" alias="Damax\User\Domain\TokenGenerator\RandomTokenGenerator" />
+
         <service id="Damax\User\Domain\Model\UserFactory" class="Damax\User\Domain\Model\ConfigurableUserFactory" />
 
         <service id="Damax\User\Domain\Model\PermissionFactory" class="Damax\User\Domain\Model\DefaultPermissionFactory" />
@@ -51,6 +53,7 @@
 
         <service id="Damax\User\Domain\Listener\MailerListener" public="true">
             <tag name="event_subscriber" subscribes_to="Damax\User\Domain\Event\UserRegistered" method="onUserRegistered" />
+            <tag name="event_subscriber" subscribes_to="Damax\User\Domain\Event\PasswordResetRequested" method="onPasswordResetRequested" />
         </service>
 
         <!-- Mailer -->

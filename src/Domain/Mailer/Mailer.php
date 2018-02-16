@@ -9,4 +9,6 @@ use Damax\User\Domain\Model\User;
 interface Mailer
 {
     public function sendRegistrationEmail(User $user): void;
+
+    public function sendPasswordResetEmail(User $user, array $context): void;
 }

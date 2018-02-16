@@ -47,4 +47,22 @@ class DebugMailerTest extends TestCase
 
         $this->mailer->sendRegistrationEmail(new JohnDoeUser());
     }
+
+    /**
+     * @test
+     */
+    public function it_sends_password_reset_email()
+    {
+        $this->logger
+            ->expects($this->once())
+            ->method('debug')
+            ->with('Password reset email sent.', [
+                'email' => 'john.doe@domain.abc',
+                'mobile' => '123',
+                'token' => 'XYZ',
+            ])
+        ;
+
+        $this->mailer->sendPasswordResetEmail(new JohnDoeUser(), ['token' => 'XYZ']);
+    }
 }

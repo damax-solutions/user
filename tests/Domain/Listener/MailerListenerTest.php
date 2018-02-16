@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Tests\Domain\Listener;
 
+use Damax\User\Domain\Event\PasswordResetRequested;
 use Damax\User\Domain\Event\UserRegistered;
 use Damax\User\Domain\Listener\MailerListener;
 use Damax\User\Domain\Mailer\Mailer;
@@ -78,5 +79,47 @@ class MailerListenerTest extends TestCase
         ;
 
         $this->listener->onUserRegistered(new UserRegistered($userId, new DateTime()));
+    }
+
+    /**
+     * @test
+     */
+    public function it_skips_sending_password_reset_email_on_missing_user()
+    {
+        $userId = Uuid::fromString('ce08c4e8-d9eb-435b-9eab-edc252b450e1');
+
+        $this->users
+            ->expects($this->once())
+            ->method('byId')
+            ->with($this->identicalTo($userId))
+        ;
+        $this->mailer
+            ->expects($this->never())
+            ->method('sendPasswordResetEmail')
+        ;
+
+        $this->listener->onPasswordResetRequested(new PasswordResetRequested($userId, 'XYZ', new DateTime()));
+    }
+
+    /**
+     * @test
+     */
+    public function it_sends_password_reset_email()
+    {
+        $userId = Uuid::fromString('ce08c4e8-d9eb-435b-9eab-edc252b450e1');
+
+        $this->users
+            ->expects($this->once())
+            ->method('byId')
+            ->with($this->identicalTo($userId))
+            ->willReturn($user = new JohnDoeUser())
+        ;
+        $this->mailer
+            ->expects($this->once())
+            ->method('sendPasswordResetEmail')
+            ->with($this->identicalTo($user), ['token' => 'XYZ'])
+        ;
+
+        $this->listener->onPasswordResetRequested(new PasswordResetRequested($userId, 'XYZ', new DateTime()));
     }
 }

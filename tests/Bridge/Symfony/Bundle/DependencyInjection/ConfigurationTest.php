@@ -32,6 +32,7 @@ class ConfigurationTest extends TestCase
                 'sender_email' => 'no-reply@localhost',
                 'sender_name' => null,
                 'registration_template' => '@DamaxUser/Emails/registration.twig',
+                'password_reset_template' => '@DamaxUser/Emails/password_reset_request.twig',
             ],
         ]);
     }
@@ -51,7 +52,8 @@ class ConfigurationTest extends TestCase
                 'adapter' => 'debug',
                 'sender_email' => 'no-reply@domain.abc',
                 'sender_name' => 'Administrator',
-                'registration_template' => 'template.html',
+                'registration_template' => 'registration_template.html',
+                'password_reset_template' => 'password_reset_template.html',
             ],
         ];
 
@@ -65,7 +67,8 @@ class ConfigurationTest extends TestCase
                 'adapter' => 'debug',
                 'sender_email' => 'no-reply@domain.abc',
                 'sender_name' => 'Administrator',
-                'registration_template' => 'template.html',
+                'registration_template' => 'registration_template.html',
+                'password_reset_template' => 'password_reset_template.html',
             ],
         ]);
     }

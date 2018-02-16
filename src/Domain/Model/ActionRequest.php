@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Damax\User\Domain\Model;
 
+use Damax\User\Domain\Event\PasswordResetRequested;
 use Damax\User\Domain\TokenGenerator\TokenGenerator;
 use DateTimeImmutable;
 use DateTimeInterface;
+use SimpleBus\Message\Recorder\ContainsRecordedMessages;
+use SimpleBus\Message\Recorder\PrivateMessageRecorderCapabilities;
 
-class ActionRequest
+class ActionRequest implements ContainsRecordedMessages
 {
+    use PrivateMessageRecorderCapabilities;
+
     private const PASSWORD_RESET = 'password_reset';
     private const DEFAULT_TTL = 600;
 
@@ -66,5 +71,9 @@ class ActionRequest
         $this->type = $type;
         $this->createdAt = new DateTimeImmutable();
         $this->expiresAt = $this->createdAt->modify(sprintf('+%d seconds', $ttl));
+
+        if (self::PASSWORD_RESET === $this->type) {
+            $this->record(new PasswordResetRequested($user->id(), $token, $this->createdAt));
+        }
     }
 }

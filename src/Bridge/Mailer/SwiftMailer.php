@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Mailer;
 
+use Assert\Assert;
 use Damax\Common\Domain\Email\EmailRenderer;
+use Damax\Common\Domain\Email\Template;
 use Damax\User\Domain\Mailer\Mailer;
 use Damax\User\Domain\Model\User;
 use Damax\User\Domain\NameFormatter\NameFormatter;
@@ -30,6 +32,23 @@ class SwiftMailer implements Mailer
     {
         $template = $this->renderer->renderTemplate($this->options['registration_template'], ['user' => $user]);
 
+        $this->swift->send($this->buildMessage($user, $template));
+    }
+
+    public function sendPasswordResetEmail(User $user, array $context): void
+    {
+        Assert::that($context)->keyIsset('token');
+
+        $template = $this->renderer->renderTemplate($this->options['password_reset_template'], [
+            'user' => $user,
+            'token' => $context['token'],
+        ]);
+
+        $this->swift->send($this->buildMessage($user, $template));
+    }
+
+    private function buildMessage(User $user, Template $template): Swift_Message
+    {
         $message = (new Swift_Message())
             ->setTo($user->email()->email(), $this->nameFormatter->full($user->name()))
             ->setSubject($template->subject())
@@ -44,6 +63,6 @@ class SwiftMailer implements Mailer
             ;
         }
 
-        $this->swift->send($message);
+        return $message;
     }
 }
