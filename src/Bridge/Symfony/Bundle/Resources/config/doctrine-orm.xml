@@ -25,7 +25,7 @@
 
         <service id="Damax\User\Domain\Model\ActionRequestRepository" alias="Damax\User\Doctrine\Orm\ActionRequestRepository" />
 
-        <service id="Damax\Common\Domain\Transaction" alias="damax.common.transaction_manager.orm" />
+        <service id="Damax\Common\Domain\Transaction\TransactionManager" alias="damax.common.transaction_manager.orm" />
 
     </services>
 </container>
