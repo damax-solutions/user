@@ -67,16 +67,17 @@
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/damaxsolutions/damax-common.git",
-                "reference": "36cdc87b93832c9def6055680105be44c9d7e0aa"
+                "reference": "8581f126813b1f9c531b053201f7cff55a935b35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/damaxsolutions/damax-common/get/36cdc87b93832c9def6055680105be44c9d7e0aa.zip",
-                "reference": "36cdc87b93832c9def6055680105be44c9d7e0aa",
+                "url": "https://bitbucket.org/damaxsolutions/damax-common/get/8581f126813b1f9c531b053201f7cff55a935b35.zip",
+                "reference": "8581f126813b1f9c531b053201f7cff55a935b35",
                 "shasum": ""
             },
             "require-dev": {
                 "doctrine/inflector": "^1.3",
+                "doctrine/orm": "^2.6",
                 "friendsofphp/php-cs-fixer": "^2.10",
                 "matthiasnoback/symfony-dependency-injection-test": "^2.3",
                 "pagerfanta/pagerfanta": "^1.0",
@@ -110,9 +111,9 @@
             "description": "Common libraries.",
             "homepage": "https://bitbucket.org/damaxsolutions/damax-common",
             "support": {
-                "source": "https://bitbucket.org/damaxsolutions/damax-common/src/36cdc87b93832c9def6055680105be44c9d7e0aa/?at=master"
+                "source": "https://bitbucket.org/damaxsolutions/damax-common/src/8581f126813b1f9c531b053201f7cff55a935b35/?at=master"
             },
-            "time": "2018-02-15T15:05:45+00:00"
+            "time": "2018-02-16T15:06:39+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -1572,23 +1573,23 @@
         },
         {
             "name": "php-cs-fixer/diff",
-            "version": "v1.2.1",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/diff.git",
-                "reference": "b95b8c02c58670b15612cfc60873f3f7f5290484"
+                "reference": "78bb099e9c16361126c86ce82ec4405ebab8e756"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/diff/zipball/b95b8c02c58670b15612cfc60873f3f7f5290484",
-                "reference": "b95b8c02c58670b15612cfc60873f3f7f5290484",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/diff/zipball/78bb099e9c16361126c86ce82ec4405ebab8e756",
+                "reference": "78bb099e9c16361126c86ce82ec4405ebab8e756",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.6 || ^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.4.3",
+                "phpunit/phpunit": "^5.7.23 || ^6.4.3",
                 "symfony/process": "^3.3"
             },
             "type": "library",
@@ -1619,7 +1620,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2017-10-21T10:28:17+00:00"
+            "time": "2018-02-15T16:58:55+00:00"
         },
         {
             "name": "psr/container",

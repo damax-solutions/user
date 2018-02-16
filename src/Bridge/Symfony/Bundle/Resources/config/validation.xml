@@ -16,6 +16,13 @@
         </property>
     </class>
 
+    <class name="Damax\User\Application\Command\ResetPassword">
+        <property name="newPassword">
+            <constraint name="NotBlank" />
+            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Password" />
+        </property>
+    </class>
+
     <class name="Damax\User\Application\Command\RegisterUser">
         <property name="email">
             <constraint name="NotBlank" />

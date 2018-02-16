@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Damax\User\Domain\Model;
 
 use Damax\User\Domain\Event\UserRegistered;
+use Damax\User\Domain\TokenGenerator\TokenGenerator;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -199,6 +200,11 @@ class User implements ContainsRecordedMessages
     public function loggedInOn(DateTimeInterface $loginAt)
     {
         $this->lastLoginAt = $loginAt;
+    }
+
+    public function requestPasswordReset(TokenGenerator $generator): ActionRequest
+    {
+        return ActionRequest::resetPassword($generator, $this);
     }
 
     public function sameIdentityAs(self $user): bool

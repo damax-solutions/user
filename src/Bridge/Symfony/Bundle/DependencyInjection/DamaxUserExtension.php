@@ -8,6 +8,7 @@ use Damax\User\Bridge\Mailer\SwiftMailer;
 use Damax\User\Domain\Configuration as UserConfiguration;
 use Damax\User\Domain\Mailer\DebugMailer;
 use Damax\User\Domain\Mailer\Mailer;
+use Damax\User\Domain\Model\ActionRequest;
 use Damax\User\Domain\Model\Locale;
 use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\Permission;
@@ -50,6 +51,7 @@ class DamaxUserExtension extends ConfigurableExtension
         $container->setParameter('damax.user.login_history_class', LoginHistory::class);
         $container->setParameter('damax.user.permission_class', Permission::class);
         $container->setParameter('damax.user.role_class', Role::class);
+        $container->setParameter('damax.user.action_request_class', ActionRequest::class);
 
         $this
             ->configureNameFormatter($config, $container)

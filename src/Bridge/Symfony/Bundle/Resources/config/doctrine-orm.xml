@@ -10,6 +10,7 @@
             <bind key="$loginHistoryClassName">%damax.user.login_history_class%</bind>
             <bind key="$permissionClassName">%damax.user.permission_class%</bind>
             <bind key="$roleClassName">%damax.user.role_class%</bind>
+            <bind key="$actionRequestClassName">%damax.user.action_request_class%</bind>
         </defaults>
 
         <prototype namespace="Damax\User\Doctrine\Orm\" resource="../../../../../Doctrine/Orm" />
@@ -21,6 +22,10 @@
         <service id="Damax\User\Domain\Model\PermissionRepository" alias="Damax\User\Doctrine\Orm\PermissionRepository" />
 
         <service id="Damax\User\Domain\Model\RoleRepository" alias="Damax\User\Doctrine\Orm\RoleRepository" />
+
+        <service id="Damax\User\Domain\Model\ActionRequestRepository" alias="Damax\User\Doctrine\Orm\ActionRequestRepository" />
+
+        <service id="Damax\Common\Domain\Transaction" alias="damax.common.transaction_manager.orm" />
 
     </services>
 </container>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity table="user_action_request" name="Damax\User\Domain\Model\ActionRequest" change-tracking-policy="DEFERRED_EXPLICIT">
+        <id name="token" type="string" length="40">
+            <generator strategy="NONE" />
+        </id>
+
+        <field name="type" length="32" />
+        <field name="createdAt" type="datetimetz" />
+        <field name="expiresAt" type="datetimetz" />
+
+        <many-to-one field="user" target-entity="User">
+            <join-column nullable="false" on-delete="CASCADE" />
+        </many-to-one>
+    </entity>
+
+</doctrine-mapping>
