@@ -4,8 +4,8 @@
 <p>You have been registered with the following details:</p>
 <ul>
     <li>Email: {{ user.email }}</li>
-    <li>Mobile: {{ user.mobile }}</li>
-    <li>Full name: {{ user.name | user_format_name }}</li>
+    <li>Mobile: {{ user.mobilePhone }}</li>
+    <li>Full name: {{ user.name | user_format_name | default('-') }}</li>
 </ul>
 {% endblock %}
 
@@ -13,6 +13,6 @@
 You have been registered with the following details:
 
 Email: {{ user.email }}
-Mobile: {{ user.mobile }}
+Mobile: {{ user.mobilePhone }}
 Full name: {{ user.name | user_format_name }}
 {% endblock %}
