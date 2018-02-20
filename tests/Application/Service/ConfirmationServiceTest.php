@@ -79,6 +79,31 @@ class ConfirmationServiceTest extends TestCase
     /**
      * @test
      */
+    public function it_skips_email_confirmation_request_for_already_confirmed_email()
+    {
+        $command = new RequestEmailConfirmation();
+        $command->userId = 'john.doe@domain.abc';
+
+        $user = new JohnDoeUser();
+        $user->confirmEmail();
+
+        $this->users
+            ->expects($this->once())
+            ->method('byEmail')
+            ->with('john.doe@domain.abc')
+            ->willReturn($user)
+        ;
+        $this->requests
+            ->expects($this->never())
+            ->method('save')
+        ;
+
+        $this->service->requestEmailConfirmation($command);
+    }
+
+    /**
+     * @test
+     */
     public function it_throws_exception_when_confirming_email_for_missing_request()
     {
         $command = new ConfirmEmail();
@@ -108,7 +133,7 @@ class ConfirmationServiceTest extends TestCase
         $command->token = 'xyz';
 
         $user = new JohnDoeUser();
-        $request = ActionRequest::resetPassword(new FixedTokenGenerator('xyz'), $user, -1);
+        $request = ActionRequest::emailConfirmation(new FixedTokenGenerator('xyz'), $user, -1);
 
         $this->requests
             ->expects($this->once())

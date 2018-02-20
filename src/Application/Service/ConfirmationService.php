@@ -34,6 +34,10 @@ class ConfirmationService
     {
         $user = $this->getUser($command->userId);
 
+        if ($user->email()->confirmed()) {
+            return;
+        }
+
         $this->requests->save(ActionRequest::emailConfirmation($this->tokenGenerator, $user));
     }
 

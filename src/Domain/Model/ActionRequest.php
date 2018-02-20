@@ -72,7 +72,7 @@ class ActionRequest implements ContainsRecordedMessages
 
     public function activeEmailConfirmation(): bool
     {
-        return self::EMAIL_CONFIRMATION === $this->type;
+        return self::EMAIL_CONFIRMATION === $this->type && !$this->expired();
     }
 
     private function __construct(string $token, User $user, string $type, int $ttl)
