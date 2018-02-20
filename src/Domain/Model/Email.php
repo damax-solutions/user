@@ -7,7 +7,7 @@ namespace Damax\User\Domain\Model;
 final class Email
 {
     private $email;
-    private $verified = false;
+    private $confirmed = false;
 
     public static function fromString(string $email): self
     {
@@ -19,15 +19,15 @@ final class Email
         return $this->email;
     }
 
-    public function verified(): bool
+    public function confirmed(): bool
     {
-        return $this->verified;
+        return $this->confirmed;
     }
 
-    public function verify(): self
+    public function confirm(): self
     {
         $email = clone $this;
-        $email->verified = true;
+        $email->confirmed = true;
 
         return $email;
     }
@@ -39,7 +39,7 @@ final class Email
 
     public function sameAs(self $email): bool
     {
-        return $this->email === $email->email && $this->verified === $email->verified;
+        return $this->email === $email->email && $this->confirmed === $email->confirmed;
     }
 
     private function __construct(string $email)

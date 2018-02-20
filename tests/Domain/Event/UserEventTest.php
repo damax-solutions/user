@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Damax\User\Tests\Domain\Event;
 
-use Damax\User\Domain\Event\LoginRecorded;
+use Damax\User\Domain\Event\UserEvent;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-class LoginRecordedTest extends TestCase
+class UserEventTest extends TestCase
 {
     /**
      * @test
@@ -18,9 +18,10 @@ class LoginRecordedTest extends TestCase
     {
         $userId = Uuid::fromString('ce08c4e8-d9eb-435b-9eab-edc252b450e1');
 
-        $event = new LoginRecorded($userId, '192.168.1.100', 'Chrome', new DateTime());
+        $event = new class($userId, $occurredOn = new DateTime()) extends UserEvent {
+        };
 
-        $this->assertEquals('192.168.1.100', $event->clientIp());
-        $this->assertEquals('Chrome', $event->userAgent());
+        $this->assertSame($userId, $event->userId());
+        $this->assertSame($occurredOn, $event->occurredOn());
     }
 }

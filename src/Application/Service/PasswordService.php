@@ -10,6 +10,7 @@ use Damax\User\Application\Command\RequestPasswordReset;
 use Damax\User\Application\Command\ResetPassword;
 use Damax\User\Application\Exception\ActionRequestExpired;
 use Damax\User\Application\Exception\ActionRequestNotFound;
+use Damax\User\Domain\Model\ActionRequest;
 use Damax\User\Domain\Model\ActionRequestRepository;
 use Damax\User\Domain\Model\UserRepository;
 use Damax\User\Domain\Password\Encoder;
@@ -50,9 +51,9 @@ class PasswordService
 
     public function requestPasswordReset(RequestPasswordReset $command): void
     {
-        $request = $this->getUser($command->userId)->requestPasswordReset($this->tokenGenerator);
+        $user = $this->getUser($command->userId);
 
-        $this->requests->save($request);
+        $this->requests->save(ActionRequest::resetPassword($this->tokenGenerator, $user));
     }
 
     /**

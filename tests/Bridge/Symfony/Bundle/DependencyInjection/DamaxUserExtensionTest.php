@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Damax\User\Tests\Bridge\Symfony\Bundle\DependencyInjection;
 
+use Damax\User\Bridge\Mailer\SwiftMailer;
 use Damax\User\Bridge\Symfony\Bundle\DependencyInjection\DamaxUserExtension;
 use Damax\User\Domain\Configuration;
-use Damax\User\Domain\Mailer\DebugMailer;
 use Damax\User\Domain\Mailer\Mailer;
 use Damax\User\Domain\Model\Locale;
 use Damax\User\Domain\Model\Timezone;
@@ -27,7 +27,7 @@ class DamaxUserExtensionTest extends AbstractExtensionTestCase
             'invalidate_password' => false,
             'name_formatter' => 'james_bond',
             'mailer' => [
-                'adapter' => 'debug',
+                'adapter' => 'swift',
             ],
         ]);
 
@@ -43,7 +43,7 @@ class DamaxUserExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('damax.user.login_history_class');
 
         $this->assertContainerBuilderHasAlias(NameFormatter::class, JamesBondNameFormatter::class);
-        $this->assertContainerBuilderHasAlias(Mailer::class, DebugMailer::class);
+        $this->assertContainerBuilderHasAlias(Mailer::class, SwiftMailer::class);
     }
 
     protected function getContainerExtensions(): array

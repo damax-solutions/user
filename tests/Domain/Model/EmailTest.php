@@ -24,15 +24,15 @@ class EmailTest extends TestCase
     /**
      * @test
      */
-    public function it_verifies_email()
+    public function it_confirms_email()
     {
         $email = Email::fromString('john.doe@domain.abc');
-        $this->assertFalse($email->verified());
+        $this->assertFalse($email->confirmed());
 
-        $verified = $email->verify();
-        $this->assertTrue($verified->verified());
+        $confirmed = $email->confirm();
+        $this->assertTrue($confirmed->confirmed());
 
-        $this->assertNotSame($email, $verified);
+        $this->assertNotSame($email, $confirmed);
     }
 
     /**

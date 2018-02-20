@@ -5,7 +5,7 @@
 
     <embeddable name="Damax\User\Domain\Model\MobilePhone">
         <field name="number" type="bigint" />
-        <field name="verified" type="boolean" />
+        <field name="confirmed" type="boolean" />
     </embeddable>
 
 </doctrine-mapping>

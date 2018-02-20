@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Damax\User\Domain\Model;
 
-use Damax\User\Domain\Event\PasswordResetRequested;
 use Damax\User\Domain\TokenGenerator\TokenGenerator;
 use DateTimeImmutable;
 use DateTimeInterface;
+use Doctrine\Common\Inflector\Inflector;
 use SimpleBus\Message\Recorder\ContainsRecordedMessages;
 use SimpleBus\Message\Recorder\PrivateMessageRecorderCapabilities;
 
@@ -16,6 +16,7 @@ class ActionRequest implements ContainsRecordedMessages
     use PrivateMessageRecorderCapabilities;
 
     private const PASSWORD_RESET = 'password_reset';
+    private const EMAIL_CONFIRMATION = 'email_confirmation';
     private const DEFAULT_TTL = 600;
 
     private $token;
@@ -27,6 +28,11 @@ class ActionRequest implements ContainsRecordedMessages
     public static function resetPassword(TokenGenerator $generator, User $user, int $ttl = self::DEFAULT_TTL): self
     {
         return new self($generator->generateToken(), $user, self::PASSWORD_RESET, $ttl);
+    }
+
+    public static function emailConfirmation(TokenGenerator $generator, User $user, int $ttl = self::DEFAULT_TTL): self
+    {
+        return new self($generator->generateToken(), $user, self::EMAIL_CONFIRMATION, $ttl);
     }
 
     public function token(): string
@@ -64,6 +70,11 @@ class ActionRequest implements ContainsRecordedMessages
         return self::PASSWORD_RESET === $this->type && !$this->expired();
     }
 
+    public function activeEmailConfirmation(): bool
+    {
+        return self::EMAIL_CONFIRMATION === $this->type;
+    }
+
     private function __construct(string $token, User $user, string $type, int $ttl)
     {
         $this->token = $token;
@@ -72,8 +83,8 @@ class ActionRequest implements ContainsRecordedMessages
         $this->createdAt = new DateTimeImmutable();
         $this->expiresAt = $this->createdAt->modify(sprintf('+%d seconds', $ttl));
 
-        if (self::PASSWORD_RESET === $this->type) {
-            $this->record(new PasswordResetRequested($user->id(), $token, $this->createdAt));
-        }
+        $eventClass = 'Damax\\User\\Domain\\Event\\' . Inflector::classify($type) . 'Requested';
+
+        $this->record(new $eventClass($user->id(), $token, $this->createdAt));
     }
 }

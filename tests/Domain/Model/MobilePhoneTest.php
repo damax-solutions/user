@@ -24,15 +24,15 @@ class MobilePhoneTest extends TestCase
     /**
      * @test
      */
-    public function it_verifies_mobile_phone()
+    public function it_confirms_mobile_phone()
     {
         $mobile = MobilePhone::fromNumber(123);
-        $this->assertFalse($mobile->verified());
+        $this->assertFalse($mobile->confirmed());
 
-        $verified = $mobile->verify();
-        $this->assertTrue($verified->verified());
+        $confirmed = $mobile->confirm();
+        $this->assertTrue($confirmed->confirmed());
 
-        $this->assertNotSame($mobile, $verified);
+        $this->assertNotSame($mobile, $confirmed);
     }
 
     /**

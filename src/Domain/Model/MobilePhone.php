@@ -7,7 +7,7 @@ namespace Damax\User\Domain\Model;
 final class MobilePhone
 {
     private $number;
-    private $verified = false;
+    private $confirmed = false;
 
     public static function fromString($number): self
     {
@@ -24,15 +24,15 @@ final class MobilePhone
         return $this->number;
     }
 
-    public function verified(): bool
+    public function confirmed(): bool
     {
-        return $this->verified;
+        return $this->confirmed;
     }
 
-    public function verify(): self
+    public function confirm(): self
     {
         $mobilePhone = clone $this;
-        $mobilePhone->verified = true;
+        $mobilePhone->confirmed = true;
 
         return $mobilePhone;
     }
@@ -44,7 +44,7 @@ final class MobilePhone
 
     public function sameAs(self $mobilePhone): bool
     {
-        return $this->number === $mobilePhone->number && $this->verified === $mobilePhone->verified;
+        return $this->number === $mobilePhone->number && $this->confirmed === $mobilePhone->confirmed;
     }
 
     private function __construct(int $number)

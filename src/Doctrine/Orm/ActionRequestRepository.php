@@ -7,6 +7,7 @@ namespace Damax\User\Doctrine\Orm;
 use Damax\User\Domain\Model\ActionRequest;
 use Damax\User\Domain\Model\ActionRequestRepository as ActionRequestRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Ramsey\Uuid\UuidInterface;
 
 class ActionRequestRepository implements ActionRequestRepositoryInterface
 {
@@ -24,6 +25,17 @@ class ActionRequestRepository implements ActionRequestRepositoryInterface
         $request = $this->em->find($this->className, $token);
 
         return $request;
+    }
+
+    public function byUserId(UuidInterface $userId): array
+    {
+        return $this
+            ->createQueryBuilder('r')
+            ->where('IDENTITY(r.user) = :user_id')
+            ->setParameter('user_id', $userId)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     public function save(ActionRequest $request): void
