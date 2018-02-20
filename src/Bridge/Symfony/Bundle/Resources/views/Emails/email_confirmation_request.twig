@@ -1,0 +1,12 @@
+{% block subject %}Confirming your email{% endblock %}
+
+{% block html %}
+<p>Please confirm your email address by clicking on the link below.</p>
+<p><a href="{{ url('confirmation_email', { token: token }) }}">Confirm email</a></p>
+{% endblock %}
+
+{% block text %}
+Please confirm your email address by clicking on the link below.
+
+{{ url('confirmation_email', { token: token }) }}
+{% endblock %}

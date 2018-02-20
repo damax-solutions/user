@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Domain\Listener;
 
+use Damax\User\Domain\Event\EmailConfirmationRequested;
 use Damax\User\Domain\Event\PasswordResetRequested;
 use Damax\User\Domain\Event\UserRegistered;
 use Damax\User\Domain\Mailer\Mailer;
@@ -36,5 +37,14 @@ class MailerListener
         }
 
         $this->mailer->sendPasswordResetEmail($user, ['token' => $event->token()]);
+    }
+
+    public function onEmailConfirmationRequested(EmailConfirmationRequested $event)
+    {
+        if (null === $user = $this->users->byId($event->userId())) {
+            return;
+        }
+
+        $this->mailer->sendEmailConfirmationEmail($user, ['token' => $event->token()]);
     }
 }

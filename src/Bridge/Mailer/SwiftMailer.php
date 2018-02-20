@@ -47,6 +47,18 @@ class SwiftMailer implements Mailer
         $this->swift->send($this->buildMessage($user, $template));
     }
 
+    public function sendEmailConfirmationEmail(User $user, array $context): void
+    {
+        Assert::that($context)->keyIsset('token');
+
+        $template = $this->renderer->renderTemplate($this->options['email_confirmation_template'], [
+            'user' => $user,
+            'token' => $context['token'],
+        ]);
+
+        $this->swift->send($this->buildMessage($user, $template));
+    }
+
     private function buildMessage(User $user, Template $template): Swift_Message
     {
         $message = (new Swift_Message())

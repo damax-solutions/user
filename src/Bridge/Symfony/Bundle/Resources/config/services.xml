@@ -54,6 +54,7 @@
         <service id="Damax\User\Domain\Listener\MailerListener" public="true">
             <tag name="event_subscriber" subscribes_to="Damax\User\Domain\Event\UserRegistered" method="onUserRegistered" />
             <tag name="event_subscriber" subscribes_to="Damax\User\Domain\Event\PasswordResetRequested" method="onPasswordResetRequested" />
+            <tag name="event_subscriber" subscribes_to="Damax\User\Domain\Event\EmailConfirmationRequested" method="onEmailConfirmationRequested" />
         </service>
 
         <!-- Mailer -->

@@ -38,4 +38,15 @@ class DebugMailer implements Mailer
             'token' => $context['token'],
         ]);
     }
+
+    public function sendEmailConfirmationEmail(User $user, array $context): void
+    {
+        Assert::that($context)->keyIsset('token');
+
+        $this->logger->debug('Email confirmation email sent.', [
+            'email' => (string) $user->email(),
+            'mobile' => (string) $user->mobilePhone(),
+            'token' => $context['token'],
+        ]);
+    }
 }

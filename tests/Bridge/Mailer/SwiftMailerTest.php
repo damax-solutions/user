@@ -38,6 +38,7 @@ class SwiftMailerTest extends TestCase
         $this->mailer = new SwiftMailer($this->swift, $this->renderer, new JamesBondNameFormatter(), [
             'registration_template' => 'registration_template.twig',
             'password_reset_template' => 'password_reset_template.twig',
+            'email_confirmation_template' => 'email_confirmation_template.twig',
             'sender_email' => 'jane.doe@domain.abc',
             'sender_name' => 'Jane Doe',
         ]);
@@ -100,6 +101,38 @@ class SwiftMailerTest extends TestCase
         ;
 
         $this->mailer->sendPasswordResetEmail($user, ['token' => 'XYZ']);
+
+        $this->assertEquals(['jane.doe@domain.abc' => 'Jane Doe'], $message->getFrom());
+        $this->assertEquals(['john.doe@domain.abc' => 'Doe, John Doe'], $message->getTo());
+        $this->assertEquals('HTML body', $message->getBody());
+        $this->assertEquals('Subject', $message->getSubject());
+    }
+
+    /**
+     * @test
+     */
+    public function it_sends_email_confirmation_email()
+    {
+        $user = new JohnDoeUser();
+
+        /** @var Swift_Message $message */
+        $message = null;
+
+        $this->renderer
+            ->expects($this->once())
+            ->method('renderTemplate')
+            ->with('email_confirmation_template.twig', $this->identicalTo(['user' => $user, 'token' => 'XYZ']))
+            ->willReturn(new Template('Subject', 'Text body', 'HTML body'))
+        ;
+        $this->swift
+            ->expects($this->once())
+            ->method('send')
+            ->willReturnCallback(function (Swift_Message $msg) use (&$message) {
+                $message = $msg;
+            })
+        ;
+
+        $this->mailer->sendEmailConfirmationEmail($user, ['token' => 'XYZ']);
 
         $this->assertEquals(['jane.doe@domain.abc' => 'Jane Doe'], $message->getFrom());
         $this->assertEquals(['john.doe@domain.abc' => 'Doe, John Doe'], $message->getTo());

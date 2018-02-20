@@ -11,4 +11,6 @@ interface Mailer
     public function sendRegistrationEmail(User $user): void;
 
     public function sendPasswordResetEmail(User $user, array $context): void;
+
+    public function sendEmailConfirmationEmail(User $user, array $context): void;
 }
