@@ -26,9 +26,11 @@
     "symfony/intl": "^4.0"
   },
   "require-dev": {
+    "damax/api-auth-bundle": "^0.1.0",
     "doctrine/data-fixtures": "^1.3",
     "doctrine/orm": "^2.6",
     "friendsofphp/php-cs-fixer": "^2.10",
+    "lcobucci/jwt": "4.*@dev",
     "matthiasnoback/symfony-config-test": "^3.1",
     "matthiasnoback/symfony-dependency-injection-test": "^2.3",
     "symfony/config": "^4.0",
@@ -51,6 +53,10 @@
     "damax-common": {
       "type": "vcs",
       "url": "https://bitbucket.org/damaxsolutions/damax-common"
+    },
+    "damax-api-auth-bundle": {
+      "type": "vcs",
+      "url": "https://bitbucket.org/damaxsolutions/damax-api-auth-bundle"
     }
   }
 }
