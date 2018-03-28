@@ -2,17 +2,12 @@
   "name": "damax/user",
   "type": "library",
   "description": "User authentication and management.",
-  "license": [ "MIT" ],
+  "license": "MIT",
   "autoload": {
     "psr-4": { "Damax\\User\\": "src/" }
   },
   "autoload-dev": {
     "psr-4": { "Damax\\User\\Tests\\": "tests/" }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "0.1.x-dev"
-    }
   },
   "require": {
     "php": ">=7.1",
@@ -49,14 +44,15 @@
   "config": {
     "sort-packages": true
   },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1.x-dev"
+    }
+  },
   "repositories": {
     "damax-common": {
       "type": "vcs",
       "url": "https://bitbucket.org/damaxsolutions/damax-common"
-    },
-    "damax-api-auth-bundle": {
-      "type": "vcs",
-      "url": "https://bitbucket.org/damaxsolutions/damax-api-auth-bundle"
     }
   }
 }
