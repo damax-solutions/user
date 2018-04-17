@@ -17,9 +17,18 @@
     </class>
 
     <class name="Damax\User\Application\Command\ResetPassword">
+        <property name="token">
+            <constraint name="NotBlank" />
+        </property>
         <property name="newPassword">
             <constraint name="NotBlank" />
             <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Password" />
+        </property>
+    </class>
+
+    <class name="Damax\User\Application\Command\ConfirmEmail">
+        <property name="token">
+            <constraint name="NotBlank" />
         </property>
     </class>
 

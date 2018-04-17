@@ -5,6 +5,6 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="confirmation_email" path="/confirm-email/{token}" methods="GET" />
+    <route id="confirmation_email" path="/confirmation/email/{token}" methods="GET" />
 
 </routes>

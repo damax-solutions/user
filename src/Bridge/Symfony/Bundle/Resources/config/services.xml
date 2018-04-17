@@ -9,6 +9,10 @@
             <bind key="$mailerOptions">%damax.user.mailer_options%</bind>
         </defaults>
 
+        <prototype namespace="Damax\User\Bridge\Symfony\Bundle\Controller\" resource="../../Controller">
+            <tag name="controller.service_arguments" />
+        </prototype>
+
         <!-- Commands -->
 
         <prototype namespace="Damax\User\Bridge\Symfony\Console\Command\" resource="../../../Console/Command" />
