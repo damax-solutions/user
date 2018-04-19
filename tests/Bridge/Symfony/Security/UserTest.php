@@ -28,7 +28,7 @@ class UserTest extends TestCase
     {
         $this->assertEquals('abc', $this->user->getId());
         $this->assertEquals('123', $this->user->getUsername());
-        $this->assertEquals(['ROLE_ADMIN', 'ROLE_USER'], $this->user->getRoles());
+        $this->assertEquals(['ROLE_ADMIN', 'ROLE_MEMBER'], $this->user->getRoles());
         $this->assertEquals('qwerty', $this->user->getPassword());
         $this->assertEquals('XYZ', $this->user->getSalt());
         $this->assertTrue($this->user->isAccountNonExpired());

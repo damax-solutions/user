@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 final class User implements AdvancedUserInterface, EquatableInterface, Serializable
 {
-    private const DEFAULT_ROLES = ['ROLE_USER'];
+    private const DEFAULT_ROLES = ['ROLE_MEMBER'];
 
     private $id;
     private $username;
