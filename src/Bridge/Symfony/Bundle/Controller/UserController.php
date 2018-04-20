@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller;
 
+use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Service\UserService;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,8 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController
 {
     /**
-     * @Method("POST")
+     * @Method("GET")
      * @Route("")
+     * @Serialize()
      */
     public function listAction(Request $request, UserService $service): Pagerfanta
     {
