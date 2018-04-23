@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Dto;
 
-use DateTimeInterface;
+use DateTime;
 
 class UserDto
 {
@@ -44,12 +44,12 @@ class UserDto
     public $locale;
 
     /**
-     * @var DateTimeInterface
+     * @var DateTime
      */
     public $createdAt;
 
     /**
-     * @var DateTimeInterface
+     * @var DateTime
      */
     public $updatedAt;
 
@@ -59,7 +59,7 @@ class UserDto
     public $enabled;
 
     /**
-     * @var DateTimeInterface
+     * @var DateTime
      */
     public $lastLoginAt;
 }

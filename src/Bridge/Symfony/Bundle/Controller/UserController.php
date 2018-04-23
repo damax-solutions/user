@@ -35,7 +35,7 @@ class UserController
      *     @OpenApi\Response(
      *         response=200,
      *         description="Users list.",
-     *         @OpenApi\Schema(type="array", @OpenApi\Items(ref=@Model(type=UserDto::class, groups={"registration"})))
+     *         @OpenApi\Schema(type="array", @OpenApi\Items(ref=@Model(type=UserDto::class)))
      *     )
      * )
      *
