@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Bridge\Symfony\Bundle\Controller;
+namespace Damax\User\Bridge\Symfony\Bundle\Controller\Api;
 
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Command;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
