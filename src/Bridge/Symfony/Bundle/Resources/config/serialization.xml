@@ -21,4 +21,16 @@
         </attribute>
     </class>
 
+    <class name="Damax\User\Application\Command\RegisterUser">
+        <attribute name="email">
+            <group>registration</group>
+        </attribute>
+        <attribute name="mobilePhone">
+            <group>registration</group>
+        </attribute>
+        <attribute name="password">
+            <group>registration</group>
+        </attribute>
+    </class>
+
 </serializer>

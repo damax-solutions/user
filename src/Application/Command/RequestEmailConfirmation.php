@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Command;
 
-class RequestEmailConfirmation extends UserCommand
+class RequestEmailConfirmation
 {
+    /**
+     * @var string
+     */
+    public $userId;
 }
