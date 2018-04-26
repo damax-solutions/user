@@ -6,6 +6,21 @@ label:
     mobile_phone: Mobile phone
     password: Password
 
+button:
+    registration: Sign up
+    forgot_password: Forgot password
+    login: Login
+
+security:
+    header:
+        login: Login
+    message:
+        login: Please login to proceed.
+    label:
+        email: E-mail
+        password: Password
+        remember_me: Remember me
+
 permission:
     label:
         code: Code

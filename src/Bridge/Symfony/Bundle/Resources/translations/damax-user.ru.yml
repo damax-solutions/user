@@ -6,6 +6,21 @@ label:
     mobile_phone: Мобильный телефон
     password: Пароль
 
+button:
+    registration: Регистрация
+    forgot_password: Забыли пароль?
+    login: Войти
+
+security:
+    header:
+        login: Вход
+    message:
+        login: Введите Ваш логин и пароль.
+    label:
+        email: Эл. почта
+        password: Пароль
+        remember_me: Запомнить меня
+
 permission:
     label:
         code: Код
