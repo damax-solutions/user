@@ -36,9 +36,11 @@
         <property name="email">
             <constraint name="NotBlank" />
             <constraint name="Email" />
+            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\UniqueEmail" />
         </property>
         <property name="mobilePhone">
             <constraint name="NotBlank" />
+            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\UniqueMobilePhone" />
         </property>
         <property name="password">
             <constraint name="NotBlank" />

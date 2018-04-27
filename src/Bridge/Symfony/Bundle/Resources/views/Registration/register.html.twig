@@ -1,0 +1,52 @@
+{% trans_default_domain 'damax-user' %}
+
+{% set title = 'registration.header.register' | trans %}
+
+{% import _self as helpers %}
+
+{% extends '@DamaxUser/layout.html.twig' %}
+
+{% block content %}
+    <form class="box" method="post" action="{{ path('registration') }}">
+        <div class="field">
+            <div class="control">
+                {{ form_widget(form.email, { attr: { class: 'input is-large', placeholder: 'label.email' | trans } }) }}
+            </div>
+            {{ helpers.formError(form.email) }}
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form_widget(form.mobilePhone, { attr: { class: 'input is-large', placeholder: 'label.mobile_phone' | trans } }) }}
+            </div>
+            {{ helpers.formError(form.mobilePhone) }}
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form_widget(form.password.first, { attr: { class: 'input is-large', placeholder: 'label.password' | trans } }) }}
+            </div>
+            {{ helpers.formError(form.password.first) }}
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form_widget(form.password.second, { attr: { class: 'input is-large', placeholder: 'label.repeat_password' | trans } }) }}
+            </div>
+            {{ helpers.formError(form.password.second) }}
+        </div>
+
+        {{ form_rest(form) }}
+
+        <button class="button is-info is-large is-fullwidth">{{ 'button.register' | trans }}</button>
+    </form>
+
+    <p class="has-text-grey">
+        <a href="{{ path('security_login') }}">{{ 'button.login' | trans }}</a>
+    </p>
+{% endblock %}
+
+{% macro formError(field) %}
+{% spaceless %}
+    {% for error in field.vars.errors %}
+        <p class="help is-danger has-text-left">{{ error.message }}</p>
+    {% endfor %}
+{% endspaceless %}
+{% endmacro %}

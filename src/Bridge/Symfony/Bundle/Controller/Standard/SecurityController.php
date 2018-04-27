@@ -19,12 +19,10 @@ class SecurityController
      */
     public function loginAction(Twig_Environment $twig, AuthenticationUtils $utils): Response
     {
-        $template = $twig->render('@DamaxUser/Security/login.html.twig', [
+        return Response::create($twig->render('@DamaxUser/Security/login.html.twig', [
             'error' => $utils->getLastAuthenticationError(),
             'last_username' => $utils->getLastUsername(),
-        ]);
-
-        return Response::create($template);
+        ]));
     }
 
     /**

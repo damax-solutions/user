@@ -1,65 +1,52 @@
 {% trans_default_domain 'damax-user' %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ 'security.header.login' | trans }}</title>
+{% set title = 'security.header.login' | trans %}
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
-</head>
-<body>
-    <section class="hero is-light is-fullheight">
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <div class="column is-6 is-offset-3">
-                    <h3 class="title has-text-grey">{{ 'security.header.login' | trans }}</h3>
-                    <p class="subtitle has-text-grey">{{ 'security.message.login' | trans }}</p>
+{% extends '@DamaxUser/layout.html.twig' %}
 
-                    {% if error %}
-                        <div class="notification is-danger">{{ error.messageKey | trans(error.messageData, 'security') }}</div>
-                    {% endif %}
+{% block content %}
+    <p class="subtitle has-text-grey">{{ 'security.message.login' | trans }}</p>
 
-                    <form class="box" method="post" action="{{ path('security_check') }}">
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    {% for message in app.flashes('success') %}
+        <div class="notification is-success">{{ message }}</div>
+    {% endfor %}
 
-                        <div class="field">
-                            <div class="control">
-                                <input class="input is-large"
-                                       type="email"
-                                       name="_username"
-                                       value="{{ last_username }}"
-                                       placeholder="{{ 'security.label.email' | trans }}"
-                                       required autofocus>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="control">
-                                <input class="input is-large"
-                                       type="password"
-                                       name="_password"
-                                       placeholder="{{ 'security.label.password' | trans }}"
-                                       required>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="checkbox">
-                                <input type="checkbox" name="_remember_me"> {{ 'security.label.remember_me' | trans }}
-                            </label>
-                        </div>
+    {% if error %}
+        <div class="notification is-danger">{{ error.messageKey | trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-                        <button class="button is-info is-large is-fullwidth">{{ 'button.login' | trans }}</button>
-                    </form>
+    <form class="box" method="post" action="{{ path('security_check') }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                    <p class="has-text-grey">
-                        <a href="../">{{ 'button.registration' | trans }}</a> &nbsp;·&nbsp; <a href="../">{{ 'button.forgot_password' | trans }}</a>
-                    </p>
-                </div>
+        <div class="field">
+            <div class="control">
+                <input class="input is-large"
+                       type="email"
+                       name="_username"
+                       value="{{ last_username }}"
+                       placeholder="{{ 'security.label.email' | trans }}"
+                       required autofocus>
             </div>
         </div>
-    </section>
-</body>
-</html>
+        <div class="field">
+            <div class="control">
+                <input class="input is-large"
+                       type="password"
+                       name="_password"
+                       placeholder="{{ 'security.label.password' | trans }}"
+                       required>
+            </div>
+        </div>
+        <div class="field">
+            <label class="checkbox">
+                <input type="checkbox" name="_remember_me"> {{ 'security.label.remember_me' | trans }}
+            </label>
+        </div>
+
+        <button class="button is-info is-large is-fullwidth">{{ 'button.login' | trans }}</button>
+    </form>
+
+    <p class="has-text-grey">
+        <a href="{{ path('registration') }}">{{ 'button.registration' | trans }}</a> &nbsp;·&nbsp; <a href="../">{{ 'button.forgot_password' | trans }}</a>
+    </p>
+{% endblock %}

@@ -5,11 +5,13 @@ label:
     email: Эл. почта
     mobile_phone: Мобильный телефон
     password: Пароль
+    repeat_password: Повторить пароль
 
 button:
     registration: Регистрация
     forgot_password: Забыли пароль?
     login: Войти
+    register: Зарегистрироваться
 
 security:
     header:
@@ -20,6 +22,12 @@ security:
         email: Эл. почта
         password: Пароль
         remember_me: Запомнить меня
+
+registration:
+    header:
+        register: Регистрация
+    message:
+        completed: Регистрация завершена.
 
 permission:
     label:

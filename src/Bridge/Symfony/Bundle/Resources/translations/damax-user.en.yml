@@ -5,11 +5,13 @@ label:
     email: Email
     mobile_phone: Mobile phone
     password: Password
+    repeat_password: Repeat password
 
 button:
     registration: Sign up
     forgot_password: Forgot password
     login: Login
+    register: Register
 
 security:
     header:
@@ -20,6 +22,12 @@ security:
         email: E-mail
         password: Password
         remember_me: Remember me
+
+registration:
+    header:
+        register: Registration
+    message:
+        completed: Registration completed.
 
 permission:
     label:

@@ -1,3 +1,8 @@
 damax_user:
     password:
         invalid: "Password must be at least %min_length% characters long including at least one digit, one small and one big English alphabet letter."
+        mismatch: Passwords are not the same.
+    email:
+        exists: User with such e-mail already exists.
+    mobile_phone:
+        exists: User with such mobile phone already exists.
