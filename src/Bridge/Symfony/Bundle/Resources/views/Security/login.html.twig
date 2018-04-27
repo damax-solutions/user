@@ -47,6 +47,6 @@
     </form>
 
     <p class="has-text-grey">
-        <a href="{{ path('registration') }}">{{ 'button.registration' | trans }}</a> &nbsp;·&nbsp; <a href="../">{{ 'button.forgot_password' | trans }}</a>
+        <a href="{{ path('registration') }}">{{ 'button.registration' | trans }}</a> &nbsp;·&nbsp; <a href="{{ path('password_reset_request') }}">{{ 'button.forgot_password' | trans }}</a>
     </p>
 {% endblock %}

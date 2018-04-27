@@ -27,7 +27,16 @@ registration:
     header:
         register: Регистрация
     message:
+        intro: Введите Ваши данные.
         completed: Регистрация завершена.
+
+password:
+    header:
+        recovery: Восстановление пароля
+    button:
+        reset: Сбросить пароль
+    message:
+        reset_requested: Проверьте эл. почту для сброса пароля.
 
 permission:
     label:

@@ -4,5 +4,6 @@ damax_user:
         mismatch: Passwords are not the same.
     email:
         exists: User with such e-mail already exists.
+        not_found: User with such e-mail not found.
     mobile_phone:
         exists: User with such mobile phone already exists.

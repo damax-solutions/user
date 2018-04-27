@@ -2,11 +2,13 @@
 
 {% set title = 'registration.header.register' | trans %}
 
-{% import _self as helpers %}
+{% import '@DamaxUser/helpers.html.twig' as helpers %}
 
 {% extends '@DamaxUser/layout.html.twig' %}
 
 {% block content %}
+    <p class="subtitle has-text-grey">{{ 'registration.message.intro' | trans }}</p>
+
     <form class="box" method="post" action="{{ path('registration') }}">
         <div class="field">
             <div class="control">
@@ -43,10 +45,3 @@
     </p>
 {% endblock %}
 
-{% macro formError(field) %}
-{% spaceless %}
-    {% for error in field.vars.errors %}
-        <p class="help is-danger has-text-left">{{ error.message }}</p>
-    {% endfor %}
-{% endspaceless %}
-{% endmacro %}

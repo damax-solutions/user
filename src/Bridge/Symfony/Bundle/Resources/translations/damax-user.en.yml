@@ -27,7 +27,16 @@ registration:
     header:
         register: Registration
     message:
+        intro: Fill in your data.
         completed: Registration completed.
+
+password:
+    header:
+        recovery: Password recovery
+    button:
+        reset: Reset password
+    message:
+        reset_requested: Please check email to continue with password reset.
 
 permission:
     label:

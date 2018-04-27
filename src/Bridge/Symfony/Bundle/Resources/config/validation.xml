@@ -16,6 +16,14 @@
         </property>
     </class>
 
+    <class name="Damax\User\Application\Command\RequestPasswordReset">
+        <property name="userId">
+            <constraint name="NotBlank" />
+            <constraint name="Email" />
+            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\ExistentEmail" />
+        </property>
+    </class>
+
     <class name="Damax\User\Application\Command\ResetPassword">
         <property name="token">
             <constraint name="NotBlank" />
