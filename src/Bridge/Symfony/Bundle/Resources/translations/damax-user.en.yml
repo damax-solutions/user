@@ -33,10 +33,14 @@ registration:
 password:
     header:
         recovery: Password recovery
+        change: Change password
     button:
         reset: Reset password
+        change: Change password
     message:
         reset_requested: Please check email to continue with password reset.
+        changed: Password changed.
+        link_expired: Link is expired. Try to reset password one more time.
 
 permission:
     label:

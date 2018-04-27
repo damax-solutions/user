@@ -78,4 +78,13 @@ class PasswordService
             $this->requests->remove($request);
         });
     }
+
+    public function hasActiveResetRequest(string $token): bool
+    {
+        if (null === $request = $this->requests->byToken($token)) {
+            return false;
+        }
+
+        return $request->activePasswordReset();
+    }
 }

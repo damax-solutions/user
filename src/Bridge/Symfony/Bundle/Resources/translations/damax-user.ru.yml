@@ -33,10 +33,14 @@ registration:
 password:
     header:
         recovery: Восстановление пароля
+        change: Смена пароля
     button:
         reset: Сбросить пароль
+        change: Сменить пароль
     message:
         reset_requested: Проверьте эл. почту для сброса пароля.
+        changed: Пароль изменен.
+        link_expired: Ссылка не действительна. Попробуйте сбросить пароль еще раз.
 
 permission:
     label:

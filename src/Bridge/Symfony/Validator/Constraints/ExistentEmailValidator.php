@@ -25,6 +25,10 @@ class ExistentEmailValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, ExistentEmail::class);
         }
 
+        if (!$email) {
+            return;
+        }
+
         if (null === $this->userRepository->byEmail(Email::fromString($email))) {
             $this->context
                 ->buildViolation($constraint->message)

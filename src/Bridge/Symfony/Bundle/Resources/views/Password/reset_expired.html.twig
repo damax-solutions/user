@@ -1,0 +1,15 @@
+{% trans_default_domain 'damax-user' %}
+
+{% set title = 'password.header.recovery' | trans %}
+
+{% extends '@DamaxUser/layout.html.twig' %}
+
+{% block content %}
+    <div class="box">
+        <p class="has-text-danger">{{ 'password.message.link_expired' | trans }}</p>
+    </div>
+
+    <p class="has-text-grey">
+        <a href="{{ path('password_reset_request') }}">{{ 'button.forgot_password' | trans }}</a>
+    </p>
+{% endblock %}

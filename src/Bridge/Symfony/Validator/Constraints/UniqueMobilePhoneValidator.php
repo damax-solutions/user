@@ -25,6 +25,10 @@ class UniqueMobilePhoneValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, UniqueMobilePhone::class);
         }
 
+        if (!$mobilePhone) {
+            return;
+        }
+
         if ($this->userRepository->byMobilePhone(MobilePhone::fromString($mobilePhone))) {
             $this->context
                 ->buildViolation($constraint->message)
