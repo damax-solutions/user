@@ -11,6 +11,7 @@ button:
     registration: Регистрация
     forgot_password: Забыли пароль?
     login: Войти
+    logout: Выйти
     register: Зарегистрироваться
 
 security:

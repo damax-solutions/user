@@ -11,6 +11,7 @@ button:
     registration: Sign up
     forgot_password: Forgot password
     login: Login
+    logout: Logout
     register: Register
 
 security:
