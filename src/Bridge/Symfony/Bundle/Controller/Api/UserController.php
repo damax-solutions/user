@@ -15,7 +15,7 @@ use Swagger\Annotations as OpenApi;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/users")
+ * @Route("/user/users")
  */
 class UserController
 {
