@@ -12,10 +12,12 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 class RecordLoginListener
 {
     private $loginService;
+    private $loginRouteName;
 
-    public function __construct(UserLoginService $loginService)
+    public function __construct(UserLoginService $loginService, string $loginRouteName = 'api_security_login')
     {
         $this->loginService = $loginService;
+        $this->loginRouteName = $loginRouteName;
     }
 
     public function onInteractiveLogin(InteractiveLoginEvent $event)
@@ -27,6 +29,10 @@ class RecordLoginListener
         }
 
         $request = $event->getRequest();
+
+        if ($request->attributes->get('_route') !== $this->loginRouteName) {
+            return;
+        }
 
         $command = new RecordLogin();
         $command->userId = $token->getUser()->getUsername();

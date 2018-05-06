@@ -9,9 +9,17 @@ use Damax\User\Domain\Model\Name;
 use Damax\User\Domain\Model\Permission;
 use Damax\User\Domain\Model\Role;
 use Damax\User\Domain\Model\User;
+use Damax\User\Domain\NameFormatter\NameFormatter;
 
 class Assembler
 {
+    private $nameFormatter;
+
+    public function __construct(NameFormatter $nameFormatter)
+    {
+        $this->nameFormatter = $nameFormatter;
+    }
+
     public function toNameDto(Name $name): NameDto
     {
         $dto = new NameDto();
@@ -52,6 +60,7 @@ class Assembler
         $dto->enabled = $user->enabled();
         $dto->lastLoginAt = $user->lastLoginAt();
         $dto->name = $this->toNameDto($user->name());
+        $dto->fullName = $this->nameFormatter->full($user->name());
 
         return $dto;
     }

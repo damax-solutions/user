@@ -36,6 +36,11 @@ class UserDto
     /**
      * @var string
      */
+    public $fullName;
+
+    /**
+     * @var string
+     */
     public $timezone;
 
     /**
