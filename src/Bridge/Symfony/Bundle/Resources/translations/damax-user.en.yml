@@ -6,6 +6,8 @@ label:
     mobile_phone: Mobile phone
     password: Password
     repeat_password: Repeat password
+    timezone: Timezone
+    locale: Locale
 
 button:
     registration: Sign up
@@ -13,6 +15,7 @@ button:
     login: Login
     logout: Logout
     register: Register
+    cancel: Отменить
 
 security:
     header:
@@ -54,3 +57,12 @@ role:
         code: Code
         name: Name
         permissions: Permissions
+
+profile:
+    header:
+        edit: Edit profile
+    message:
+        updated: Profile updated.
+    button:
+        edit: Edit
+        save: Save

@@ -1,0 +1,50 @@
+{% trans_default_domain 'damax-user' %}
+
+{% set title = 'profile.header.edit' | trans %}
+
+{% import '@DamaxUser/helpers.html.twig' as helpers %}
+
+{% extends '@DamaxUser/layout.html.twig' %}
+
+{% block content %}
+    <form class="box" method="post">
+        <div class="field">
+            <div class="control">
+                {{ form_widget(form.timezone, { attr: { class: 'input is-large', placeholder: 'label.timezone' } }) }}
+            </div>
+            {{ helpers.formError(form.timezone) }}
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form_widget(form.locale, { attr: { class: 'input is-large', placeholder: 'label.locale' } }) }}
+            </div>
+            {{ helpers.formError(form.locale) }}
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form_widget(form.name.firstName, { attr: { class: 'input is-large', placeholder: 'label.first_name' } }) }}
+            </div>
+            {{ helpers.formError(form.name.firstName) }}
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form_widget(form.name.lastName, { attr: { class: 'input is-large', placeholder: 'label.last_name' } }) }}
+            </div>
+            {{ helpers.formError(form.name.lastName) }}
+        </div>
+        <div class="field">
+            <div class="control">
+                {{ form_widget(form.name.middleName, { attr: { class: 'input is-large', placeholder: 'label.middle_name' } }) }}
+            </div>
+            {{ helpers.formError(form.name.middleName) }}
+        </div>
+
+        {{ form_rest(form) }}
+
+        <button class="button is-info is-large is-fullwidth">{{ 'profile.button.save' | trans }}</button>
+    </form>
+
+    <p class="has-text-grey">
+        <a href="{{ path('profile_view') }}">{{ 'button.cancel' | trans }}</a>
+    </p>
+{% endblock %}
