@@ -8,7 +8,9 @@ use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Command\DisableUser;
 use Damax\User\Application\Command\EnableUser;
 use Damax\User\Application\Dto\UserDto;
+use Damax\User\Application\Dto\UserLoginDto;
 use Damax\User\Application\Exception\UserNotFound;
+use Damax\User\Application\Service\UserLoginService;
 use Damax\User\Application\Service\UserService;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Pagerfanta\Pagerfanta;
@@ -161,5 +163,39 @@ class UserController
         }
 
         return Response::create('', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @OpenApi\Get(
+     *     tags={"user"},
+     *     summary="List user logins.",
+     *     security={
+     *         {"Bearer"=""}
+     *     },
+     *     @OpenApi\Parameter(
+     *         name="page",
+     *         type="integer",
+     *         in="query",
+     *         default=1
+     *     ),
+     *     @OpenApi\Response(
+     *         response=200,
+     *         description="User logins list.",
+     *         @OpenApi\Schema(type="array", @OpenApi\Items(ref=@Model(type=UserLoginDto::class)))
+     *     )
+     * )
+     *
+     * @Method("GET")
+     * @Route("/{id}/logins")
+     * @Serialize()
+     */
+    public function loginsAction(Request $request, string $id, UserLoginService $service): Pagerfanta
+    {
+        return $service
+            ->fetchRangeByUser($id)
+            ->setAllowOutOfRangePages(true)
+            ->setMaxPerPage(20)
+            ->setCurrentPage($request->query->getInt('page', 1))
+        ;
     }
 }

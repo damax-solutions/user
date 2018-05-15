@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Dto;
 
-use DateTimeInterface;
+use DateTime;
 
 class UserLoginDto
 {
@@ -34,7 +34,7 @@ class UserLoginDto
     public $userAgent;
 
     /**
-     * @var DateTimeInterface
+     * @var DateTime
      */
     public $createdAt;
 }
