@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Api;
 
+use Damax\Common\Bridge\Symfony\Bundle\Annotation\Command;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Command\DisableUser;
 use Damax\User\Application\Command\EnableUser;
+use Damax\User\Application\Command\UpdateUser;
 use Damax\User\Application\Dto\UserDto;
 use Damax\User\Application\Dto\UserLoginDto;
 use Damax\User\Application\Exception\UserNotFound;
@@ -208,17 +210,49 @@ class UserController
      *     },
      *     @OpenApi\Response(
      *         response=200,
-     *         description="User.",
-     *         @OpenApi\Schema(ref=@Model(type=UserDto::class))
+     *         description="Authenticated user.",
+     *         @OpenApi\Schema(ref=@Model(type=UserDto::class, groups={"profile"}))
      *     )
      * )
      *
      * @Method("GET")
      * @Route("")
-     * @Serialize()
+     * @Serialize({"profile"})
      */
     public function getAuthenticatedAction(): UserDto
     {
         return $this->service->fetch($this->tokenStorage->getToken()->getUsername());
+    }
+
+    /**
+     * @OpenApi\Patch(
+     *     tags={"user"},
+     *     summary="Update authenticated user.",
+     *     security={
+     *         {"Bearer"=""}
+     *     },
+     *     @OpenApi\Parameter(
+     *         name="body",
+     *         in="body",
+     *         required=true,
+     *         @OpenApi\Schema(ref=@Model(type=UpdateUser::class, groups={"profile"}))
+     *     ),
+     *     @OpenApi\Response(
+     *         response=200,
+     *         description="Authenticated user.",
+     *         @OpenApi\Schema(ref=@Model(type=UserDto::class, groups={"profile"}))
+     *     )
+     * )
+     *
+     * @Method("PATCH")
+     * @Route("")
+     * @Command(UpdateUser::class, validate=true, groups={"profile"})
+     * @Serialize({"profile"})
+     */
+    public function patchAuthenticatedAction(UpdateUser $command): UserDto
+    {
+        $command->userId = $this->tokenStorage->getToken()->getUsername();
+
+        return $this->service->update($command);
     }
 }

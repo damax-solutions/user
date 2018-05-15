@@ -6,18 +6,44 @@
     <class name="Damax\User\Application\Dto\UserDto">
         <attribute name="id">
             <group>registration</group>
+            <group>profile</group>
         </attribute>
         <attribute name="email">
             <group>registration</group>
+            <group>profile</group>
         </attribute>
         <attribute name="mobilePhone">
             <group>registration</group>
+            <group>profile</group>
         </attribute>
         <attribute name="timezone">
             <group>registration</group>
+            <group>profile</group>
         </attribute>
         <attribute name="locale">
             <group>registration</group>
+            <group>profile</group>
+        </attribute>
+        <attribute name="name">
+            <group>profile</group>
+        </attribute>
+        <attribute name="fullName">
+            <group>profile</group>
+        </attribute>
+        <attribute name="lastLoginAt">
+            <group>profile</group>
+        </attribute>
+    </class>
+
+    <class name="Damax\User\Application\Dto\NameDto">
+        <attribute name="firstName">
+            <group>profile</group>
+        </attribute>
+        <attribute name="lastName">
+            <group>profile</group>
+        </attribute>
+        <attribute name="middleName">
+            <group>profile</group>
         </attribute>
     </class>
 
@@ -42,6 +68,18 @@
         </attribute>
         <attribute name="password">
             <group>registration</group>
+        </attribute>
+    </class>
+
+    <class name="Damax\User\Application\Command\UpdateUser">
+        <attribute name="name">
+            <group>profile</group>
+        </attribute>
+        <attribute name="timezone">
+            <group>profile</group>
+        </attribute>
+        <attribute name="locale">
+            <group>profile</group>
         </attribute>
     </class>
 

@@ -3,11 +3,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-    <class name="Damax\User\Application\Command\UserCommand">
+    <!--class name="Damax\User\Application\Command\UserCommand">
         <property name="userId">
             <constraint name="NotBlank" />
         </property>
-    </class>
+    </class-->
 
     <class name="Damax\User\Application\Command\ChangePassword">
         <property name="newPassword">
@@ -55,6 +55,20 @@
             <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Password" />
         </property>
         <property name="name">
+            <constraint name="Valid" />
+        </property>
+    </class>
+
+    <class name="Damax\User\Application\Command\UpdateUser">
+        <property name="timezone">
+            <constraint name="NotBlank" />
+        </property>
+        <property name="locale">
+            <constraint name="NotBlank" />
+            <constraint name="Locale" />
+        </property>
+        <property name="name">
+            <constraint name="NotBlank" />
             <constraint name="Valid" />
         </property>
     </class>
