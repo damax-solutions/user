@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
- * @Route("/user/users")
+ * @Route("/user")
  */
 class UserController
 {
@@ -57,7 +57,7 @@ class UserController
      * )
      *
      * @Method("GET")
-     * @Route("")
+     * @Route("/users")
      * @Serialize()
      */
     public function listAction(Request $request): Pagerfanta
@@ -89,7 +89,7 @@ class UserController
      * )
      *
      * @Method("GET")
-     * @Route("/{id}")
+     * @Route("/users/{id}")
      * @Serialize()
      *
      * @throws NotFoundHttpException
@@ -115,7 +115,7 @@ class UserController
      * )
      *
      * @Method("PUT")
-     * @Route("/{id}/enable")
+     * @Route("/users/{id}/enable")
      *
      * @throws NotFoundHttpException
      */
@@ -123,7 +123,7 @@ class UserController
     {
         $command = new EnableUser();
         $command->userId = $id;
-        $command->editorId = $this->tokenStorage->getToken()->getUser()->getUsername();
+        $command->editorId = $this->tokenStorage->getToken()->getUsername();
 
         try {
             $this->service->enable($command);
@@ -146,7 +146,7 @@ class UserController
      * )
      *
      * @Method("DELETE")
-     * @Route("/{id}/disable")
+     * @Route("/users/{id}/disable")
      *
      * @throws NotFoundHttpException
      */
@@ -154,7 +154,7 @@ class UserController
     {
         $command = new DisableUser();
         $command->userId = $id;
-        $command->editorId = $this->tokenStorage->getToken()->getUser()->getUsername();
+        $command->editorId = $this->tokenStorage->getToken()->getUsername();
 
         try {
             $this->service->disable($command);
@@ -186,7 +186,7 @@ class UserController
      * )
      *
      * @Method("GET")
-     * @Route("/{id}/logins")
+     * @Route("/users/{id}/logins")
      * @Serialize()
      */
     public function loginsAction(Request $request, string $id, UserLoginService $service): Pagerfanta
@@ -197,5 +197,28 @@ class UserController
             ->setMaxPerPage(20)
             ->setCurrentPage($request->query->getInt('page', 1))
         ;
+    }
+
+    /**
+     * @OpenApi\Get(
+     *     tags={"user"},
+     *     summary="Get authenticated user.",
+     *     security={
+     *         {"Bearer"=""}
+     *     },
+     *     @OpenApi\Response(
+     *         response=200,
+     *         description="User.",
+     *         @OpenApi\Schema(ref=@Model(type=UserDto::class))
+     *     )
+     * )
+     *
+     * @Method("GET")
+     * @Route("")
+     * @Serialize()
+     */
+    public function getAuthenticatedAction(): UserDto
+    {
+        return $this->service->fetch($this->tokenStorage->getToken()->getUsername());
     }
 }
