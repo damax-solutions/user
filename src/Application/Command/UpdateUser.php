@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Command;
 
+use Damax\User\Application\Dto\NameDto;
 use Damax\User\Application\Dto\UserDto;
 
 class UpdateUser extends UserCommand
