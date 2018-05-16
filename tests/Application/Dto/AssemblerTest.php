@@ -9,14 +9,21 @@ use Damax\User\Application\Dto\NameDto;
 use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\Name;
 use Damax\User\Domain\Model\Permission;
+use Damax\User\Domain\NameFormatter\NameFormatter;
 use Damax\User\Tests\Domain\Model\AdminRole;
 use Damax\User\Tests\Domain\Model\JohnDoeUser;
 use DateTimeImmutable;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 class AssemblerTest extends TestCase
 {
+    /**
+     * @var NameFormatter|MockObject
+     */
+    private $nameFormatter;
+
     /**
      * @var Assembler
      */
@@ -24,7 +31,8 @@ class AssemblerTest extends TestCase
 
     protected function setUp()
     {
-        $this->assembler = new Assembler();
+        $this->nameFormatter = $this->createMock(NameFormatter::class);
+        $this->assembler = new Assembler($this->nameFormatter);
     }
 
     /**
@@ -70,11 +78,19 @@ class AssemblerTest extends TestCase
         $user = new JohnDoeUser();
         $user->loggedInOn($now = new DateTimeImmutable());
 
+        $this->nameFormatter
+            ->expects($this->once())
+            ->method('full')
+            ->with($this->identicalTo($user->name()))
+            ->willReturn('John Doe')
+        ;
+
         $dto = $this->assembler->toUserDto($user);
 
         $this->assertEquals('ce08c4e8-d9eb-435b-9eab-edc252b450e1', $dto->id);
         $this->assertEquals('john.doe@domain.abc', $dto->email);
         $this->assertEquals('+123', $dto->mobilePhone);
+        $this->assertEquals('John Doe', $dto->fullName);
         $this->assertEquals('Europe/Riga', $dto->timezone);
         $this->assertEquals('ru', $dto->locale);
         $this->assertTrue($dto->enabled);

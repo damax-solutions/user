@@ -56,9 +56,29 @@ class RecordLoginListenerTest extends TestCase
     /**
      * @test
      */
+    public function it_skips_login_recording_on_non_login_route()
+    {
+        $request = new Request();
+        $request->attributes->set('_route', 'random_route');
+
+        $token = new UsernamePasswordToken($user = (new UserFactory())->create(), 'qwerty', 'main');
+        $event = new InteractiveLoginEvent($request, $token);
+
+        $this->service
+            ->expects($this->never())
+            ->method('recordLogin')
+        ;
+
+        $this->listener->onInteractiveLogin($event);
+    }
+
+    /**
+     * @test
+     */
     public function it_records_login()
     {
         $request = new Request();
+        $request->attributes->set('_route', 'api_security_login');
         $request->server->set('REMOTE_ADDR', '192.168.99.100');
         $request->server->set('HTTP_USER_AGENT', 'Chrome');
         $request->server->set('SERVER_ADDR', '192.168.99.1');
