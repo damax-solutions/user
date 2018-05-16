@@ -1,7 +1,0 @@
-{% macro formError(field) %}
-{% spaceless %}
-    {% for error in field.vars.errors %}
-        <p class="help is-danger has-text-left">{{ error.message }}</p>
-    {% endfor %}
-{% endspaceless %}
-{% endmacro %}

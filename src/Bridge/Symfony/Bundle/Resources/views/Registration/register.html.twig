@@ -2,40 +2,15 @@
 
 {% set title = 'registration.header.register' | trans %}
 
-{% import '@DamaxUser/helpers.html.twig' as helpers %}
-
 {% extends '@DamaxUser/layout.html.twig' %}
+
+{% form_theme form '@DamaxUser/form_theme.html.twig' %}
 
 {% block content %}
     <p class="subtitle has-text-grey">{{ 'registration.message.intro' | trans }}</p>
 
     <form class="box" method="post" action="{{ path('registration') }}">
-        <div class="field">
-            <div class="control">
-                {{ form_widget(form.email, { attr: { class: 'input is-large', placeholder: 'label.email' } }) }}
-            </div>
-            {{ helpers.formError(form.email) }}
-        </div>
-        <div class="field">
-            <div class="control">
-                {{ form_widget(form.mobilePhone, { attr: { class: 'input is-large', placeholder: 'label.mobile_phone' } }) }}
-            </div>
-            {{ helpers.formError(form.mobilePhone) }}
-        </div>
-        <div class="field">
-            <div class="control">
-                {{ form_widget(form.password.first, { attr: { class: 'input is-large', placeholder: 'label.password' } }) }}
-            </div>
-            {{ helpers.formError(form.password.first) }}
-        </div>
-        <div class="field">
-            <div class="control">
-                {{ form_widget(form.password.second, { attr: { class: 'input is-large', placeholder: 'label.repeat_password' } }) }}
-            </div>
-            {{ helpers.formError(form.password.second) }}
-        </div>
-
-        {{ form_rest(form) }}
+        {{ form_widget(form) }}
 
         <button class="button is-info is-large is-fullwidth">{{ 'button.register' | trans }}</button>
     </form>

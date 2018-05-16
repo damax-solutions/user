@@ -2,26 +2,13 @@
 
 {% set title = 'password.header.change' | trans %}
 
-{% import '@DamaxUser/helpers.html.twig' as helpers %}
-
 {% extends '@DamaxUser/layout.html.twig' %}
+
+{% form_theme form '@DamaxUser/form_theme.html.twig' %}
 
 {% block content %}
     <form class="box" method="post">
-        <div class="field">
-            <div class="control">
-                {{ form_widget(form.newPassword.first, { attr: { class: 'input is-large', placeholder: 'label.password' } }) }}
-            </div>
-            {{ helpers.formError(form.newPassword.first) }}
-        </div>
-        <div class="field">
-            <div class="control">
-                {{ form_widget(form.newPassword.second, { attr: { class: 'input is-large', placeholder: 'label.repeat_password' } }) }}
-            </div>
-            {{ helpers.formError(form.newPassword.second) }}
-        </div>
-
-        {{ form_rest(form) }}
+        {{ form_widget(form) }}
 
         <button class="button is-info is-large is-fullwidth">{{ 'password.button.change' | trans }}</button>
     </form>

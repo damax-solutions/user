@@ -2,20 +2,13 @@
 
 {% set title = 'password.header.recovery' | trans %}
 
-{% import '@DamaxUser/helpers.html.twig' as helpers %}
-
 {% extends '@DamaxUser/layout.html.twig' %}
+
+{% form_theme form '@DamaxUser/form_theme.html.twig' %}
 
 {% block content %}
     <form class="box" method="post" action="{{ path('password_reset_request') }}">
-        <div class="field">
-            <div class="control">
-                {{ form_widget(form.email, { attr: { class: 'input is-large', placeholder: 'label.email' } }) }}
-            </div>
-            {{ helpers.formError(form.email) }}
-        </div>
-
-        {{ form_rest(form) }}
+        {{ form_widget(form) }}
 
         <button class="button is-info is-large is-fullwidth">{{ 'password.button.reset' | trans }}</button>
     </form>
