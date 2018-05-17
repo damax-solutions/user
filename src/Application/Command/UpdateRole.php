@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Command;
 
-use Damax\User\Application\Dto\RoleBodyDto;
+use Damax\User\Application\Dto\RoleInfoDto;
 
 class UpdateRole
 {
@@ -14,7 +14,7 @@ class UpdateRole
     public $code;
 
     /**
-     * @var RoleBodyDto
+     * @var RoleInfoDto
      */
-    public $role;
+    public $info;
 }

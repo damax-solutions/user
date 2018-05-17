@@ -7,6 +7,8 @@ namespace Damax\User\Application\Service;
 use Damax\Common\Domain\Transaction\TransactionManager;
 use Damax\User\Application\Command\ConfirmEmail;
 use Damax\User\Application\Command\RequestEmailConfirmation;
+use Damax\User\Application\Dto\EmailConfirmationDto;
+use Damax\User\Application\Dto\EmailConfirmationRequestDto;
 use Damax\User\Application\Exception\ActionRequestExpired;
 use Damax\User\Application\Exception\ActionRequestNotFound;
 use Damax\User\Domain\Model\ActionRequest;
@@ -30,9 +32,9 @@ class ConfirmationService
         $this->transactionManager = $transactionManager;
     }
 
-    public function requestEmailConfirmation(RequestEmailConfirmation $command): void
+    public function requestEmailConfirmation(EmailConfirmationRequestDto $request): void
     {
-        $user = $this->getUser($command->userId);
+        $user = $this->getUser($request->userId);
 
         if ($user->email()->confirmed()) {
             return;
@@ -45,14 +47,14 @@ class ConfirmationService
      * @throws ActionRequestNotFound
      * @throws ActionRequestExpired
      */
-    public function confirmEmail(ConfirmEmail $command): void
+    public function confirmEmail(EmailConfirmationDto $confirmation): void
     {
-        if (null === $request = $this->requests->byToken($command->token)) {
-            throw ActionRequestNotFound::byToken($command->token);
+        if (null === $request = $this->requests->byToken($confirmation->token)) {
+            throw ActionRequestNotFound::byToken($confirmation->token);
         }
 
         if (!$request->activeEmailConfirmation()) {
-            throw ActionRequestExpired::withToken($command->token);
+            throw ActionRequestExpired::withToken($confirmation->token);
         }
 
         $request->user()->confirmEmail();

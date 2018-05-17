@@ -12,7 +12,7 @@ class SecurityController
 {
     /**
      * @OpenApi\Post(
-     *     tags={"user"},
+     *     tags={"security"},
      *     summary="User login.",
      *     @OpenApi\Parameter(
      *         name="body",

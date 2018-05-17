@@ -68,7 +68,7 @@ class RoleService
     {
         $role = $this->getRole($command->code);
 
-        $role->update($command->role->name, $command->role->permissions);
+        $role->update($command->info->name, $command->info->permissions);
 
         $this->roles->save($role);
 

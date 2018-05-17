@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Api;
 
-use Damax\Common\Bridge\Symfony\Bundle\Annotation\Command;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
+use Damax\User\Application\Command\AssignUserRole;
 use Damax\User\Application\Command\DisableUser;
 use Damax\User\Application\Command\EnableUser;
-use Damax\User\Application\Command\UpdateUser;
+use Damax\User\Application\Command\RemoveUserRole;
 use Damax\User\Application\Dto\UserDto;
 use Damax\User\Application\Dto\UserLoginDto;
+use Damax\User\Application\Exception\RoleNotFound;
 use Damax\User\Application\Exception\UserNotFound;
 use Damax\User\Application\Service\UserLoginService;
 use Damax\User\Application\Service\UserService;
@@ -81,7 +82,7 @@ class UserController
      *     },
      *     @OpenApi\Response(
      *         response=200,
-     *         description="User.",
+     *         description="User info.",
      *         @OpenApi\Schema(ref=@Model(type=UserDto::class))
      *     ),
      *     @OpenApi\Response(
@@ -112,8 +113,14 @@ class UserController
      *     security={
      *         {"Bearer"=""}
      *     },
-     *     @OpenApi\Response(response=204, description="User enabled."),
-     *     @OpenApi\Response(response=404, description="User not found.")
+     *     @OpenApi\Response(
+     *         response=204,
+     *         description="User enabled."
+     *     ),
+     *     @OpenApi\Response(
+     *         response=404,
+     *         description="User not found."
+     *     )
      * )
      *
      * @Method("PUT")
@@ -143,8 +150,14 @@ class UserController
      *     security={
      *         {"Bearer"=""}
      *     },
-     *     @OpenApi\Response(response=204, description="User disabled."),
-     *     @OpenApi\Response(response=404, description="User not found.")
+     *     @OpenApi\Response(
+     *         response=204,
+     *         description="User disabled."
+     *     ),
+     *     @OpenApi\Response(
+     *         response=404,
+     *         description="User not found."
+     *     )
      * )
      *
      * @Method("DELETE")
@@ -202,57 +215,78 @@ class UserController
     }
 
     /**
-     * @OpenApi\Get(
+     * @OpenApi\Put(
      *     tags={"user"},
-     *     summary="Get authenticated user.",
+     *     summary="Assign role to user.",
      *     security={
      *         {"Bearer"=""}
      *     },
      *     @OpenApi\Response(
-     *         response=200,
-     *         description="Authenticated user.",
-     *         @OpenApi\Schema(ref=@Model(type=UserDto::class, groups={"profile"}))
+     *         response=204,
+     *         description="Role assigned."
+     *     ),
+     *     @OpenApi\Response(
+     *         response=404,
+     *         description="User or role not found."
      *     )
      * )
      *
-     * @Method("GET")
-     * @Route("")
-     * @Serialize({"profile"})
+     * @Method("PUT")
+     * @Route("/users/{id}/role/{role}")
+     *
+     * @throws NotFoundHttpException
      */
-    public function getAuthenticatedAction(): UserDto
+    public function assignRoleAction(string $id, string $role): Response
     {
-        return $this->service->fetch($this->tokenStorage->getToken()->getUsername());
+        $command = new AssignUserRole();
+        $command->userId = $id;
+        $command->role = $role;
+        $command->editorId = $this->tokenStorage->getToken()->getUsername();
+
+        try {
+            $this->service->assignRole($command);
+        } catch (UserNotFound | RoleNotFound $e) {
+            throw new NotFoundHttpException();
+        }
+
+        return Response::create('', Response::HTTP_NO_CONTENT);
     }
 
     /**
-     * @OpenApi\Patch(
+     * @OpenApi\Delete(
      *     tags={"user"},
-     *     summary="Update authenticated user.",
+     *     summary="Remove role from user.",
      *     security={
      *         {"Bearer"=""}
      *     },
-     *     @OpenApi\Parameter(
-     *         name="body",
-     *         in="body",
-     *         required=true,
-     *         @OpenApi\Schema(ref=@Model(type=UpdateUser::class, groups={"profile"}))
+     *     @OpenApi\Response(
+     *         response=204,
+     *         description="Role removed."
      *     ),
      *     @OpenApi\Response(
-     *         response=200,
-     *         description="Authenticated user.",
-     *         @OpenApi\Schema(ref=@Model(type=UserDto::class, groups={"profile"}))
-     *     )
+     *         response=404,
+     *         description="User or role not found."
+     *     ),
      * )
      *
-     * @Method("PATCH")
-     * @Route("")
-     * @Command(UpdateUser::class, validate=true, groups={"profile"})
-     * @Serialize({"profile"})
+     * @Method("DELETE")
+     * @Route("/users/{id}/role/{role}")
+     *
+     * @throws NotFoundHttpException
      */
-    public function patchAuthenticatedAction(UpdateUser $command): UserDto
+    public function removeRoleAction(string $id, string $role): Response
     {
-        $command->userId = $this->tokenStorage->getToken()->getUsername();
+        $command = new RemoveUserRole();
+        $command->userId = $id;
+        $command->role = $role;
+        $command->editorId = $this->tokenStorage->getToken()->getUsername();
 
-        return $this->service->update($command);
+        try {
+            $this->service->removeRole($command);
+        } catch (UserNotFound | RoleNotFound $e) {
+            throw new NotFoundHttpException();
+        }
+
+        return Response::create('', Response::HTTP_NO_CONTENT);
     }
 }

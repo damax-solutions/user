@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Standard;
 
 use Damax\User\Application\Command\UpdateUser;
+use Damax\User\Application\Dto\UserInfoDto;
 use Damax\User\Application\Service\UserService;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\ProfileType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -35,10 +36,15 @@ class ProfileController extends Controller
     public function editAction(Request $request, UserService $service): Response
     {
         $user = $service->fetch($this->getUser()->getUsername());
-        $form = $this->createForm(ProfileType::class, UpdateUser::fromUserDto($user))->handleRequest($request);
+
+        $form = $this->createForm(ProfileType::class, UserInfoDto::fromUserDto($user))->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $service->update($form->getData());
+            $command = new UpdateUser();
+            $command->info = $form->getData();
+            $command->userId = $user->id;
+
+            $service->update($command);
 
             $message = $this->get('translator')->trans('profile.message.updated', [], 'damax-user');
 

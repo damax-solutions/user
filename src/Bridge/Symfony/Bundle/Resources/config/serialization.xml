@@ -3,83 +3,72 @@
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://symfony.com/schema/dic/serializer-mapping http://symfony.com/schema/dic/serializer-mapping/serializer-mapping-1.0.xsd">
 
+    <!-- User -->
+
     <class name="Damax\User\Application\Dto\UserDto">
         <attribute name="id">
-            <group>registration</group>
-            <group>profile</group>
+            <group>user_registration</group>
+            <group>user_auth</group>
         </attribute>
         <attribute name="email">
-            <group>registration</group>
-            <group>profile</group>
+            <group>user_registration</group>
+            <group>user_auth</group>
         </attribute>
         <attribute name="mobilePhone">
-            <group>registration</group>
-            <group>profile</group>
+            <group>user_registration</group>
+            <group>user_auth</group>
         </attribute>
         <attribute name="timezone">
-            <group>registration</group>
-            <group>profile</group>
+            <group>user_registration</group>
+            <group>user_auth</group>
         </attribute>
         <attribute name="locale">
-            <group>registration</group>
-            <group>profile</group>
+            <group>user_registration</group>
+            <group>user_auth</group>
         </attribute>
         <attribute name="name">
-            <group>profile</group>
+            <group>user_auth</group>
         </attribute>
         <attribute name="fullName">
-            <group>profile</group>
+            <group>user_auth</group>
         </attribute>
         <attribute name="lastLoginAt">
-            <group>profile</group>
+            <group>user_auth</group>
         </attribute>
     </class>
 
     <class name="Damax\User\Application\Dto\NameDto">
         <attribute name="firstName">
-            <group>profile</group>
+            <group>user_auth</group>
         </attribute>
         <attribute name="lastName">
-            <group>profile</group>
+            <group>user_auth</group>
         </attribute>
         <attribute name="middleName">
-            <group>profile</group>
+            <group>user_auth</group>
         </attribute>
     </class>
+
+    <class name="Damax\User\Application\Dto\UserRegistrationDto">
+        <attribute name="email">
+            <group>user_registration</group>
+        </attribute>
+        <attribute name="mobilePhone">
+            <group>user_registration</group>
+        </attribute>
+        <attribute name="password">
+            <group>user_registration</group>
+        </attribute>
+    </class>
+
+    <!-- Role -->
 
     <class name="Damax\User\Application\Dto\RoleDto">
         <attribute name="code">
-            <group>role</group>
+            <group>user_role</group>
         </attribute>
-    </class>
-
-    <class name="Damax\User\Application\Dto\RoleBodyDto">
         <attribute name="name">
-            <group>role</group>
-        </attribute>
-    </class>
-
-    <class name="Damax\User\Application\Command\RegisterUser">
-        <attribute name="email">
-            <group>registration</group>
-        </attribute>
-        <attribute name="mobilePhone">
-            <group>registration</group>
-        </attribute>
-        <attribute name="password">
-            <group>registration</group>
-        </attribute>
-    </class>
-
-    <class name="Damax\User\Application\Command\UpdateUser">
-        <attribute name="name">
-            <group>profile</group>
-        </attribute>
-        <attribute name="timezone">
-            <group>profile</group>
-        </attribute>
-        <attribute name="locale">
-            <group>profile</group>
+            <group>user_role</group>
         </attribute>
     </class>
 

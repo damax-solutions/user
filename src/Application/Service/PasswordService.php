@@ -8,8 +8,11 @@ use Damax\Common\Domain\Transaction\TransactionManager;
 use Damax\User\Application\Command\ChangePassword;
 use Damax\User\Application\Command\RequestPasswordReset;
 use Damax\User\Application\Command\ResetPassword;
+use Damax\User\Application\Dto\PasswordResetDto;
+use Damax\User\Application\Dto\PasswordResetRequestDto;
 use Damax\User\Application\Exception\ActionRequestExpired;
 use Damax\User\Application\Exception\ActionRequestNotFound;
+use Damax\User\Application\Exception\UserNotFound;
 use Damax\User\Domain\Model\ActionRequest;
 use Damax\User\Domain\Model\ActionRequestRepository;
 use Damax\User\Domain\Model\UserRepository;
@@ -41,17 +44,18 @@ class PasswordService
 
     public function changePassword(ChangePassword $command): void
     {
-        $editor = $command->editorId ? $this->getUser($command->editorId) : null;
-
         $user = $this->getUser($command->userId);
-        $user->changePassword($this->encoder->encode($command->newPassword), $editor);
+        $user->changePassword($this->encoder->encode($command->password->newPassword));
 
         $this->users->save($user);
     }
 
-    public function requestPasswordReset(RequestPasswordReset $command): void
+    /**
+     * @throws UserNotFound
+     */
+    public function requestPasswordReset(PasswordResetRequestDto $request): void
     {
-        $user = $this->getUser($command->userId);
+        $user = $this->getUser($request->userId);
 
         $this->requests->save(ActionRequest::resetPassword($this->tokenGenerator, $user));
     }
@@ -60,18 +64,18 @@ class PasswordService
      * @throws ActionRequestNotFound
      * @throws ActionRequestExpired
      */
-    public function resetPassword(ResetPassword $command): void
+    public function resetPassword(PasswordResetDto $reset): void
     {
-        if (null === $request = $this->requests->byToken($command->token)) {
-            throw ActionRequestNotFound::byToken($command->token);
+        if (null === $request = $this->requests->byToken($reset->token)) {
+            throw ActionRequestNotFound::byToken($reset->token);
         }
 
         if (!$request->activePasswordReset()) {
-            throw ActionRequestExpired::withToken($command->token);
+            throw ActionRequestExpired::withToken($reset->token);
         }
 
         $user = $request->user();
-        $user->changePassword($this->encoder->encode($command->newPassword));
+        $user->changePassword($this->encoder->encode($reset->newPassword));
 
         $this->transactionManager->run(function () use ($user, $request) {
             $this->users->save($user);

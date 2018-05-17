@@ -3,20 +3,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-    <!--class name="Damax\User\Application\Command\UserCommand">
-        <property name="userId">
-            <constraint name="NotBlank" />
-        </property>
-    </class-->
+    <!-- Security -->
 
-    <class name="Damax\User\Application\Command\ChangePassword">
-        <property name="newPassword">
-            <constraint name="NotBlank" />
-            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Password" />
-        </property>
-    </class>
-
-    <class name="Damax\User\Application\Command\RequestPasswordReset">
+    <class name="Damax\User\Application\Dto\PasswordResetRequestDto">
         <property name="userId">
             <constraint name="NotBlank" />
             <constraint name="Email" />
@@ -24,7 +13,7 @@
         </property>
     </class>
 
-    <class name="Damax\User\Application\Command\ResetPassword">
+    <class name="Damax\User\Application\Dto\PasswordResetDto">
         <property name="token">
             <constraint name="NotBlank" />
         </property>
@@ -34,13 +23,28 @@
         </property>
     </class>
 
-    <class name="Damax\User\Application\Command\ConfirmEmail">
-        <property name="token">
+    <class name="Damax\User\Application\Dto\UserPasswordDto">
+        <property name="oldPassword">
             <constraint name="NotBlank" />
+            <constraint name="Symfony\Component\Security\Core\Validator\Constraints\UserPassword" />
+        </property>
+        <property name="newPassword">
+            <constraint name="NotBlank">
+                <option name="groups">
+                    <value>user_password</value>
+                </option>
+            </constraint>
+            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Password">
+                <option name="groups">
+                    <value>user_password</value>
+                </option>
+            </constraint>
         </property>
     </class>
 
-    <class name="Damax\User\Application\Command\RegisterUser">
+    <!-- Registration -->
+
+    <class name="Damax\User\Application\Dto\UserRegistrationDto">
         <property name="email">
             <constraint name="NotBlank" />
             <constraint name="Email" />
@@ -59,7 +63,21 @@
         </property>
     </class>
 
-    <class name="Damax\User\Application\Command\UpdateUser">
+    <class name="Damax\User\Application\Dto\EmailConfirmationRequestDto">
+        <property name="userId">
+            <constraint name="NotBlank" />
+        </property>
+    </class>
+
+    <class name="Damax\User\Application\Dto\EmailConfirmationDto">
+        <property name="token">
+            <constraint name="NotBlank" />
+        </property>
+    </class>
+
+    <!-- User -->
+
+    <class name="Damax\User\Application\Dto\UserInfoDto">
         <property name="timezone">
             <constraint name="NotBlank" />
         </property>
@@ -73,29 +91,7 @@
         </property>
     </class>
 
-    <class name="Damax\User\Application\Command\CreateRole">
-        <property name="role">
-            <constraint name="NotBlank" />
-            <constraint name="Valid" />
-        </property>
-    </class>
-
-    <class name="Damax\User\Application\Command\UpdateRole">
-        <property name="code">
-            <constraint name="NotBlank" />
-        </property>
-        <property name="role">
-            <constraint name="NotBlank" />
-            <constraint name="Valid" />
-        </property>
-    </class>
-
-    <class name="Damax\User\Application\Command\CreatePermission">
-        <property name="permission">
-            <constraint name="NotBlank" />
-            <constraint name="Valid" />
-        </property>
-    </class>
+    <!-- Role -->
 
     <class name="Damax\User\Application\Dto\RoleDto">
         <property name="code">
@@ -104,13 +100,18 @@
                 <option name="max">32</option>
             </constraint>
         </property>
-    </class>
-
-    <class name="Damax\User\Application\Dto\RoleBodyDto">
         <property name="name">
             <constraint name="NotBlank" />
         </property>
     </class>
+
+    <class name="Damax\User\Application\Dto\RoleInfoDto">
+        <property name="name">
+            <constraint name="NotBlank" />
+        </property>
+    </class>
+
+    <!-- Permission -->
 
     <class name="Damax\User\Application\Dto\PermissionDto">
         <property name="code">

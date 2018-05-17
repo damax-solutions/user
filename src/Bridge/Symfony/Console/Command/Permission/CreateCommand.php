@@ -37,11 +37,11 @@ class CreateCommand extends Command
         $io = new Style($input, $output);
         $io->title('Create permission');
 
-        /** @var PermissionDto $dto */
-        $dto = $this->getHelper('form')->interactUsingForm(PermissionType::class, $input, $output);
+        /** @var PermissionDto $permission */
+        $permission = $this->getHelper('form')->interactUsingForm(PermissionType::class, $input, $output);
 
         $command = new CreatePermission();
-        $command->permission = $dto;
+        $command->permission = $permission;
 
         $io->newLine();
 

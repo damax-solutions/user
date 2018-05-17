@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Standard;
 
+use Damax\User\Application\Command\RegisterUser;
 use Damax\User\Application\Service\RegistrationService;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\RegisterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -21,7 +22,10 @@ class RegistrationController extends Controller
         $form = $this->createForm(RegisterType::class)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $service->registerUser($form->getData());
+            $command = new RegisterUser();
+            $command->user = $form->getData();
+
+            $service->registerUser($command);
 
             $message = $this->get('translator')->trans('registration.message.completed', [], 'damax-user');
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Form\Type;
 
-use Damax\User\Application\Command\RegisterUser;
+use Damax\User\Application\Dto\UserRegistrationDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -36,7 +36,7 @@ class RegisterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => RegisterUser::class,
+            'data_class' => UserRegistrationDto::class,
             'translation_domain' => 'damax-user',
         ]);
     }

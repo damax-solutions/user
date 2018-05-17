@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Damax\User\Bridge\Symfony\Console\Command\Role;
 
 use Damax\User\Application\Command\UpdateRole;
-use Damax\User\Application\Dto\RoleBodyDto;
+use Damax\User\Application\Dto\RoleInfoDto;
 use Damax\User\Application\Service\RoleService;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\RoleType;
 use Damax\User\Bridge\Symfony\Console\Style;
@@ -41,12 +41,12 @@ class EditCommand extends Command
         $io = new Style($input, $output);
         $io->title('Edit role');
 
-        /** @var RoleBodyDto $dto */
-        $dto = $this->getHelper('form')->interactUsingForm(RoleType::class, $input, $output, ['full' => false]);
+        /** @var RoleInfoDto $info */
+        $info = $this->getHelper('form')->interactUsingForm(RoleType::class, $input, $output, ['full' => false]);
 
         $command = new UpdateRole();
         $command->code = $input->getArgument('code');
-        $command->role = $dto;
+        $command->info = $info;
 
         $io->newLine();
 

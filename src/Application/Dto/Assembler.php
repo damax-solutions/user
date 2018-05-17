@@ -65,17 +65,6 @@ class Assembler
         return $dto;
     }
 
-    public function toPermissionDto(Permission $permission): PermissionDto
-    {
-        $dto = new PermissionDto();
-
-        $dto->code = $permission->code();
-        $dto->category = $permission->category();
-        $dto->description = $permission->description();
-
-        return $dto;
-    }
-
     public function toRoleDto(Role $role): RoleDto
     {
         $dto = new RoleDto();
@@ -83,6 +72,17 @@ class Assembler
         $dto->code = $role->code();
         $dto->name = $role->name();
         $dto->permissions = $role->permissions();
+
+        return $dto;
+    }
+
+    public function toPermissionDto(Permission $permission): PermissionDto
+    {
+        $dto = new PermissionDto();
+
+        $dto->code = $permission->code();
+        $dto->category = $permission->category();
+        $dto->description = $permission->description();
 
         return $dto;
     }

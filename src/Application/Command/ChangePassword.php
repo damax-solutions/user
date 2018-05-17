@@ -4,10 +4,17 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Command;
 
-class ChangePassword extends UserCommand
+use Damax\User\Application\Dto\UserPasswordDto;
+
+class ChangePassword
 {
     /**
      * @var string
      */
-    public $newPassword;
+    public $userId;
+
+    /**
+     * @var UserPasswordDto
+     */
+    public $password;
 }

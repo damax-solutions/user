@@ -4,18 +4,8 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Dto;
 
-use ArrayAccess;
-use Damax\Common\Application\AsArrayTrait;
-
-class RoleDto implements ArrayAccess
+class RoleInfoDto
 {
-    use AsArrayTrait;
-
-    /**
-     * @var string
-     */
-    public $code;
-
     /**
      * @var string
      */

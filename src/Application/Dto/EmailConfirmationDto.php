@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Application\Command;
+namespace Damax\User\Application\Dto;
 
-class ConfirmEmail
+class EmailConfirmationDto
 {
     /**
      * @var string

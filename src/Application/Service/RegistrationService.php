@@ -32,17 +32,17 @@ class RegistrationService
      */
     public function registerUser(RegisterUser $command): UserDto
     {
-        if ($this->users->byEmail(Email::fromString($command->email))) {
-            throw UserAlreadyExists::withEmail($command->email);
+        if ($this->users->byEmail(Email::fromString($command->user->email))) {
+            throw UserAlreadyExists::withEmail($command->user->email);
         }
 
-        if ($this->users->byMobilePhone(MobilePhone::fromString($command->mobilePhone))) {
-            throw UserAlreadyExists::withMobilePhone($command->mobilePhone);
+        if ($this->users->byMobilePhone(MobilePhone::fromString($command->user->mobilePhone))) {
+            throw UserAlreadyExists::withMobilePhone($command->user->mobilePhone);
         }
 
         $creator = $command->creatorId ? $this->getUser($command->creatorId) : null;
 
-        $user = $this->userFactory->create($command, $creator);
+        $user = $this->userFactory->create($command->user, $creator);
 
         $this->users->save($user);
 

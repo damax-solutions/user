@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Form\Type;
 
-use Damax\User\Application\Command\RequestPasswordReset;
+use Damax\User\Application\Dto\PasswordResetRequestDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,7 +23,7 @@ class PasswordResetRequestType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => RequestPasswordReset::class,
+            'data_class' => PasswordResetRequestDto::class,
             'translation_domain' => 'damax-user',
         ]);
     }

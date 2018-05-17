@@ -8,6 +8,7 @@ use Damax\Common\Bridge\Symfony\Bundle\Annotation\Command;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Command\RegisterUser;
 use Damax\User\Application\Dto\UserDto;
+use Damax\User\Application\Dto\UserRegistrationDto;
 use Damax\User\Application\Exception\UserAlreadyExists;
 use Damax\User\Application\Service\RegistrationService;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -20,18 +21,18 @@ class RegistrationController
 {
     /**
      * @OpenApi\Post(
-     *     tags={"user"},
+     *     tags={"registration"},
      *     summary="User registration.",
      *     @OpenApi\Parameter(
      *         name="body",
      *         in="body",
      *         required=true,
-     *         @OpenApi\Schema(ref=@Model(type=RegisterUser::class, groups={"registration"}))
+     *         @OpenApi\Schema(ref=@Model(type=UserRegistrationDto::class, groups={"user_registration"}))
      *     ),
      *     @OpenApi\Response(
      *         response=201,
-     *         description="New user.",
-     *         @OpenApi\Schema(ref=@Model(type=UserDto::class, groups={"registration"}))
+     *         description="User info.",
+     *         @OpenApi\Schema(ref=@Model(type=UserDto::class, groups={"user_registration"}))
      *     ),
      *     @OpenApi\Response(
      *         response=409,
@@ -41,13 +42,16 @@ class RegistrationController
      *
      * @Method("POST")
      * @Route("/register")
-     * @Command(RegisterUser::class, validate=true, groups={"registration"})
-     * @Serialize({"registration"})
+     * @Command(UserRegistrationDto::class, validate=true, param="user", groups={"user_registration"})
+     * @Serialize({"user_registration"})
      *
      * @throws ConflictHttpException
      */
-    public function registerAction(RegistrationService $service, RegisterUser $command): UserDto
+    public function registerAction(RegistrationService $service, UserRegistrationDto $user): UserDto
     {
+        $command = new RegisterUser();
+        $command->user = $user;
+
         try {
             return $service->registerUser($command);
         } catch (UserAlreadyExists $e) {

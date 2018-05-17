@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Damax\User\Application\Command;
+namespace Damax\User\Application\Dto;
 
-class ResetPassword
+class UserPasswordDto
 {
     /**
      * @var string
      */
-    public $token;
+    public $oldPassword;
 
     /**
      * @var string

@@ -157,20 +157,18 @@ class User implements ContainsRecordedMessages
         $this->updatedAt = new DateTimeImmutable();
     }
 
-    public function changePassword(Password $password, self $editor = null)
+    public function changePassword(Password $password)
     {
         $this->password = $password;
         $this->updatedAt = new DateTimeImmutable();
-        $this->updatedBy = $editor ?? $this;
     }
 
-    public function update(Name $name, Timezone $timezone, Locale $locale, self $editor = null)
+    public function update(Name $name, Timezone $timezone, Locale $locale)
     {
         $this->name = $name;
         $this->timezone = $timezone;
         $this->locale = $locale;
         $this->updatedAt = new DateTimeImmutable();
-        $this->updatedBy = $editor ?? $this;
     }
 
     public function enable(self $editor)

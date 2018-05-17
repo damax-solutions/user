@@ -6,8 +6,8 @@ namespace Damax\User\Bridge\Symfony\Bundle\Controller\Api;
 
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Command;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
-use Damax\User\Application\Command\ConfirmEmail;
-use Damax\User\Application\Command\RequestEmailConfirmation;
+use Damax\User\Application\Dto\EmailConfirmationDto;
+use Damax\User\Application\Dto\EmailConfirmationRequestDto;
 use Damax\User\Application\Exception\ActionRequestExpired;
 use Damax\User\Application\Exception\ActionRequestNotFound;
 use Damax\User\Application\Exception\UserNotFound;
@@ -16,6 +16,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swagger\Annotations as OpenApi;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -23,20 +24,26 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class ConfirmationController
 {
+    private $service;
+
+    public function __construct(ConfirmationService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @OpenApi\Post(
-     *     tags={"user"},
-     *     summary="Initiate email confirmation routine.",
+     *     tags={"registration"},
+     *     summary="Request email confirmation.",
      *     @OpenApi\Parameter(
      *         name="body",
      *         in="body",
      *         required=true,
-     *         @OpenApi\Schema(ref=@Model(type=RequestEmailConfirmation::class))
+     *         @OpenApi\Schema(ref=@Model(type=EmailConfirmationRequestDto::class))
      *     ),
      *     @OpenApi\Response(
-     *         response=201,
-     *         description="Request result.",
-     *         @OpenApi\Schema(type="object", @OpenApi\Property(property="ok", type="boolean"))
+     *         response=204,
+     *         description="Request initiated."
      *     ),
      *     @OpenApi\Response(
      *         response=404,
@@ -46,58 +53,57 @@ class ConfirmationController
      *
      * @Method("POST")
      * @Route("/email-request")
-     * @Command(RequestEmailConfirmation::class, validate=true)
+     * @Command(EmailConfirmationRequestDto::class, validate=true, param="request")
      * @Serialize()
      *
      * @throws NotFoundHttpException
      */
-    public function requestEmailAction(ConfirmationService $service, RequestEmailConfirmation $command): array
+    public function requestEmailAction(EmailConfirmationRequestDto $request): Response
     {
         try {
-            $service->requestEmailConfirmation($command);
+            $this->service->requestEmailConfirmation($request);
         } catch (UserNotFound $e) {
             throw new NotFoundHttpException();
         }
 
-        return ['ok' => true];
+        return Response::create('', Response::HTTP_NO_CONTENT);
     }
 
     /**
      * @OpenApi\Post(
-     *     tags={"user"},
-     *     summary="Confirm user email by token.",
+     *     tags={"registration"},
+     *     summary="Confirm user email.",
      *     @OpenApi\Parameter(
      *         name="body",
      *         in="body",
      *         required=true,
-     *         @OpenApi\Schema(ref=@Model(type=ConfirmEmail::class))
+     *         @OpenApi\Schema(ref=@Model(type=EmailConfirmationDto::class))
      *     ),
      *     @OpenApi\Response(
-     *         response=201,
-     *         description="Request result.",
-     *         @OpenApi\Schema(type="object", @OpenApi\Property(property="ok", type="boolean"))
+     *         response=204,
+     *         description="Email confirmed."
      *     ),
      *     @OpenApi\Response(
      *         response=404,
-     *         description="Email confirmation token not found."
+     *         description="Email confirmation request not found."
      *     )
      * )
      *
      * @Method("POST")
      * @Route("/email")
-     * @Command(ConfirmEmail::class, validate=true)
+     * @Command(EmailConfirmationDto::class, validate=true, param="confirmation")
      * @Serialize()
      *
      * @throws NotFoundHttpException
      */
-    public function confirmEmailAction(ConfirmationService $service, ConfirmEmail $command): array
+    public function confirmEmailAction(EmailConfirmationDto $confirmation): Response
     {
         try {
-            $service->confirmEmail($command);
+            $this->service->confirmEmail($confirmation);
         } catch (ActionRequestNotFound | ActionRequestExpired $e) {
             throw new NotFoundHttpException();
         }
 
-        return ['ok' => true];
+        return Response::create('', Response::HTTP_NO_CONTENT);
     }
 }

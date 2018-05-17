@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Form\Type;
 
-use Damax\User\Application\Command\UpdateUser;
+use Damax\User\Application\Dto\UserInfoDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
@@ -29,7 +29,7 @@ class ProfileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => UpdateUser::class,
+            'data_class' => UserInfoDto::class,
             'translation_domain' => 'damax-user',
         ]);
     }

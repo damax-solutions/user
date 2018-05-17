@@ -94,7 +94,7 @@ final class User implements AdvancedUserInterface, EquatableInterface, Serializa
 
     public function eraseCredentials()
     {
-        $this->password = '';
+        // $this->password = '';
         $this->salt = '';
     }
 

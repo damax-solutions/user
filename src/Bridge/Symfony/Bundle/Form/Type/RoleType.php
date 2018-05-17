@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Form\Type;
 
-use Damax\User\Application\Dto\RoleBodyDto;
 use Damax\User\Application\Dto\RoleDto;
+use Damax\User\Application\Dto\RoleInfoDto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,7 +40,7 @@ class RoleType extends AbstractType
             'full' => true,
             'translation_domain' => 'damax-user',
             'data_class' => function (Options $options) {
-                return $options['full'] ? RoleDto::class : RoleBodyDto::class;
+                return $options['full'] ? RoleDto::class : RoleInfoDto::class;
             },
         ]);
     }

@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Dto;
 
-class RoleBodyDto
+class PasswordResetDto
 {
     /**
      * @var string
      */
-    public $name;
+    public $token;
 
     /**
-     * @var string[]
+     * @var string
      */
-    public $permissions = [];
+    public $newPassword;
 }

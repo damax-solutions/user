@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Console\Command\User;
 
-use Damax\User\Application\Command\ResetPassword;
+use Damax\User\Application\Dto\PasswordResetDto;
 use Damax\User\Application\Service\PasswordService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -43,11 +43,11 @@ class ResetPasswordCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->title('Reset user password');
 
-        $command = new ResetPassword();
-        $command->token = $input->getArgument('token');
-        $command->newPassword = $input->getArgument('password');
+        $reset = new PasswordResetDto();
+        $reset->token = $input->getArgument('token');
+        $reset->newPassword = $input->getArgument('password');
 
-        if (count($errors = $this->validator->validate($command))) {
+        if (count($errors = $this->validator->validate($reset))) {
             foreach ($errors as $error) {
                 $io->error($error->getMessage());
             }
@@ -56,7 +56,7 @@ class ResetPasswordCommand extends Command
         }
 
         try {
-            $this->service->resetPassword($command);
+            $this->service->resetPassword($reset);
         } catch (Throwable $e) {
             $io->error($e->getMessage());
 

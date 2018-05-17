@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Standard;
 
-use Damax\User\Application\Command\ResetPassword;
+use Damax\User\Application\Dto\PasswordResetDto;
 use Damax\User\Application\Service\PasswordService;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\PasswordResetRequestType;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\PasswordResetType;
@@ -47,13 +47,13 @@ class PasswordController extends Controller
             return $this->render('@DamaxUser/Password/reset_expired.html.twig');
         }
 
-        $command = new ResetPassword();
-        $command->token = $token;
+        $reset = new PasswordResetDto();
+        $reset->token = $token;
 
-        $form = $this->createForm(PasswordResetType::class, $command)->handleRequest($request);
+        $form = $this->createForm(PasswordResetType::class, $reset)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $service->resetPassword($command);
+            $service->resetPassword($reset);
 
             $message = $this->get('translator')->trans('password.message.changed', [], 'damax-user');
 

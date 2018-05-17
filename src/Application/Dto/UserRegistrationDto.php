@@ -7,22 +7,27 @@ namespace Damax\User\Application\Dto;
 use ArrayAccess;
 use Damax\Common\Application\AsArrayTrait;
 
-class RoleDto implements ArrayAccess
+class UserRegistrationDto implements ArrayAccess
 {
     use AsArrayTrait;
 
     /**
      * @var string
      */
-    public $code;
+    public $email;
 
     /**
      * @var string
      */
-    public $name;
+    public $mobilePhone;
 
     /**
-     * @var string[]
+     * @var string
      */
-    public $permissions = [];
+    public $password;
+
+    /**
+     * @var NameDto
+     */
+    public $name;
 }

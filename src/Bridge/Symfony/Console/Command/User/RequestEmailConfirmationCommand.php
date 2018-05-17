@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Console\Command\User;
 
-use Damax\User\Application\Command\RequestEmailConfirmation;
+use Damax\User\Application\Dto\EmailConfirmationRequestDto;
 use Damax\User\Application\Service\ConfirmationService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -39,11 +39,11 @@ class RequestEmailConfirmationCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->title('Request email confirmation');
 
-        $command = new RequestEmailConfirmation();
-        $command->userId = $input->getArgument('user-id');
+        $request = new EmailConfirmationRequestDto();
+        $request->userId = $input->getArgument('user-id');
 
         try {
-            $this->service->requestEmailConfirmation($command);
+            $this->service->requestEmailConfirmation($request);
         } catch (Throwable $e) {
             $io->error($e->getMessage());
 

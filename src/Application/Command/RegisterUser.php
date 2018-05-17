@@ -4,33 +4,14 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Command;
 
-use ArrayAccess;
-use Damax\Common\Application\AsArrayTrait;
-use Damax\User\Application\Dto\NameDto;
+use Damax\User\Application\Dto\UserRegistrationDto;
 
-class RegisterUser implements ArrayAccess
+class RegisterUser
 {
-    use AsArrayTrait;
-
     /**
-     * @var string
+     * @var UserRegistrationDto
      */
-    public $email;
-
-    /**
-     * @var string
-     */
-    public $mobilePhone;
-
-    /**
-     * @var string
-     */
-    public $password;
-
-    /**
-     * @var NameDto
-     */
-    public $name;
+    public $user;
 
     /**
      * @var string|null

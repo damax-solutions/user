@@ -37,11 +37,11 @@ class CreateCommand extends Command
         $io = new Style($input, $output);
         $io->title('Create role');
 
-        /** @var RoleDto $dto */
-        $dto = $this->getHelper('form')->interactUsingForm(RoleType::class, $input, $output);
+        /** @var RoleDto $role */
+        $role = $this->getHelper('form')->interactUsingForm(RoleType::class, $input, $output);
 
         $command = new CreateRole();
-        $command->role = $dto;
+        $command->role = $role;
 
         $io->newLine();
 

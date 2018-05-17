@@ -12,6 +12,8 @@ use Damax\User\Application\Command\RemoveUserRole;
 use Damax\User\Application\Command\UpdateUser;
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\UserDto;
+use Damax\User\Application\Exception\RoleNotFound;
+use Damax\User\Application\Exception\UserNotFound;
 use Damax\User\Domain\Model\Locale;
 use Damax\User\Domain\Model\Name;
 use Damax\User\Domain\Model\RoleRepository;
@@ -47,6 +49,9 @@ class UserService
         return new Pagerfanta(new CallableDecoratorAdapter($adapter, [$this->assembler, 'toUserDto']));
     }
 
+    /**
+     * @throws UserNotFound
+     */
     public function enable(EnableUser $command): UserDto
     {
         $editor = $this->getUser($command->editorId);
@@ -59,6 +64,9 @@ class UserService
         return $this->assembler->toUserDto($user);
     }
 
+    /**
+     * @throws UserNotFound
+     */
     public function disable(DisableUser $command): UserDto
     {
         $editor = $this->getUser($command->editorId);
@@ -71,22 +79,27 @@ class UserService
         return $this->assembler->toUserDto($user);
     }
 
+    /**
+     * @throws UserNotFound
+     */
     public function update(UpdateUser $command): UserDto
     {
-        $editor = $command->editorId ? $this->getUser($command->editorId) : null;
-
-        $name = Name::fromArray($command->name);
-        $timezone = Timezone::fromId($command->timezone);
-        $locale = Locale::fromCode($command->locale);
+        $name = Name::fromArray($command->info->name);
+        $timezone = Timezone::fromId($command->info->timezone);
+        $locale = Locale::fromCode($command->info->locale);
 
         $user = $this->getUser($command->userId);
-        $user->update($name, $timezone, $locale, $editor);
+        $user->update($name, $timezone, $locale);
 
         $this->users->save($user);
 
         return $this->assembler->toUserDto($user);
     }
 
+    /**
+     * @throws UserNotFound
+     * @throws RoleNotFound
+     */
     public function assignRole(AssignUserRole $command): UserDto
     {
         $editor = $command->editorId ? $this->getUser($command->editorId) : null;
@@ -101,6 +114,10 @@ class UserService
         return $this->assembler->toUserDto($user);
     }
 
+    /**
+     * @throws UserNotFound
+     * @throws RoleNotFound
+     */
     public function removeRole(RemoveUserRole $command): UserDto
     {
         $editor = $command->editorId ? $this->getUser($command->editorId) : null;

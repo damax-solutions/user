@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Damax\User\Bridge\Symfony\Console\Command\User;
 
 use Damax\User\Application\Command\RegisterUser;
+use Damax\User\Application\Dto\UserRegistrationDto;
 use Damax\User\Application\Service\RegistrationService;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\RegisterUserType;
 use Damax\User\Bridge\Symfony\Console\Style;
@@ -40,8 +41,11 @@ class RegisterCommand extends Command
         $io = new Style($input, $output);
         $io->title('Register new user');
 
-        /** @var RegisterUser $command */
-        $command = $this->getHelper('form')->interactUsingForm(RegisterUserType::class, $input, $output);
+        /** @var UserRegistrationDto $user */
+        $user = $this->getHelper('form')->interactUsingForm(RegisterUserType::class, $input, $output);
+
+        $command = new RegisterUser();
+        $command->user = $user;
         $command->creatorId = $input->getOption('creator-id');
 
         $io->newLine();
