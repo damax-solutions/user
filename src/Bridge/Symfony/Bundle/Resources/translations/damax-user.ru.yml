@@ -41,6 +41,10 @@ password:
     button:
         reset: Сбросить пароль
         change: Сменить пароль
+    label:
+        current_password: Текущий пароль
+        new_password: Новый пароль
+        repeat_new_password: Повторить новый пароль
     message:
         reset_requested: Проверьте эл. почту для сброса пароля.
         changed: Пароль изменен.

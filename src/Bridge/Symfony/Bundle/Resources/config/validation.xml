@@ -29,16 +29,8 @@
             <constraint name="Symfony\Component\Security\Core\Validator\Constraints\UserPassword" />
         </property>
         <property name="newPassword">
-            <constraint name="NotBlank">
-                <option name="groups">
-                    <value>user_password</value>
-                </option>
-            </constraint>
-            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Password">
-                <option name="groups">
-                    <value>user_password</value>
-                </option>
-            </constraint>
+            <constraint name="NotBlank" />
+            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Password" />
         </property>
     </class>
 

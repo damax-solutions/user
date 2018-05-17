@@ -45,7 +45,7 @@ class PasswordService
     public function changePassword(ChangePassword $command): void
     {
         $user = $this->getUser($command->userId);
-        $user->changePassword($this->encoder->encode($command->password->newPassword));
+        $user->changePassword($this->encoder->encode($command->password));
 
         $this->users->save($user);
     }

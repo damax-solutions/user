@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Standard;
 
+use Damax\User\Application\Command\ChangePassword;
 use Damax\User\Application\Command\UpdateUser;
 use Damax\User\Application\Dto\UserInfoDto;
+use Damax\User\Application\Service\PasswordService;
 use Damax\User\Application\Service\UserService;
+use Damax\User\Bridge\Symfony\Bundle\Form\Type\ChangePasswordType;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\ProfileType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -54,5 +57,29 @@ class ProfileController extends Controller
         }
 
         return $this->render('@DamaxUser/Profile/edit.html.twig', ['user' => $user, 'form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/change-password", name="profile_change_password")
+     */
+    public function changePasswordAction(Request $request, PasswordService $service): Response
+    {
+        $form = $this->createForm(ChangePasswordType::class)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $command = new ChangePassword();
+            $command->password = $form->getData()->newPassword;
+            $command->userId = $this->getUser()->getUsername();
+
+            $service->changePassword($command);
+
+            $message = $this->get('translator')->trans('password.message.changed', [], 'damax-user');
+
+            $this->addFlash('success', $message);
+
+            return $this->redirectToRoute('profile_view');
+        }
+
+        return $this->render('@DamaxUser/Profile/change_password.html.twig', ['form' => $form->createView()]);
     }
 }

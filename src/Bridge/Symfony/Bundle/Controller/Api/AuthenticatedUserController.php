@@ -114,7 +114,7 @@ class AuthenticatedUserController
     public function changePasswordAction(PasswordService $service, UserPasswordDto $password): Response
     {
         $command = new ChangePassword();
-        $command->password = $password;
+        $command->password = $password->newPassword;
         $command->userId = $this->tokenStorage->getToken()->getUsername();
 
         $service->changePassword($command);

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Command;
 
-use Damax\User\Application\Dto\UserPasswordDto;
-
 class ChangePassword
 {
     /**
@@ -14,7 +12,7 @@ class ChangePassword
     public $userId;
 
     /**
-     * @var UserPasswordDto
+     * @var string
      */
     public $password;
 }

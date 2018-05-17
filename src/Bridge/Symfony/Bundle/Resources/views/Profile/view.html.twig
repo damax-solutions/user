@@ -14,5 +14,8 @@
         </p>
     </div>
 
-    <a class="button is-info" href="{{ path('profile_edit') }}">{{ 'profile.button.edit' | trans }}</a>
+    <div class="buttons">
+        <a class="button is-info" href="{{ path('profile_edit') }}">{{ 'profile.button.edit' | trans }}</a>
+        <a class="button is-warning" href="{{ path('profile_change_password') }}">{{ 'password.button.change' | trans }}</a>
+    </div>
 {% endblock %}

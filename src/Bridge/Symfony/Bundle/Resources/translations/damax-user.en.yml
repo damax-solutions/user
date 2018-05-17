@@ -41,6 +41,10 @@ password:
     button:
         reset: Reset password
         change: Change password
+    label:
+        current_password: Current password
+        new_password: New password
+        repeat_new_password: Repeat new password
     message:
         reset_requested: Please check email to continue with password reset.
         changed: Password changed.
