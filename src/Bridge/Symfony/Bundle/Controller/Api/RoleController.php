@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Api;
 
-use Damax\Common\Bridge\Symfony\Bundle\Annotation\Command;
+use Damax\Common\Bridge\Symfony\Bundle\Annotation\Deserialize;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Command\CreateRole;
 use Damax\User\Application\Command\UpdateRole;
@@ -115,8 +115,8 @@ class RoleController
      *
      * @Method("POST")
      * @Route("")
-     * @Command(RoleDto::class, validate=true, param="role")
      * @Serialize()
+     * @Deserialize(RoleDto::class, validate=true, param="role")
      *
      * @throws ConflictHttpException
      */
@@ -158,8 +158,8 @@ class RoleController
      *
      * @Method("PATCH")
      * @Route("/{code}")
-     * @Command(RoleInfoDto::class, validate=true, param="info")
      * @Serialize()
+     * @Deserialize(RoleInfoDto::class, validate=true, param="info")
      *
      * @throws NotFoundHttpException
      */

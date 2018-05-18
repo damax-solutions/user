@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Api;
 
-use Damax\Common\Bridge\Symfony\Bundle\Annotation\Command;
+use Damax\Common\Bridge\Symfony\Bundle\Annotation\Deserialize;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Dto\PasswordResetDto;
 use Damax\User\Application\Dto\PasswordResetRequestDto;
@@ -54,8 +54,8 @@ class PasswordController
      *
      * @Method("POST")
      * @Route("/reset-request")
-     * @Command(PasswordResetRequestDto::class, validate=true, param="request")
      * @Serialize()
+     * @Deserialize(PasswordResetRequestDto::class, validate=true, param="request")
      *
      * @throws NotFoundHttpException
      */
@@ -92,8 +92,8 @@ class PasswordController
      *
      * @Method("POST")
      * @Route("/reset")
-     * @Command(PasswordResetDto::class, validate=true, param="reset")
      * @Serialize()
+     * @Deserialize(PasswordResetDto::class, validate=true, param="reset")
      *
      * @throws NotFoundHttpException
      */

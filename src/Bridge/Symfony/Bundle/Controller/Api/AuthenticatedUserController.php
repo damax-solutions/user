@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Api;
 
-use Damax\Common\Bridge\Symfony\Bundle\Annotation\Command;
+use Damax\Common\Bridge\Symfony\Bundle\Annotation\Deserialize;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Command\ChangePassword;
 use Damax\User\Application\Command\UpdateUser;
@@ -79,8 +79,8 @@ class AuthenticatedUserController
      *
      * @Method("PATCH")
      * @Route("")
-     * @Command(UserInfoDto::class, validate=true, param="info")
      * @Serialize({"user_auth"})
+     * @Deserialize(UserInfoDto::class, validate=true, param="info")
      */
     public function updateAction(UserInfoDto $info): UserDto
     {
@@ -109,7 +109,7 @@ class AuthenticatedUserController
      *
      * @Method("PUT")
      * @Route("/password")
-     * @Command(UserPasswordDto::class, validate=true, param="password")
+     * @Deserialize(UserPasswordDto::class, validate=true, param="password")
      */
     public function changePasswordAction(PasswordService $service, UserPasswordDto $password): Response
     {

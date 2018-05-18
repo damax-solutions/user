@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Api;
 
-use Damax\Common\Bridge\Symfony\Bundle\Annotation\Command;
+use Damax\Common\Bridge\Symfony\Bundle\Annotation\Deserialize;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Command\CreatePermission;
 use Damax\User\Application\Dto\PermissionDto;
@@ -80,8 +80,8 @@ class PermissionController
      *
      * @Method("POST")
      * @Route("")
-     * @Command(PermissionDto::class, validate=true, param="permission")
      * @Serialize()
+     * @Deserialize(PermissionDto::class, validate=true, param="permission")
      *
      * @throws ConflictHttpException
      */

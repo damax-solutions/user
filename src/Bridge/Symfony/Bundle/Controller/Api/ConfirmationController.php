@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Api;
 
-use Damax\Common\Bridge\Symfony\Bundle\Annotation\Command;
+use Damax\Common\Bridge\Symfony\Bundle\Annotation\Deserialize;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Dto\EmailConfirmationDto;
 use Damax\User\Application\Dto\EmailConfirmationRequestDto;
@@ -53,8 +53,8 @@ class ConfirmationController
      *
      * @Method("POST")
      * @Route("/email-request")
-     * @Command(EmailConfirmationRequestDto::class, validate=true, param="request")
      * @Serialize()
+     * @Deserialize(EmailConfirmationRequestDto::class, validate=true, param="request")
      *
      * @throws NotFoundHttpException
      */
@@ -91,8 +91,8 @@ class ConfirmationController
      *
      * @Method("POST")
      * @Route("/email")
-     * @Command(EmailConfirmationDto::class, validate=true, param="confirmation")
      * @Serialize()
+     * @Deserialize(EmailConfirmationDto::class, validate=true, param="confirmation")
      *
      * @throws NotFoundHttpException
      */

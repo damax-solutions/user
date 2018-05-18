@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Api;
 
-use Damax\Common\Bridge\Symfony\Bundle\Annotation\Command;
+use Damax\Common\Bridge\Symfony\Bundle\Annotation\Deserialize;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Command\RegisterUser;
 use Damax\User\Application\Dto\UserDto;
@@ -42,8 +42,8 @@ class RegistrationController
      *
      * @Method("POST")
      * @Route("/register")
-     * @Command(UserRegistrationDto::class, validate=true, param="user", groups={"user_registration"})
      * @Serialize({"user_registration"})
+     * @Deserialize(UserRegistrationDto::class, validate=true, param="user", groups={"user_registration"})
      *
      * @throws ConflictHttpException
      */
