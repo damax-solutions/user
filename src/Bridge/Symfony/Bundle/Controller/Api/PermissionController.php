@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * @Route("/user/permissions")
+ * @Route("/permissions")
  */
 class PermissionController
 {

@@ -26,7 +26,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
- * @Route("/user")
+ * @Route("/users")
  */
 class UserController
 {
@@ -60,7 +60,7 @@ class UserController
      * )
      *
      * @Method("GET")
-     * @Route("/users")
+     * @Route("")
      * @Serialize()
      */
     public function listAction(Request $request): Pagerfanta
@@ -92,7 +92,7 @@ class UserController
      * )
      *
      * @Method("GET")
-     * @Route("/users/{id}")
+     * @Route("/{id}")
      * @Serialize()
      *
      * @throws NotFoundHttpException
@@ -124,7 +124,7 @@ class UserController
      * )
      *
      * @Method("PUT")
-     * @Route("/users/{id}/enable")
+     * @Route("/{id}/enable")
      *
      * @throws NotFoundHttpException
      */
@@ -161,7 +161,7 @@ class UserController
      * )
      *
      * @Method("DELETE")
-     * @Route("/users/{id}/disable")
+     * @Route("/{id}/disable")
      *
      * @throws NotFoundHttpException
      */
@@ -201,7 +201,7 @@ class UserController
      * )
      *
      * @Method("GET")
-     * @Route("/users/{id}/logins")
+     * @Route("/{id}/logins")
      * @Serialize()
      */
     public function loginsAction(Request $request, string $id, UserLoginService $service): Pagerfanta
@@ -232,7 +232,7 @@ class UserController
      * )
      *
      * @Method("PUT")
-     * @Route("/users/{id}/role/{role}")
+     * @Route("/{id}/role/{role}")
      *
      * @throws NotFoundHttpException
      */
@@ -270,7 +270,7 @@ class UserController
      * )
      *
      * @Method("DELETE")
-     * @Route("/users/{id}/role/{role}")
+     * @Route("/{id}/role/{role}")
      *
      * @throws NotFoundHttpException
      */
