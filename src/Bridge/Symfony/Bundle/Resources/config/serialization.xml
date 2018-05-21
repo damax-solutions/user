@@ -35,6 +35,9 @@
         <attribute name="lastLoginAt">
             <group>user_auth</group>
         </attribute>
+        <attribute name="roles">
+            <group>user_auth</group>
+        </attribute>
     </class>
 
     <class name="Damax\User\Application\Dto\NameDto">
