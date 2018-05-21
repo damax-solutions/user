@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\Controller\Api;
 
+use Damax\Bundle\ApiAuthBundle\Jwt\TokenBuilder;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Deserialize;
 use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Command\ChangePassword;
@@ -120,5 +121,30 @@ class AuthenticatedUserController
         $service->changePassword($command);
 
         return Response::create('', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @OpenApi\Get(
+     *     tags={"user-auth"},
+     *     summary="Refresh authentication token.",
+     *     security={
+     *         {"Bearer"=""}
+     *     },
+     *     @OpenApi\Response(
+     *         response=200,
+     *         description="Authentication result.",
+     *         @OpenApi\Schema(type="object", @OpenApi\Property(property="token", type="string"))
+     *     )
+     * )
+     *
+     * @Method("GET")
+     * @Route("/refresh-token")
+     * @Serialize()
+     */
+    public function refreshAction(TokenBuilder $tokenBuilder): array
+    {
+        $jwtString = $tokenBuilder->fromUser($this->tokenStorage->getToken()->getUser());
+
+        return ['token' => $jwtString];
     }
 }
