@@ -31,6 +31,10 @@
         <property name="newPassword">
             <constraint name="NotBlank" />
             <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Password" />
+            <constraint name="NotEqualTo">
+                <option name="propertyPath">oldPassword</option>
+                <option name="message">damax_user.password.equal_to_old</option>
+            </constraint>
         </property>
     </class>
 

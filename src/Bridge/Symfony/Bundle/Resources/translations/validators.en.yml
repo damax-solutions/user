@@ -2,6 +2,7 @@ damax_user:
     password:
         invalid: "Password must be at least %min_length% characters long including at least one digit, one small and one big English alphabet letter."
         mismatch: Passwords are not the same.
+        equal_to_old: New password is equal to old.
     email:
         exists: User with such e-mail already exists.
         not_found: User with such e-mail not found.
