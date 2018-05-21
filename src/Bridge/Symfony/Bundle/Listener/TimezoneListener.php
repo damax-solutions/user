@@ -5,12 +5,21 @@ declare(strict_types=1);
 namespace Damax\User\Bridge\Symfony\Bundle\Listener;
 
 use Damax\User\Bridge\Symfony\Security\User;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class TimezoneListener
+class TimezoneListener implements EventSubscriberInterface
 {
     private $tokenStorage;
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::REQUEST => ['onKernelRequest', 4],
+        ];
+    }
 
     public function __construct(TokenStorageInterface $tokenStorage)
     {

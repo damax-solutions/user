@@ -13,6 +13,8 @@
             <tag name="controller.service_arguments" />
         </prototype>
 
+        <prototype namespace="Damax\User\Bridge\Symfony\Bundle\Listener\" resource="../../Listener" />
+
         <!-- Commands -->
 
         <prototype namespace="Damax\User\Bridge\Symfony\Console\Command\" resource="../../../Console/Command" />

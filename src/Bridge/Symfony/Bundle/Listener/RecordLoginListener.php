@@ -6,13 +6,22 @@ namespace Damax\User\Bridge\Symfony\Bundle\Listener;
 
 use Damax\User\Application\Command\RecordLogin;
 use Damax\User\Application\Service\UserLoginService;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\RememberMeToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Http\SecurityEvents;
 
-class RecordLoginListener
+class RecordLoginListener implements EventSubscriberInterface
 {
     private $loginService;
     private $loginRouteName;
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            SecurityEvents::INTERACTIVE_LOGIN => 'onInteractiveLogin',
+        ];
+    }
 
     public function __construct(UserLoginService $loginService, string $loginRouteName = 'api_security_login')
     {
