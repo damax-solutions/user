@@ -13,12 +13,14 @@ use Damax\User\Bridge\Symfony\Bundle\Form\Type\ChangePasswordType;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\ProfileType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/profile")
+ * @Security("has_role('ROLE_MEMBER')")
  */
 class ProfileController extends Controller
 {
