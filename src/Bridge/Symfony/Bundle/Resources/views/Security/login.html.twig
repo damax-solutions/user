@@ -2,18 +2,14 @@
 
 {% set title = 'security.header.login' | trans %}
 
-{% extends '@DamaxUser/layout.html.twig' %}
+{% extends '@DamaxCommon/simple_layout.html.twig' %}
 
 {% block content %}
-    <p class="subtitle has-text-grey">{{ 'security.message.login' | trans }}</p>
-
-    {% for message in app.flashes('success') %}
-        <div class="notification is-success">{{ message }}</div>
-    {% endfor %}
-
     {% if error %}
         <div class="notification is-danger">{{ error.messageKey | trans(error.messageData, 'security') }}</div>
     {% endif %}
+
+    <p class="subtitle has-text-grey">{{ 'security.message.login' | trans }}</p>
 
     <form class="box" method="post" action="{{ path('security_check') }}">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">

@@ -2,9 +2,9 @@
 
 {% set title = 'registration.header.register' | trans %}
 
-{% extends '@DamaxUser/layout.html.twig' %}
+{% extends '@DamaxCommon/simple_layout.html.twig' %}
 
-{% form_theme form '@DamaxUser/form_theme.html.twig' %}
+{% form_theme form '@DamaxCommon/form_theme.html.twig' %}
 
 {% block content %}
     <p class="subtitle has-text-grey">{{ 'registration.message.intro' | trans }}</p>
