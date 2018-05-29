@@ -76,8 +76,11 @@ class DamaxUserExtension extends ConfigurableExtension
 
         unset($config['adapter']);
 
-        $container->setAlias(Mailer::class, $mailerClass);
-        $container->setParameter('damax.user.mailer_options', $config);
+        $container
+            ->register(Mailer::class, $mailerClass)
+            ->setBindings(['$mailerOptions' => $config])
+            ->setAutowired(true)
+        ;
 
         return $this;
     }

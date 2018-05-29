@@ -5,9 +5,7 @@
 
     <services>
 
-        <defaults autowire="true" autoconfigure="true" public="false">
-            <bind key="$mailerOptions">%damax.user.mailer_options%</bind>
-        </defaults>
+        <defaults autowire="true" autoconfigure="true" public="false" />
 
         <prototype namespace="Damax\User\Bridge\Symfony\Bundle\Controller\" resource="../../Controller">
             <tag name="controller.service_arguments" />
@@ -66,12 +64,6 @@
             <tag name="event_subscriber" subscribes_to="Damax\User\Domain\Event\PasswordResetRequested" method="onPasswordResetRequested" />
             <tag name="event_subscriber" subscribes_to="Damax\User\Domain\Event\EmailConfirmationRequested" method="onEmailConfirmationRequested" />
         </service>
-
-        <!-- Mailer -->
-
-        <service id="Damax\User\Domain\Mailer\Mailer" />
-
-        <service id="Damax\User\Bridge\Mailer\SwiftMailer" />
 
     </services>
 </container>
