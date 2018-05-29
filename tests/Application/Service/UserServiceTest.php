@@ -12,6 +12,7 @@ use Damax\User\Application\Command\UpdateUser;
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\NameDto;
 use Damax\User\Application\Dto\UserDto;
+use Damax\User\Application\Dto\UserInfoDto;
 use Damax\User\Application\Service\UserService;
 use Damax\User\Domain\Model\RoleRepository;
 use Damax\User\Domain\Model\UserRepository;
@@ -190,25 +191,22 @@ class UserServiceTest extends TestCase
     {
         $command = new UpdateUser();
         $command->userId = 'ce08c4e8-d9eb-435b-9eab-edc252b450e1';
-        $command->editorId = '02158a54-0510-11e8-a654-005056806fb2';
-        $command->timezone = 'Europe/Moscow';
-        $command->locale = 'ru';
 
-        $command->name = new NameDto();
-        $command->name->lastName = 'Smith';
-        $command->name->firstName = 'John';
+        $command->info = new UserInfoDto();
+        $command->info->timezone = 'Europe/Moscow';
+        $command->info->locale = 'ru';
 
-        $editor = new JaneDoeUser();
+        $command->info->name = new NameDto();
+        $command->info->name->lastName = 'Smith';
+        $command->info->name->firstName = 'John';
+
         $user = new JohnDoeUser();
 
         $this->users
-            ->expects($this->exactly(2))
+            ->expects($this->exactly(1))
             ->method('byId')
-            ->withConsecutive(
-                ['02158a54-0510-11e8-a654-005056806fb2'],
-                ['ce08c4e8-d9eb-435b-9eab-edc252b450e1']
-            )
-            ->willReturnOnConsecutiveCalls($editor, $user)
+            ->with('ce08c4e8-d9eb-435b-9eab-edc252b450e1')
+            ->willReturn($user)
         ;
         $this->users
             ->expects($this->once())
@@ -226,7 +224,6 @@ class UserServiceTest extends TestCase
 
         $this->assertEquals('Europe/Moscow', $user->timezone()->id());
         $this->assertEquals('ru', $user->locale()->code());
-        $this->assertSame($editor, $user->updatedBy());
         $this->assertEquals('John', $user->name()->firstName());
         $this->assertEquals('Smith', $user->name()->lastName());
         $this->assertNull($user->name()->middleName());

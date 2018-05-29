@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Damax\User\Tests\Bridge\Symfony\Bundle\Form\Type;
 
 use Damax\User\Application\Dto\PermissionDto;
-use Damax\User\Application\Dto\RoleBodyDto;
 use Damax\User\Application\Dto\RoleDto;
+use Damax\User\Application\Dto\RoleInfoDto;
 use Damax\User\Application\Service\PermissionService;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\PermissionChoiceType;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\RoleType;
@@ -75,12 +75,12 @@ class RoleTypeTest extends FormIntegrationTestCase
             'permissions' => ['one', 'two'],
         ]);
 
-        /** @var RoleBodyDto $data */
+        /** @var RoleInfoDto $data */
         $data = $form->getData();
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isValid());
-        $this->assertInstanceOf(RoleBodyDto::class, $data);
+        $this->assertInstanceOf(RoleInfoDto::class, $data);
 
         $this->assertEquals('Admin', $data->name);
         $this->assertEquals(['one', 'two'], $data->permissions);

@@ -7,8 +7,8 @@ namespace Damax\User\Tests\Application\Service;
 use Damax\User\Application\Command\CreateRole;
 use Damax\User\Application\Command\UpdateRole;
 use Damax\User\Application\Dto\Assembler;
-use Damax\User\Application\Dto\RoleBodyDto;
 use Damax\User\Application\Dto\RoleDto;
+use Damax\User\Application\Dto\RoleInfoDto;
 use Damax\User\Application\Exception\RoleAlreadyExists;
 use Damax\User\Application\Service\RoleService;
 use Damax\User\Domain\Model\RoleFactory;
@@ -130,9 +130,9 @@ class RoleServiceTest extends TestCase
     {
         $command = new UpdateRole();
         $command->code = 'admin';
-        $command->role = new RoleBodyDto();
-        $command->role->name = 'New admin';
-        $command->role->permissions = ['foo', 'bar'];
+        $command->info = new RoleInfoDto();
+        $command->info->name = 'New admin';
+        $command->info->permissions = ['foo', 'bar'];
 
         $this->roles
             ->expects($this->once())

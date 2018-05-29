@@ -9,7 +9,9 @@ use Damax\User\Tests\Bridge\Symfony\Security\UserFactory;
 use Locale;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -66,16 +68,21 @@ class LocaleListenerTest extends TestCase
             ->with('ru')
         ;
 
-        $this->dispatchEvent();
+        $request = $this->dispatchEvent();
 
         $this->assertEquals('ru', Locale::getDefault());
+        $this->assertEquals('ru', $request->getLocale());
     }
 
-    private function dispatchEvent()
+    private function dispatchEvent(Request $request = null): Request
     {
-        /** @var GetResponseEvent $event */
-        $event = $this->createMock(GetResponseEvent::class);
+        $request = $request ?? Request::create('/');
 
-        $this->listener->onKernelRequest($event);
+        /** @var HttpKernelInterface $kernel */
+        $kernel = $this->createMock(HttpKernelInterface::class);
+
+        $this->listener->onKernelRequest(new GetResponseEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST));
+
+        return $request;
     }
 }

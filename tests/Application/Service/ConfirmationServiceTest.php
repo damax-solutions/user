@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Damax\User\Tests\Application\Service;
 
 use Damax\Common\Domain\Transaction\DummyTransactionManager;
-use Damax\User\Application\Command\ConfirmEmail;
-use Damax\User\Application\Command\RequestEmailConfirmation;
+use Damax\User\Application\Dto\EmailConfirmationDto;
+use Damax\User\Application\Dto\EmailConfirmationRequestDto;
 use Damax\User\Application\Exception\ActionRequestExpired;
 use Damax\User\Application\Exception\ActionRequestNotFound;
 use Damax\User\Application\Service\ConfirmationService;
@@ -47,8 +47,8 @@ class ConfirmationServiceTest extends TestCase
      */
     public function it_requests_email_confirmation()
     {
-        $command = new RequestEmailConfirmation();
-        $command->userId = 'john.doe@domain.abc';
+        $dto = new EmailConfirmationRequestDto();
+        $dto->userId = 'john.doe@domain.abc';
 
         $user = new JohnDoeUser();
 
@@ -69,7 +69,7 @@ class ConfirmationServiceTest extends TestCase
             })
         ;
 
-        $this->service->requestEmailConfirmation($command);
+        $this->service->requestEmailConfirmation($dto);
 
         $this->assertEquals('token', $request->token());
         $this->assertSame($user, $request->user());
@@ -81,8 +81,8 @@ class ConfirmationServiceTest extends TestCase
      */
     public function it_skips_email_confirmation_request_for_already_confirmed_email()
     {
-        $command = new RequestEmailConfirmation();
-        $command->userId = 'john.doe@domain.abc';
+        $dto = new EmailConfirmationRequestDto();
+        $dto->userId = 'john.doe@domain.abc';
 
         $user = new JohnDoeUser();
         $user->confirmEmail();
@@ -98,7 +98,7 @@ class ConfirmationServiceTest extends TestCase
             ->method('save')
         ;
 
-        $this->service->requestEmailConfirmation($command);
+        $this->service->requestEmailConfirmation($dto);
     }
 
     /**
@@ -106,8 +106,8 @@ class ConfirmationServiceTest extends TestCase
      */
     public function it_throws_exception_when_confirming_email_for_missing_request()
     {
-        $command = new ConfirmEmail();
-        $command->token = 'xyz';
+        $dto = new EmailConfirmationDto();
+        $dto->token = 'xyz';
 
         $this->users
             ->expects($this->never())
@@ -121,7 +121,7 @@ class ConfirmationServiceTest extends TestCase
         $this->expectException(ActionRequestNotFound::class);
         $this->expectExceptionMessage('Action request by token "xyz" not found.');
 
-        $this->service->confirmEmail($command);
+        $this->service->confirmEmail($dto);
     }
 
     /**
@@ -129,8 +129,8 @@ class ConfirmationServiceTest extends TestCase
      */
     public function it_throws_exception_when_confirming_email_for_expired_request()
     {
-        $command = new ConfirmEmail();
-        $command->token = 'xyz';
+        $dto = new EmailConfirmationDto();
+        $dto->token = 'xyz';
 
         $user = new JohnDoeUser();
         $request = ActionRequest::emailConfirmation(new FixedTokenGenerator('xyz'), $user, -1);
@@ -145,7 +145,7 @@ class ConfirmationServiceTest extends TestCase
         $this->expectException(ActionRequestExpired::class);
         $this->expectExceptionMessage('Action request with token "xyz" is expired.');
 
-        $this->service->confirmEmail($command);
+        $this->service->confirmEmail($dto);
     }
 
     /**
@@ -153,8 +153,8 @@ class ConfirmationServiceTest extends TestCase
      */
     public function it_confirms_email()
     {
-        $command = new ConfirmEmail();
-        $command->token = 'xyz';
+        $dto = new EmailConfirmationDto();
+        $dto->token = 'xyz';
 
         $user = new JohnDoeUser();
         $request = ActionRequest::emailConfirmation(new FixedTokenGenerator('xyz'), $user);
@@ -176,7 +176,7 @@ class ConfirmationServiceTest extends TestCase
             ->with($this->identicalTo($request))
         ;
 
-        $this->service->confirmEmail($command);
+        $this->service->confirmEmail($dto);
 
         $this->assertTrue($user->email()->confirmed());
     }

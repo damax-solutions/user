@@ -7,6 +7,7 @@ namespace Damax\User\Tests\Application\Service;
 use Damax\User\Application\Command\RegisterUser;
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\UserDto;
+use Damax\User\Application\Dto\UserRegistrationDto;
 use Damax\User\Application\Exception\UserAlreadyExists;
 use Damax\User\Application\Service\RegistrationService;
 use Damax\User\Domain\Model\UserFactory;
@@ -52,7 +53,8 @@ class RegistrationServiceTest extends TestCase
     public function it_throws_exception_when_user_exists_with_email()
     {
         $command = new RegisterUser();
-        $command->email = 'john.doe@domain.abc';
+        $command->user = new UserRegistrationDto();
+        $command->user->email = 'john.doe@domain.abc';
 
         $this->users
             ->method('byEmail')
@@ -72,8 +74,9 @@ class RegistrationServiceTest extends TestCase
     public function it_throws_exception_when_user_exists_with_mobile_phone()
     {
         $command = new RegisterUser();
-        $command->email = 'john.doe@domain.abc';
-        $command->mobilePhone = '123';
+        $command->user = new UserRegistrationDto();
+        $command->user->email = 'john.doe@domain.abc';
+        $command->user->mobilePhone = '123';
 
         $this->users
             ->method('byEmail')
@@ -97,9 +100,10 @@ class RegistrationServiceTest extends TestCase
     public function it_registers_user()
     {
         $command = new RegisterUser();
-        $command->email = 'john.doe@domain.abc';
-        $command->mobilePhone = '123';
         $command->creatorId = 'jane.doe@domain.abc';
+        $command->user = new UserRegistrationDto();
+        $command->user->email = 'john.doe@domain.abc';
+        $command->user->mobilePhone = '123';
 
         $this->users
             ->method('byEmail')
@@ -112,7 +116,7 @@ class RegistrationServiceTest extends TestCase
         $this->userFactory
             ->expects($this->once())
             ->method('create')
-            ->with($this->identicalTo($command), $this->identicalTo($creator))
+            ->with($this->identicalTo($command->user), $this->identicalTo($creator))
             ->willReturn($user = new JohnDoeUser())
         ;
         $this->users

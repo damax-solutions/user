@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Damax\User\Tests\Bridge\Symfony\Bundle\Form\Type;
 
-use Damax\User\Application\Command\RegisterUser;
 use Damax\User\Application\Dto\NameDto;
+use Damax\User\Application\Dto\UserRegistrationDto;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\RegisterUserType;
 use Symfony\Component\Form\Test\FormIntegrationTestCase;
 
@@ -28,12 +28,12 @@ class RegisterUserTypeTest extends FormIntegrationTestCase
             ],
         ]);
 
-        /** @var RegisterUser $data */
+        /** @var UserRegistrationDto $data */
         $data = $form->getData();
 
         $this->assertTrue($form->isSynchronized());
         $this->assertTrue($form->isValid());
-        $this->assertInstanceOf(RegisterUser::class, $data);
+        $this->assertInstanceOf(UserRegistrationDto::class, $data);
         $this->assertEquals('damax-user', $form->getConfig()->getOption('translation_domain'));
         $this->assertEquals('john.doe@domain.abc', $data->email);
         $this->assertEquals('+37120000001', $data->mobilePhone);
