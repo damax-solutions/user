@@ -30,7 +30,7 @@ class DamaxUserBundle extends Bundle
         $container
             ->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($model))
             ->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($default, [], 'damax.user.mapping.doctrine.default'))
-            ->addCompilerPass(new ResolveTargetEntititiesPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 4);
+            ->addCompilerPass(new ResolveTargetEntititiesPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 4)
         ;
     }
 }

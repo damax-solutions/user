@@ -16,20 +16,20 @@ abstract class User implements ContainsRecordedMessages
 {
     use PrivateMessageRecorderCapabilities;
 
-    private $id;
-    private $roles;
-    private $email;
-    private $mobilePhone;
-    private $password;
-    private $name;
-    private $timezone;
-    private $locale;
-    private $createdAt;
-    private $updatedAt;
-    private $createdBy;
-    private $updatedBy;
-    private $enabled = true;
-    private $lastLoginAt;
+    protected $id;
+    protected $roles;
+    protected $email;
+    protected $mobilePhone;
+    protected $password;
+    protected $name;
+    protected $timezone;
+    protected $locale;
+    protected $createdAt;
+    protected $updatedAt;
+    protected $createdBy;
+    protected $updatedBy;
+    protected $enabled = true;
+    protected $lastLoginAt;
 
     public function __construct(UuidInterface $id, Email $email, MobilePhone $mobilePhone, Password $password, Name $name, Timezone $timezone, Locale $locale, self $creator = null)
     {
