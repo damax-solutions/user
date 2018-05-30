@@ -5,7 +5,9 @@
 
     <services>
 
-        <defaults autowire="true" autoconfigure="true" public="false" />
+        <defaults autowire="true" autoconfigure="true" public="false">
+            <bind key="$userClassName">%damax.user.user_class%</bind>
+        </defaults>
 
         <prototype namespace="Damax\User\Bridge\Symfony\Bundle\Controller\" resource="../../Controller">
             <tag name="controller.service_arguments" />

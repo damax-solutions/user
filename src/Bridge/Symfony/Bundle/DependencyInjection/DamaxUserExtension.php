@@ -47,15 +47,10 @@ class DamaxUserExtension extends ConfigurableExtension
             ->addArgument($config['invalidate_password'])
         ;
 
-        $container->setParameter('damax.user.user_class', User::class);
-        $container->setParameter('damax.user.login_history_class', LoginHistory::class);
-        $container->setParameter('damax.user.permission_class', Permission::class);
-        $container->setParameter('damax.user.role_class', Role::class);
-        $container->setParameter('damax.user.action_request_class', ActionRequest::class);
-
         $this
             ->configureNameFormatter($config, $container)
             ->configureMailer($config['mailer'], $container)
+            ->configureMapping($config['mapping'], $container)
         ;
     }
 
@@ -81,6 +76,21 @@ class DamaxUserExtension extends ConfigurableExtension
             ->setBindings(['$mailerOptions' => $config])
             ->setAutowired(true)
         ;
+
+        return $this;
+    }
+
+    private function configureMapping(array $config, ContainerBuilder $container): self
+    {
+        $container->setParameter('damax.user.user_class', $config['user_class']);
+        $container->setParameter('damax.user.login_history_class', LoginHistory::class);
+        $container->setParameter('damax.user.permission_class', Permission::class);
+        $container->setParameter('damax.user.role_class', Role::class);
+        $container->setParameter('damax.user.action_request_class', ActionRequest::class);
+
+        if (empty($config['enabled'])) {
+            $container->setParameter('damax.user.mapping.doctrine.default', true);
+        }
 
         return $this;
     }

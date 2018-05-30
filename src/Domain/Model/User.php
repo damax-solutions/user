@@ -12,7 +12,7 @@ use Ramsey\Uuid\UuidInterface;
 use SimpleBus\Message\Recorder\ContainsRecordedMessages;
 use SimpleBus\Message\Recorder\PrivateMessageRecorderCapabilities;
 
-class User implements ContainsRecordedMessages
+abstract class User implements ContainsRecordedMessages
 {
     use PrivateMessageRecorderCapabilities;
 

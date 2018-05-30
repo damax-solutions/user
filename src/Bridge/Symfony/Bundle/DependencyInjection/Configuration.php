@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Bundle\DependencyInjection;
 
+use Damax\User\Doctrine\Orm\UserEntity;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -73,6 +74,14 @@ class Configuration implements ConfigurationInterface
                             ->cannotBeEmpty()
                             ->defaultValue('@DamaxUser/Emails/email_confirmation_request.twig')
                         ->end()
+                    ->end()
+                ->end()
+
+                ->arrayNode('mapping')
+                    ->canBeEnabled()
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('user_class')->defaultValue(UserEntity::class)
                     ->end()
                 ->end()
             ->end()

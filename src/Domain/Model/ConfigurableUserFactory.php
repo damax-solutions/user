@@ -13,12 +13,14 @@ class ConfigurableUserFactory implements UserFactory
     private $users;
     private $encoder;
     private $config;
+    private $className;
 
-    public function __construct(UserRepository $users, Encoder $encoder, Configuration $config)
+    public function __construct(UserRepository $users, Encoder $encoder, Configuration $config, string $userClassName)
     {
         $this->users = $users;
         $this->encoder = $encoder;
         $this->config = $config;
+        $this->className = $userClassName;
     }
 
     public function create($data, User $creator = null): User
@@ -38,6 +40,8 @@ class ConfigurableUserFactory implements UserFactory
             $password = $password->invalidate();
         }
 
-        return new User($this->users->nextId(), $email, $mobilePhone, $password, $name, $this->config->defaultTimezone(), $this->config->defaultLocale(), $creator);
+        $className = $this->className;
+
+        return new $className($this->users->nextId(), $email, $mobilePhone, $password, $name, $this->config->defaultTimezone(), $this->config->defaultLocale(), $creator);
     }
 }
