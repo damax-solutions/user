@@ -16,7 +16,7 @@ class ResolveTargetEntititiesPass implements CompilerPassInterface
             return;
         }
 
-        $container
+        $definition = $container
             ->getDefinition('doctrine.orm.listeners.resolve_target_entity')
             ->addMethodCall('addResolveTargetEntity', [
                 User::class,
@@ -24,5 +24,9 @@ class ResolveTargetEntititiesPass implements CompilerPassInterface
                 [],
             ])
         ;
+
+        if (!$definition->hasTag('doctrine.event_subscriber')) {
+            $definition->addTag('doctrine.event_subscriber');
+        }
     }
 }
