@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Damax\User\Tests\Domain\Model;
 
 use Assert\InvalidArgumentException;
+use Damax\User\Doctrine\Orm\UserEntity;
 use Damax\User\Domain\Model\ConfigurableUserFactory;
 use Damax\User\Domain\Model\UserRepository;
 use Damax\User\Domain\Password\PlainEncoder;
@@ -28,7 +29,7 @@ class ConfigurableUserFactoryTest extends TestCase
     protected function setUp()
     {
         $this->users = $this->createMock(UserRepository::class);
-        $this->factory = new ConfigurableUserFactory($this->users, new PlainEncoder('XYZ'), new DefaultConfiguration());
+        $this->factory = new ConfigurableUserFactory($this->users, new PlainEncoder('XYZ'), new DefaultConfiguration(), UserEntity::class);
     }
 
     /**
@@ -53,6 +54,7 @@ class ConfigurableUserFactoryTest extends TestCase
             ],
         ], $creator);
 
+        $this->assertInstanceOf(UserEntity::class, $user);
         $this->assertEquals('john.doe@domain.abc', $user->email()->email());
         $this->assertEquals(123, $user->mobilePhone()->number());
         $this->assertEquals('Europe/Riga', $user->timezone()->id());
@@ -84,7 +86,7 @@ class ConfigurableUserFactoryTest extends TestCase
             }
         };
 
-        $factory = new ConfigurableUserFactory($this->users, new PlainEncoder('XYZ'), $config);
+        $factory = new ConfigurableUserFactory($this->users, new PlainEncoder('XYZ'), $config, UserEntity::class);
 
         $user = $factory->create([
             'email' => 'john.doe@domain.abc',

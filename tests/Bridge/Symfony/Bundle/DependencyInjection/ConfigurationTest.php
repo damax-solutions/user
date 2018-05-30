@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Damax\User\Tests\Bridge\Symfony\Bundle\DependencyInjection;
 
 use Damax\User\Bridge\Symfony\Bundle\DependencyInjection\Configuration;
+use Damax\User\Doctrine\Orm\UserEntity;
+use Damax\User\Tests\Domain\Model\JohnDoeUser;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -35,6 +37,10 @@ class ConfigurationTest extends TestCase
                 'password_reset_template' => '@DamaxUser/Emails/password_reset_request.twig',
                 'email_confirmation_template' => '@DamaxUser/Emails/email_confirmation_request.twig',
             ],
+            'mapping' => [
+                'enabled' => false,
+                'user_class' => UserEntity::class,
+            ],
         ]);
     }
 
@@ -57,6 +63,9 @@ class ConfigurationTest extends TestCase
                 'password_reset_template' => 'password_reset_template.html',
                 'email_confirmation_template' => 'email_confirmation_template.html',
             ],
+            'mapping' => [
+                'user_class' => JohnDoeUser::class,
+            ],
         ];
 
         $this->assertProcessedConfigurationEquals([$config], [
@@ -72,6 +81,10 @@ class ConfigurationTest extends TestCase
                 'registration_template' => 'registration_template.html',
                 'password_reset_template' => 'password_reset_template.html',
                 'email_confirmation_template' => 'email_confirmation_template.html',
+            ],
+            'mapping' => [
+                'enabled' => true,
+                'user_class' => JohnDoeUser::class,
             ],
         ]);
     }
