@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Doctrine\Orm;
 
+use Damax\Common\Doctrine\Orm\OrmRepositoryTrait;
 use Damax\User\Domain\Model\Permission;
 use Damax\User\Domain\Model\PermissionRepository as PermissionRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;

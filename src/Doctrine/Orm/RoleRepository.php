@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Doctrine\Orm;
 
+use Damax\Common\Doctrine\Orm\OrmRepositoryTrait;
 use Damax\User\Domain\Model\Role;
 use Damax\User\Domain\Model\RoleRepository as RoleRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;

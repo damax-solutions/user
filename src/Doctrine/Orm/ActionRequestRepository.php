@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Doctrine\Orm;
 
+use Damax\Common\Doctrine\Orm\OrmRepositoryTrait;
 use Damax\User\Domain\Model\ActionRequest;
 use Damax\User\Domain\Model\ActionRequestRepository as ActionRequestRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Doctrine\Orm;
 
+use Damax\Common\Doctrine\Orm\OrmRepositoryTrait;
 use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\LoginHistoryRepository as LoginHistoryRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
