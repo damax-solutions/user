@@ -63,16 +63,16 @@
         },
         {
             "name": "damax/common",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lakiboy/damax-common.git",
-                "reference": "ae217d97ab0b10946ac64a218e51ee4b55903198"
+                "reference": "0d330294d72f4163c1d62a87e6e497ebd80f21b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lakiboy/damax-common/zipball/ae217d97ab0b10946ac64a218e51ee4b55903198",
-                "reference": "ae217d97ab0b10946ac64a218e51ee4b55903198",
+                "url": "https://api.github.com/repos/lakiboy/damax-common/zipball/0d330294d72f4163c1d62a87e6e497ebd80f21b0",
+                "reference": "0d330294d72f4163c1d62a87e6e497ebd80f21b0",
                 "shasum": ""
             },
             "require": {
@@ -117,10 +117,10 @@
             ],
             "description": "Utilities and helpers for building DDD apps and APIs.",
             "support": {
-                "source": "https://github.com/lakiboy/damax-common/tree/1.0.0",
+                "source": "https://github.com/lakiboy/damax-common/tree/1.0.1",
                 "issues": "https://github.com/lakiboy/damax-common/issues"
             },
-            "time": "2018-05-31T11:07:02+00:00"
+            "time": "2018-05-31T12:52:28+00:00"
         },
         {
             "name": "doctrine/collections",
