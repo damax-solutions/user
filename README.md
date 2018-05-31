@@ -1,27 +1,11 @@
-## Development
+# Damax User
 
-Build image:
+[![Build Status](https://travis-ci.org/lakiboy/damax-user.svg?branch=master)](https://travis-ci.org/lakiboy/damax-user) [![Coverage Status](https://coveralls.io/repos/lakiboy/damax-user/badge.svg?branch=master&service=github)](https://coveralls.io/github/lakiboy/damax-user?branch=master)
 
-```bash
-$ docker build -t damax-user .
-```
+User authentication and management.
 
-Install dependencies:
+## Documentation
 
-```bash
-$ docker run --rm -v $(pwd):/app -w /app damax-user composer install
-```
+Topics:
 
-Fix php coding standards:
-
-```bash
-$ docker run --rm -v $(pwd):/app -w /app damax-user ./vendor/bin/php-cs-fixer fix
-
-```
-
-Running tests:
-
-```bash
-$ docker run --rm -v $(pwd):/app -w /app damax-user ./vendor/bin/simple-phpunit
-$ docker run --rm -v $(pwd):/app -w /app damax-user ./bin/phpunit-coverage
-```
+- [Development](doc/development.md)
