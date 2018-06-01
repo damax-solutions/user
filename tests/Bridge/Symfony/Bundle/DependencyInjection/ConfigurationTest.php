@@ -33,9 +33,9 @@ class ConfigurationTest extends TestCase
                 'adapter' => 'swift',
                 'sender_email' => 'no-reply@localhost',
                 'sender_name' => null,
-                'registration_template' => '@DamaxUser/Emails/registration.twig',
-                'password_reset_template' => '@DamaxUser/Emails/password_reset_request.twig',
-                'email_confirmation_template' => '@DamaxUser/Emails/email_confirmation_request.twig',
+                'registration_template' => '@DamaxUser/emails/registration.twig',
+                'password_reset_template' => '@DamaxUser/emails/password_reset_request.twig',
+                'email_confirmation_template' => '@DamaxUser/emails/email_confirmation_request.twig',
             ],
             'mapping' => [
                 'enabled' => false,

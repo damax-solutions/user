@@ -34,6 +34,6 @@ class RegistrationController extends Controller
             return $this->redirectToRoute('security_login');
         }
 
-        return $this->render('@DamaxUser/Registration/register.html.twig', ['form' => $form->createView()]);
+        return $this->render('@DamaxUser/registration/register.html.twig', ['form' => $form->createView()]);
     }
 }

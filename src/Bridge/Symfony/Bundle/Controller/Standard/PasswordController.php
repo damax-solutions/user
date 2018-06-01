@@ -35,7 +35,7 @@ class PasswordController extends Controller
             return $this->redirectToRoute('security_login');
         }
 
-        return $this->render('@DamaxUser/Password/reset_request.html.twig', ['form' => $form->createView()]);
+        return $this->render('@DamaxUser/password/reset_request.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -44,7 +44,7 @@ class PasswordController extends Controller
     public function resetAction(Request $request, string $token, PasswordService $service): Response
     {
         if (!$service->hasActiveResetRequest($token)) {
-            return $this->render('@DamaxUser/Password/reset_expired.html.twig');
+            return $this->render('@DamaxUser/password/reset_expired.html.twig');
         }
 
         $reset = new PasswordResetDto();
@@ -62,6 +62,6 @@ class PasswordController extends Controller
             return $this->redirectToRoute('security_login');
         }
 
-        return $this->render('@DamaxUser/Password/reset.html.twig', ['form' => $form->createView()]);
+        return $this->render('@DamaxUser/password/reset.html.twig', ['form' => $form->createView()]);
     }
 }

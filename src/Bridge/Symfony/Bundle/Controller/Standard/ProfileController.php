@@ -32,7 +32,7 @@ class ProfileController extends Controller
     {
         $user = $service->fetch($this->getUser()->getUsername());
 
-        return $this->render('@DamaxUser/Profile/view.html.twig', ['user' => $user]);
+        return $this->render('@DamaxUser/profile/view.html.twig', ['user' => $user]);
     }
 
     /**
@@ -58,7 +58,7 @@ class ProfileController extends Controller
             return $this->redirectToRoute('profile_view');
         }
 
-        return $this->render('@DamaxUser/Profile/edit.html.twig', ['user' => $user, 'form' => $form->createView()]);
+        return $this->render('@DamaxUser/profile/edit.html.twig', ['user' => $user, 'form' => $form->createView()]);
     }
 
     /**
@@ -82,6 +82,6 @@ class ProfileController extends Controller
             return $this->redirectToRoute('profile_view');
         }
 
-        return $this->render('@DamaxUser/Profile/change_password.html.twig', ['form' => $form->createView()]);
+        return $this->render('@DamaxUser/profile/change_password.html.twig', ['form' => $form->createView()]);
     }
 }
