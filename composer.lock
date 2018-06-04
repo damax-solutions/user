@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75315b7284b99eb33235967d3f0aeb1c",
+    "content-hash": "bde8fa49438978ef186174a3168daed1",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -796,16 +796,16 @@
         },
         {
             "name": "damax/api-auth-bundle",
-            "version": "0.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lakiboy/damax-api-auth-bundle.git",
-                "reference": "df0872a16b5f02250149c5d6e8f6f58b48c82920"
+                "reference": "840085ef99a19d09887145ba98f9e2db54072bf1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lakiboy/damax-api-auth-bundle/zipball/df0872a16b5f02250149c5d6e8f6f58b48c82920",
-                "reference": "df0872a16b5f02250149c5d6e8f6f58b48c82920",
+                "url": "https://api.github.com/repos/lakiboy/damax-api-auth-bundle/zipball/840085ef99a19d09887145ba98f9e2db54072bf1",
+                "reference": "840085ef99a19d09887145ba98f9e2db54072bf1",
                 "shasum": ""
             },
             "require": {
@@ -816,6 +816,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.10",
                 "matthiasnoback/symfony-dependency-injection-test": "^2.3",
+                "php-coveralls/php-coveralls": "^2.0",
                 "symfony/phpunit-bridge": "^4.0"
             },
             "type": "symfony-bundle",
@@ -834,7 +835,7 @@
                 "MIT"
             ],
             "description": "Authentication via api key or JWT.",
-            "time": "2018-02-23T11:31:15+00:00"
+            "time": "2018-05-21T09:22:32+00:00"
         },
         {
             "name": "doctrine/annotations",
