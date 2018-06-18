@@ -33,7 +33,7 @@ class ConfirmationController
 
     /**
      * @OpenApi\Post(
-     *     tags={"registration"},
+     *     tags={"user-registration"},
      *     summary="Request email confirmation.",
      *     @OpenApi\Parameter(
      *         name="body",
@@ -71,7 +71,7 @@ class ConfirmationController
 
     /**
      * @OpenApi\Post(
-     *     tags={"registration"},
+     *     tags={"user-registration"},
      *     summary="Confirm user email.",
      *     @OpenApi\Parameter(
      *         name="body",

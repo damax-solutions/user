@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Damax\User\Application\Dto;
 
+use Damax\User\Domain\Model\Locale;
 use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\Name;
 use Damax\User\Domain\Model\Permission;
@@ -83,6 +84,16 @@ class Assembler
         $dto->code = $permission->code();
         $dto->category = $permission->category();
         $dto->description = $permission->description();
+
+        return $dto;
+    }
+
+    public function toLocaleDto(Locale $locale): LocaleDto
+    {
+        $dto = new LocaleDto();
+
+        $dto->code = $locale->code();
+        $dto->name = $locale->name();
 
         return $dto;
     }

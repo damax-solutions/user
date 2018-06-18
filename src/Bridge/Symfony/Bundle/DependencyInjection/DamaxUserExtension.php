@@ -30,6 +30,7 @@ class DamaxUserExtension extends ConfigurableExtension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
         $loader->load('doctrine-orm.xml');
+        $loader->load('in-memory.xml');
         $loader->load('security.xml');
 
         $timezone = (new Definition(Timezone::class))
@@ -52,6 +53,9 @@ class DamaxUserExtension extends ConfigurableExtension
             ->configureMailer($config['mailer'], $container)
             ->configureMapping($config['mapping'], $container)
         ;
+
+        $container->setParameter('damax.user.locales', $config['locales']);
+        $container->setParameter('damax.user.timezones', $config['timezones']);
     }
 
     private function configureNameFormatter(array $config, ContainerBuilder $container): self

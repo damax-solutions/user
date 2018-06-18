@@ -21,7 +21,7 @@ class RegistrationController
 {
     /**
      * @OpenApi\Post(
-     *     tags={"registration"},
+     *     tags={"user-registration"},
      *     summary="User registration.",
      *     @OpenApi\Parameter(
      *         name="body",

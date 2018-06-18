@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <defaults autowire="true" public="false">
+            <bind key="$localeCodes">%damax.user.locales%</bind>
+            <bind key="$timezoneIds">%damax.user.timezones%</bind>
+        </defaults>
+
+        <prototype namespace="Damax\User\InMemory\" resource="../../../../../InMemory" />
+
+        <service id="Damax\User\Domain\Model\LocaleRepository" alias="Damax\User\InMemory\LocaleRepository" />
+
+        <service id="Damax\User\Domain\Model\TimezoneRepository" alias="Damax\User\InMemory\TimezoneRepository" />
+
+    </services>
+</container>

@@ -33,7 +33,7 @@ class PermissionController
 
     /**
      * @OpenApi\Get(
-     *     tags={"permission"},
+     *     tags={"user-permission"},
      *     summary="List permissions.",
      *     security={
      *         {"Bearer"=""}
@@ -56,7 +56,7 @@ class PermissionController
 
     /**
      * @OpenApi\Post(
-     *     tags={"permission"},
+     *     tags={"user-permission"},
      *     summary="Create permission.",
      *     security={
      *         {"Bearer"=""}
@@ -99,7 +99,7 @@ class PermissionController
 
     /**
      * @OpenApi\Delete(
-     *     tags={"permission"},
+     *     tags={"user-permission"},
      *     summary="Delete permission.",
      *     security={
      *         {"Bearer"=""}

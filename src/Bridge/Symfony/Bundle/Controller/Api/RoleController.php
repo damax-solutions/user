@@ -35,7 +35,7 @@ class RoleController
 
     /**
      * @OpenApi\Get(
-     *     tags={"role"},
+     *     tags={"user-role"},
      *     summary="List roles.",
      *     security={
      *         {"Bearer"=""}
@@ -58,7 +58,7 @@ class RoleController
 
     /**
      * @OpenApi\Get(
-     *     tags={"role"},
+     *     tags={"user-role"},
      *     summary="Get role.",
      *     security={
      *         {"Bearer"=""}
@@ -91,7 +91,7 @@ class RoleController
 
     /**
      * @OpenApi\Post(
-     *     tags={"role"},
+     *     tags={"user-role"},
      *     summary="Create role.",
      *     security={
      *         {"Bearer"=""}
@@ -134,7 +134,7 @@ class RoleController
 
     /**
      * @OpenApi\Patch(
-     *     tags={"role"},
+     *     tags={"user-role"},
      *     summary="Update role.",
      *     security={
      *         {"Bearer"=""}
@@ -178,7 +178,7 @@ class RoleController
 
     /**
      * @OpenApi\Delete(
-     *     tags={"role"},
+     *     tags={"user-role"},
      *     summary="Delete role.",
      *     security={
      *         {"Bearer"=""}

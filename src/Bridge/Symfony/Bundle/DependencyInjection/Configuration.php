@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Damax\User\Bridge\Symfony\Bundle\DependencyInjection;
 
 use Damax\User\Doctrine\Orm\UserEntity;
+use DateTimeZone;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -81,7 +82,29 @@ class Configuration implements ConfigurationInterface
                     ->canBeEnabled()
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('user_class')->defaultValue(UserEntity::class)
+                        ->scalarNode('user_class')->defaultValue(UserEntity::class)->end()
+                    ->end()
+                ->end()
+
+                ->arrayNode('locales')
+                    ->requiresAtLeastOneElement()
+                    ->defaultValue(['en', 'ru'])
+                    ->prototype('scalar')
+                        ->isRequired()
+                    ->end()
+                ->end()
+
+                ->arrayNode('timezones')
+                    ->beforeNormalization()
+                        ->ifString()
+                        ->then(function (string $region) {
+                            return DateTimeZone::listIdentifiers(constant(DateTimeZone::class . '::' . strtoupper($region)));
+                        })
+                    ->end()
+                    ->requiresAtLeastOneElement()
+                    ->defaultValue(DateTimeZone::listIdentifiers(DateTimeZone::EUROPE))
+                    ->prototype('scalar')
+                        ->isRequired()
                     ->end()
                 ->end()
             ->end()
