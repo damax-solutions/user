@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Damax\User\Bridge\Symfony\Bundle;
 
 use Damax\User\Bridge\Symfony\Bundle\DependencyInjection\Compiler\ResolveTargetEntititiesPass;
-use Damax\User\Domain\Model\User;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

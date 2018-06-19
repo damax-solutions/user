@@ -14,7 +14,6 @@ use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\Permission;
 use Damax\User\Domain\Model\Role;
 use Damax\User\Domain\Model\Timezone;
-use Damax\User\Domain\Model\User;
 use Damax\User\Domain\NameFormatter\NameFormatter;
 use Doctrine\Common\Inflector\Inflector;
 use Symfony\Component\Config\FileLocator;
