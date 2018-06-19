@@ -6,6 +6,7 @@ namespace Damax\User\Tests\Application\Dto;
 
 use Damax\User\Application\Dto\Assembler;
 use Damax\User\Application\Dto\NameDto;
+use Damax\User\Domain\Model\Locale;
 use Damax\User\Domain\Model\LoginHistory;
 use Damax\User\Domain\Model\Name;
 use Damax\User\Domain\Model\Permission;
@@ -124,5 +125,18 @@ class AssemblerTest extends TestCase
         $this->assertEquals('admin', $dto->code);
         $this->assertEquals('Admin', $dto->name);
         $this->assertEquals(['user_create', 'user_edit', 'user_delete'], $dto->permissions);
+    }
+
+    /**
+     * @test
+     */
+    public function it_converts_locale_to_dto()
+    {
+        $locale = Locale::fromCode('ru');
+
+        $dto = $this->assembler->toLocaleDto($locale);
+
+        $this->assertEquals('ru', $dto->code);
+        $this->assertEquals('Russian', $dto->name);
     }
 }

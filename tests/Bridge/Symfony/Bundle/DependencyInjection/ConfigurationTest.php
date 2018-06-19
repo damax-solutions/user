@@ -72,7 +72,7 @@ class ConfigurationTest extends TestCase
             'locales' => ['fr', 'de', 'en_GB'],
             'timezones' => [
                 'Europe/Riga',
-                'Europe/Helsinki',
+                'Europe/London',
             ],
         ];
 
@@ -97,7 +97,7 @@ class ConfigurationTest extends TestCase
             'locales' => ['fr', 'de', 'en_GB'],
             'timezones' => [
                 'Europe/Riga',
-                'Europe/Helsinki',
+                'Europe/London',
             ],
         ]);
     }

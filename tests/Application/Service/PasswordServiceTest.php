@@ -6,7 +6,6 @@ namespace Damax\User\Tests\Application\Service;
 
 use Damax\Common\Domain\Transaction\DummyTransactionManager;
 use Damax\User\Application\Command\ChangePassword;
-use Damax\User\Application\Command\ResetPassword;
 use Damax\User\Application\Dto\PasswordResetDto;
 use Damax\User\Application\Dto\PasswordResetRequestDto;
 use Damax\User\Application\Exception\ActionRequestExpired;
@@ -20,23 +19,23 @@ use Damax\User\Domain\Model\Password;
 use Damax\User\Domain\Password\Encoder;
 use Damax\User\Domain\TokenGenerator\FixedTokenGenerator;
 use Damax\User\Tests\Domain\Model\JohnDoeUser;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
 
 class PasswordServiceTest extends TestCase
 {
     /**
-     * @var UserRepository|PHPUnit_Framework_MockObject_MockObject
+     * @var UserRepository|MockObject
      */
     private $users;
 
     /**
-     * @var Encoder|PHPUnit_Framework_MockObject_MockObject
+     * @var Encoder|MockObject
      */
     private $encoder;
 
     /**
-     * @var ActionRequestRepository|PHPUnit_Framework_MockObject_MockObject
+     * @var ActionRequestRepository|MockObject
      */
     private $requests;
 
@@ -220,5 +219,27 @@ class PasswordServiceTest extends TestCase
         $this->service->resetPassword($dto);
 
         $this->assertSame($password, $user->password());
+    }
+
+    /**
+     * @test
+     */
+    public function it_checks_reset_password_is_active()
+    {
+        $user = new JohnDoeUser();
+
+        $this->requests
+            ->method('byToken')
+            ->withConsecutive(['123'], ['abc'], ['xyz'])
+            ->willReturnOnConsecutiveCalls(
+                null,
+                ActionRequest::resetPassword(new FixedTokenGenerator('abc'), $user),
+                ActionRequest::resetPassword(new FixedTokenGenerator('xyz'), $user, -600)
+            )
+        ;
+
+        $this->assertFalse($this->service->hasActiveResetRequest('123'));
+        $this->assertTrue($this->service->hasActiveResetRequest('abc'));
+        $this->assertFalse($this->service->hasActiveResetRequest('xyz'));
     }
 }

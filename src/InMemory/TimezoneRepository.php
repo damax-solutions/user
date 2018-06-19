@@ -18,7 +18,7 @@ class TimezoneRepository implements TimezoneRepositoryInterface
 
     public function byId(string $id): ?Timezone
     {
-        return isset($this->ids[$id]) ? Timezone::fromId($id) : null;
+        return in_array($id, $this->ids) ? Timezone::fromId($id) : null;
     }
 
     public function all(): array

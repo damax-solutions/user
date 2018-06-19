@@ -18,7 +18,7 @@ class LocaleRepository implements LocaleRepositoryInterface
 
     public function byCode(string $code): ?Locale
     {
-        return isset($this->codes[$code]) ? Locale::fromCode($code) : null;
+        return in_array($code, $this->codes) ? Locale::fromCode($code) : null;
     }
 
     public function all(): array
