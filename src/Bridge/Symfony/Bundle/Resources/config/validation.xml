@@ -74,12 +74,13 @@
     <!-- User -->
 
     <class name="Damax\User\Application\Dto\UserInfoDto">
-        <property name="timezone">
-            <constraint name="NotBlank" />
-        </property>
         <property name="locale">
             <constraint name="NotBlank" />
-            <constraint name="Locale" />
+            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Locale" />
+        </property>
+        <property name="timezone">
+            <constraint name="NotBlank" />
+            <constraint name="Damax\User\Bridge\Symfony\Validator\Constraints\Timezone" />
         </property>
         <property name="name">
             <constraint name="NotBlank" />
