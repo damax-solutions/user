@@ -6,8 +6,6 @@ namespace Damax\User\Bridge\Symfony\Bundle\Form\Type;
 
 use Damax\User\Application\Dto\UserInfoDto;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\LocaleType;
-use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,11 +15,11 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('name', NameType::class)
-            ->add('timezone', TimezoneType::class, [
-                'label' => 'label.timezone',
-            ])
-            ->add('locale', LocaleType::class, [
+            ->add('locale', LocaleChoiceType::class, [
                 'label' => 'label.locale',
+            ])
+            ->add('timezone', TimezoneChoiceType::class, [
+                'label' => 'label.timezone',
             ])
         ;
     }

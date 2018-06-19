@@ -8,6 +8,8 @@ label:
     repeat_password: Повторить пароль
     timezone: Временная зона
     locale: Локаль
+    choose_locale: Выберите локаль
+    choose_timezone: Выберите временную зону
 
 button:
     registration: Регистрация

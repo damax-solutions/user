@@ -8,6 +8,8 @@ label:
     repeat_password: Repeat password
     timezone: Timezone
     locale: Locale
+    choose_locale: Choose locale
+    choose_timezone: Choose timezone
 
 button:
     registration: Sign up
