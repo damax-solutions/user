@@ -7,6 +7,7 @@ namespace Damax\User\Tests\Bridge\Symfony\Bundle\DependencyInjection;
 use Damax\User\Bridge\Symfony\Bundle\DependencyInjection\Configuration;
 use Damax\User\Doctrine\Orm\UserEntity;
 use Damax\User\Tests\Domain\Model\JohnDoeUser;
+use DateTimeZone;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -41,6 +42,8 @@ class ConfigurationTest extends TestCase
                 'enabled' => false,
                 'user_class' => UserEntity::class,
             ],
+            'locales' => ['en', 'ru'],
+            'timezones' => DateTimeZone::listIdentifiers(DateTimeZone::EUROPE),
         ]);
     }
 
@@ -66,6 +69,11 @@ class ConfigurationTest extends TestCase
             'mapping' => [
                 'user_class' => JohnDoeUser::class,
             ],
+            'locales' => ['fr', 'de', 'en_GB'],
+            'timezones' => [
+                'Europe/Riga',
+                'Europe/Helsinki',
+            ],
         ];
 
         $this->assertProcessedConfigurationEquals([$config], [
@@ -85,6 +93,11 @@ class ConfigurationTest extends TestCase
             'mapping' => [
                 'enabled' => true,
                 'user_class' => JohnDoeUser::class,
+            ],
+            'locales' => ['fr', 'de', 'en_GB'],
+            'timezones' => [
+                'Europe/Riga',
+                'Europe/Helsinki',
             ],
         ]);
     }
