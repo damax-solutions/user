@@ -26,21 +26,21 @@ class LocaleChoiceType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $label = function (LocaleDto $dto): string {
-            return $dto->name;
-        };
+        $locales = $this->service->fetchLocales();
 
-        $value = function ($value): ?string {
-            return $value instanceof LocaleDto ? $value->code : $value;
-        };
+        $values = array_map(function (LocaleDto $choice): string {
+            return $choice->code;
+        }, $locales);
+
+        $labels = array_map(function (LocaleDto $choice): string {
+            return $choice->name;
+        }, $locales);
 
         $resolver->setDefaults([
             'placeholder' => 'label.choose_locale',
             'translation_domain' => 'damax-user',
-            'choices' => $this->service->fetchLocales(),
+            'choices' => array_combine($labels, $values),
             'choice_translation_domain' => false,
-            'choice_label' => $label,
-            'choice_value' => $value,
         ]);
     }
 }
