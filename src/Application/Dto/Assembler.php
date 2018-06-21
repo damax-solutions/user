@@ -53,6 +53,7 @@ class Assembler
         $dto->id = (string) $user->id();
         $dto->roles = array_map('strval', $user->roles());
         $dto->email = (string) $user->email();
+        $dto->emailConfirmed = $user->email()->confirmed();
         $dto->mobilePhone = (string) $user->mobilePhone();
         $dto->timezone = (string) $user->timezone();
         $dto->locale = (string) $user->locale();

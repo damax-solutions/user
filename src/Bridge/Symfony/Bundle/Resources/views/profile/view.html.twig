@@ -4,11 +4,19 @@
 
 {% block content %}
     <h1 class="title">{{ user.mobilePhone }}</h1>
-    <h2 class="subtitle">{{ user.email }}</h2>
+    <h2 class="subtitle">
+        {{ user.email }}
+
+        {% if user.emailConfirmed %}
+            <span class="tag is-success">{{ 'user.email_confirmed' | trans }}</span>
+        {% else %}
+            <span class="tag is-danger">{{ 'user.email_unconfirmed' | trans }}</span>
+        {% endif %}
+    </h2>
+
     <div class="content">
         <p>
             {% if user.fullName %}{{ user.fullName }}<br>{% endif %}
-
             {{ user.timezone }}<br>
             {{ user.locale | upper }}
         </p>

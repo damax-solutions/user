@@ -72,3 +72,7 @@ profile:
     button:
         edit: Edit
         save: Save
+
+user:
+    email_confirmed: Confirmed
+    email_unconfirmed: Unconfirmed

@@ -24,6 +24,11 @@ class UserDto
     public $email;
 
     /**
+     * @var bool
+     */
+    public $emailConfirmed;
+
+    /**
      * @var string
      */
     public $mobilePhone;

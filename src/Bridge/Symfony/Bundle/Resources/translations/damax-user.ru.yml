@@ -72,3 +72,7 @@ profile:
     button:
         edit: Редактировать
         save: Сохранить
+
+user:
+    email_confirmed: Подтверждено
+    email_unconfirmed: Не подтверждено
