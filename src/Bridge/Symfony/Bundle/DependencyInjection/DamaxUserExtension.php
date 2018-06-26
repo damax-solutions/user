@@ -66,19 +66,16 @@ class DamaxUserExtension extends ConfigurableExtension
 
     private function configureMailer(array $config, ContainerBuilder $container): self
     {
-        $mailerClass = DebugMailer::class;
-
         if ('swift' === $config['adapter']) {
-            $mailerClass = SwiftMailer::class;
+            unset($config['adapter']);
+
+            $container
+                ->autowire(Mailer::class, SwiftMailer::class)
+                ->setBindings(['$mailerOptions' => $config])
+            ;
+        } else {
+            $container->autowire(Mailer::class, DebugMailer::class);
         }
-
-        unset($config['adapter']);
-
-        $container
-            ->register(Mailer::class, $mailerClass)
-            ->setBindings(['$mailerOptions' => $config])
-            ->setAutowired(true)
-        ;
 
         return $this;
     }

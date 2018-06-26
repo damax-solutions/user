@@ -49,7 +49,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->enumNode('adapter')
                             ->values(['debug', 'swift'])
-                            ->defaultValue('swift')
+                            ->defaultValue('debug')
                         ->end()
                         ->scalarNode('sender_email')
                             ->validate()

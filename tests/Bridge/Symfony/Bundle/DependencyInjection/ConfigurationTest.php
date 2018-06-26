@@ -31,7 +31,7 @@ class ConfigurationTest extends TestCase
             'invalidate_password' => true,
             'name_formatter' => 'standard',
             'mailer' => [
-                'adapter' => 'swift',
+                'adapter' => 'debug',
                 'sender_email' => 'no-reply@localhost',
                 'sender_name' => null,
                 'registration_template' => '@DamaxUser/emails/registration.twig',
