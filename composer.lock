@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75315b7284b99eb33235967d3f0aeb1c",
+    "content-hash": "b16b0eb1848967966bc68e7a506cbe26",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2515,7 +2515,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.1.0",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -2758,16 +2758,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v4.1.0",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "a916c88390fb861ee21f12a92b107d51bb68af99"
+                "reference": "4f9c7cf962e635b0b26b14500ac046e07dbef7f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/a916c88390fb861ee21f12a92b107d51bb68af99",
-                "reference": "a916c88390fb861ee21f12a92b107d51bb68af99",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/4f9c7cf962e635b0b26b14500ac046e07dbef7f3",
+                "reference": "4f9c7cf962e635b0b26b14500ac046e07dbef7f3",
                 "shasum": ""
             },
             "require": {
@@ -2808,7 +2808,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-25T14:55:38+00:00"
+            "time": "2018-06-19T21:38:16+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -2899,7 +2899,7 @@
         },
         {
             "name": "symfony/inflector",
-            "version": "v4.1.0",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
@@ -3462,7 +3462,7 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v4.1.0",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
@@ -3607,16 +3607,16 @@
         },
         {
             "name": "symfony/security",
-            "version": "v3.4.11",
+            "version": "v3.4.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security.git",
-                "reference": "b4f0319d6b9c424dd6ac1e15f3cd32708b57aa0a"
+                "reference": "e574acb7bdafab93545a1a6a30a6bd1ff07c2bd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security/zipball/b4f0319d6b9c424dd6ac1e15f3cd32708b57aa0a",
-                "reference": "b4f0319d6b9c424dd6ac1e15f3cd32708b57aa0a",
+                "url": "https://api.github.com/repos/symfony/security/zipball/e574acb7bdafab93545a1a6a30a6bd1ff07c2bd8",
+                "reference": "e574acb7bdafab93545a1a6a30a6bd1ff07c2bd8",
                 "shasum": ""
             },
             "require": {
@@ -3682,7 +3682,7 @@
             ],
             "description": "Symfony Security Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-25T11:50:55+00:00"
+            "time": "2018-06-15T07:47:49+00:00"
         },
         {
             "name": "symfony/security-bundle",
@@ -3833,16 +3833,16 @@
         },
         {
             "name": "symfony/security-http",
-            "version": "v4.1.0",
+            "version": "v4.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-http.git",
-                "reference": "946668ddc1fa0279fe03e2c090ebc29881f12ddb"
+                "reference": "3a360411a437b71f91a8b2b35340e71f0701c031"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-http/zipball/946668ddc1fa0279fe03e2c090ebc29881f12ddb",
-                "reference": "946668ddc1fa0279fe03e2c090ebc29881f12ddb",
+                "url": "https://api.github.com/repos/symfony/security-http/zipball/3a360411a437b71f91a8b2b35340e71f0701c031",
+                "reference": "3a360411a437b71f91a8b2b35340e71f0701c031",
                 "shasum": ""
             },
             "require": {
@@ -3854,7 +3854,7 @@
                 "symfony/security-core": "~3.4|~4.0"
             },
             "conflict": {
-                "symfony/security-csrf": "<3.4.11|~4.0,<4.0.11|~4.1,<=4.1.0-beta2"
+                "symfony/security-csrf": "<3.4.11|~4.0,<4.0.11"
             },
             "require-dev": {
                 "psr/log": "~1.0",
@@ -3895,7 +3895,7 @@
             ],
             "description": "Symfony Security Component - HTTP Integration",
             "homepage": "https://symfony.com",
-            "time": "2018-05-25T11:58:10+00:00"
+            "time": "2018-06-11T12:56:28+00:00"
         },
         {
             "name": "symfony/stopwatch",
