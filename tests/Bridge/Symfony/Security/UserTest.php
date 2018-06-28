@@ -31,8 +31,6 @@ class UserTest extends TestCase
         $this->assertEquals(['ROLE_ADMIN', 'ROLE_MEMBER'], $this->user->getRoles());
         $this->assertEquals('qwerty', $this->user->getPassword());
         $this->assertEquals('XYZ', $this->user->getSalt());
-        $this->assertTrue($this->user->isAccountNonExpired());
-        $this->assertTrue($this->user->isAccountNonLocked());
         $this->assertTrue($this->user->isCredentialsNonExpired());
         $this->assertTrue($this->user->isEnabled());
         $this->assertEquals('Europe/Riga', $this->user->getTimezone());

@@ -6,11 +6,10 @@ namespace Damax\User\Bridge\Symfony\Security;
 
 use IntlDateFormatter;
 use Serializable;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-final class User implements AdvancedUserInterface, EquatableInterface, Serializable
+final class User implements UserInterface, EquatableInterface, Serializable
 {
     private const DEFAULT_ROLES = ['ROLE_MEMBER'];
 
@@ -60,16 +59,6 @@ final class User implements AdvancedUserInterface, EquatableInterface, Serializa
     public function getSalt(): string
     {
         return $this->salt;
-    }
-
-    public function isAccountNonExpired(): bool
-    {
-        return true;
-    }
-
-    public function isAccountNonLocked(): bool
-    {
-        return true;
     }
 
     public function isCredentialsNonExpired(): bool

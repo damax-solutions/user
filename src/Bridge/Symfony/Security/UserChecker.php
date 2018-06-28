@@ -4,14 +4,27 @@ declare(strict_types=1);
 
 namespace Damax\User\Bridge\Symfony\Security;
 
-use Symfony\Component\Security\Core\User\UserChecker as SymfonyUserChecker;
+use Symfony\Component\Security\Core\Exception\DisabledException;
+use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserChecker extends SymfonyUserChecker
+class UserChecker implements UserCheckerInterface
 {
-    public function checkPostAuth(UserInterface $user)
+    public function checkPreAuth(UserInterface $user): void
     {
-        // Do not show error on expired credentials.
-        // Force password change instead.
+        if (!$user instanceof User) {
+            return;
+        }
+
+        if (!$user->isEnabled()) {
+            $ex = new DisabledException('User account is disabled.');
+            $ex->setUser($user);
+
+            throw $ex;
+        }
+    }
+
+    public function checkPostAuth(UserInterface $user): void
+    {
     }
 }
