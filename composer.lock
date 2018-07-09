@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a7974e04ab6477f2099ff9a972cbf09",
+    "content-hash": "5e8b1d175e765c3a6f34fa0d65a62c52",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -327,16 +327,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.15",
+            "version": "v2.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09"
+                "reference": "29af24f25bab834fcbb38ad2a69fa93b867e070d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/10bcb46e8f3d365170f6de9d05245aa066b81f09",
-                "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/29af24f25bab834fcbb38ad2a69fa93b867e070d",
+                "reference": "29af24f25bab834fcbb38ad2a69fa93b867e070d",
                 "shasum": ""
             },
             "require": {
@@ -372,7 +372,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-06-08T15:26:40+00:00"
+            "time": "2018-07-04T16:31:37+00:00"
         },
         {
             "name": "psr/log",
@@ -797,16 +797,16 @@
         },
         {
             "name": "damax/api-auth-bundle",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lakiboy/damax-api-auth-bundle.git",
-                "reference": "22e7f36f0c382a794b006aebfb23614ca4b72e07"
+                "reference": "e66e76b8b77c18352851f32ef3bf148412038241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lakiboy/damax-api-auth-bundle/zipball/22e7f36f0c382a794b006aebfb23614ca4b72e07",
-                "reference": "22e7f36f0c382a794b006aebfb23614ca4b72e07",
+                "url": "https://api.github.com/repos/lakiboy/damax-api-auth-bundle/zipball/e66e76b8b77c18352851f32ef3bf148412038241",
+                "reference": "e66e76b8b77c18352851f32ef3bf148412038241",
                 "shasum": ""
             },
             "require": {
@@ -815,16 +815,18 @@
                 "symfony/security-bundle": "^3.4|^4.0"
             },
             "require-dev": {
+                "doctrine/dbal": "^2.7",
                 "friendsofphp/php-cs-fixer": "^2.10",
                 "matthiasnoback/symfony-dependency-injection-test": "^3.0",
                 "php-coveralls/php-coveralls": "^2.0",
-                "sensio/framework-extra-bundle": "^5.1",
+                "predis/predis": "^1.1",
+                "symfony/framework-bundle": "^4.1",
                 "symfony/phpunit-bridge": "^4.0"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3.x-dev"
+                    "dev-master": "1.4.x-dev"
                 }
             },
             "autoload": {
@@ -837,7 +839,7 @@
                 "MIT"
             ],
             "description": "Authentication via api key or JWT.",
-            "time": "2018-06-26T11:29:49+00:00"
+            "time": "2018-07-05T15:42:30+00:00"
         },
         {
             "name": "doctrine/annotations",
