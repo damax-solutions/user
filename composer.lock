@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5a7974e04ab6477f2099ff9a972cbf09",
+    "content-hash": "5e8b1d175e765c3a6f34fa0d65a62c52",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -556,7 +556,7 @@
         },
         {
             "name": "symfony/intl",
-            "version": "v4.1.1",
+            "version": "v4.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/intl.git",
