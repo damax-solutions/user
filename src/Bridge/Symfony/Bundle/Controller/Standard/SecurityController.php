@@ -6,17 +6,15 @@ namespace Damax\User\Bridge\Symfony\Bundle\Controller\Standard;
 
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\LoginType;
 use RuntimeException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends Controller
 {
     /**
-     * @Method("GET")
-     * @Route("/login", name="security_login")
+     * @Route("/login", methods={"GET"}, name="security_login")
      */
     public function loginAction(AuthenticationUtils $utils): Response
     {
@@ -29,8 +27,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Method("POST")
-     * @Route("/check", name="security_check")
+     * @Route("/check", methods={"POST"}, name="security_check")
      *
      * @throws RuntimeException
      */
@@ -40,8 +37,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Method("GET")
-     * @Route("/logout", name="security_logout")
+     * @Route("/logout", methods={"GET"}, name="security_logout")
      *
      * @throws RuntimeException
      */

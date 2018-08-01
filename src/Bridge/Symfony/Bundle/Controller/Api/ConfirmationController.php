@@ -13,11 +13,10 @@ use Damax\User\Application\Exception\ActionRequestNotFound;
 use Damax\User\Application\Exception\UserNotFound;
 use Damax\User\Application\Service\ConfirmationService;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swagger\Annotations as OpenApi;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/confirmation")
@@ -51,8 +50,7 @@ class ConfirmationController
      *     )
      * )
      *
-     * @Method("POST")
-     * @Route("/email-request")
+     * @Route("/email-request", methods={"POST"})
      * @Serialize()
      * @Deserialize(EmailConfirmationRequestDto::class, validate=true, param="request")
      *
@@ -89,8 +87,7 @@ class ConfirmationController
      *     )
      * )
      *
-     * @Method("POST")
-     * @Route("/email")
+     * @Route("/email", methods={"POST"})
      * @Serialize()
      * @Deserialize(EmailConfirmationDto::class, validate=true, param="confirmation")
      *

@@ -8,9 +8,8 @@ use Damax\Common\Bridge\Symfony\Bundle\Annotation\Serialize;
 use Damax\User\Application\Dto\LocaleDto;
 use Damax\User\Application\Service\IntlService;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swagger\Annotations as OpenApi;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/intl")
@@ -35,8 +34,7 @@ class IntlController
      *     )
      * )
      *
-     * @Method("GET")
-     * @Route("/locales")
+     * @Route("/locales", methods={"GET"})
      * @Serialize()
      */
     public function localesAction(): array
@@ -55,8 +53,7 @@ class IntlController
      *     )
      * )
      *
-     * @Method("GET")
-     * @Route("/timezones")
+     * @Route("/timezones", methods={"GET"})
      * @Serialize()
      */
     public function timezonesAction(): array

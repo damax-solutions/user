@@ -14,11 +14,10 @@ use Damax\User\Application\Dto\UserPasswordDto;
 use Damax\User\Application\Service\PasswordService;
 use Damax\User\Application\Service\UserService;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Swagger\Annotations as OpenApi;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
@@ -50,8 +49,7 @@ class AuthenticatedUserController
      *     )
      * )
      *
-     * @Method("GET")
-     * @Route("")
+     * @Route("", methods={"GET"})
      * @Serialize({"user_auth"})
      */
     public function getAction(): UserDto
@@ -79,8 +77,7 @@ class AuthenticatedUserController
      *     )
      * )
      *
-     * @Method("PATCH")
-     * @Route("")
+     * @Route("", methods={"PATCH"})
      * @Serialize({"user_auth"})
      * @Deserialize(UserInfoDto::class, validate=true, param="info")
      */
@@ -109,8 +106,7 @@ class AuthenticatedUserController
      *     @OpenApi\Response(response=204, description="Password changed."),
      * )
      *
-     * @Method("PUT")
-     * @Route("/password")
+     * @Route("/password", methods={"PUT"})
      * @Deserialize(UserPasswordDto::class, validate=true, param="password")
      */
     public function changePasswordAction(PasswordService $service, UserPasswordDto $password): Response

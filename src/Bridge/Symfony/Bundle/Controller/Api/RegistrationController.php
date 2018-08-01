@@ -12,10 +12,9 @@ use Damax\User\Application\Dto\UserRegistrationDto;
 use Damax\User\Application\Exception\UserAlreadyExists;
 use Damax\User\Application\Service\RegistrationService;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swagger\Annotations as OpenApi;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController
 {
@@ -40,8 +39,7 @@ class RegistrationController
      *     )
      * )
      *
-     * @Method("POST")
-     * @Route("/register")
+     * @Route("/register", methods={"POST"})
      * @Serialize({"user_registration"})
      * @Deserialize(UserRegistrationDto::class, validate=true, param="user", groups={"user_registration"})
      *

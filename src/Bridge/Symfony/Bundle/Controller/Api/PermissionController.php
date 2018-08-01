@@ -12,12 +12,11 @@ use Damax\User\Application\Exception\PermissionAlreadyExists;
 use Damax\User\Application\Exception\PermissionNotFound;
 use Damax\User\Application\Service\PermissionService;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swagger\Annotations as OpenApi;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/permissions")
@@ -45,8 +44,7 @@ class PermissionController
      *     )
      * )
      *
-     * @Method("GET")
-     * @Route("")
+     * @Route("", methods={"GET"})
      * @Serialize()
      */
     public function listAction(): array
@@ -78,8 +76,7 @@ class PermissionController
      *     )
      * )
      *
-     * @Method("POST")
-     * @Route("")
+     * @Route("", methods={"POST"})
      * @Serialize()
      * @Deserialize(PermissionDto::class, validate=true, param="permission")
      *
@@ -114,8 +111,7 @@ class PermissionController
      *     )
      * )
      *
-     * @Method("DELETE")
-     * @Route("/{code}")
+     * @Route("/{code}", methods={"DELETE"})
      *
      * @throws NotFoundHttpException
      */

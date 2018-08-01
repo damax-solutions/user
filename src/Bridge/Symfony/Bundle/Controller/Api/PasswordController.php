@@ -13,12 +13,10 @@ use Damax\User\Application\Exception\ActionRequestNotFound;
 use Damax\User\Application\Exception\UserNotFound;
 use Damax\User\Application\Service\PasswordService;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swagger\Annotations as OpenApi;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/password")
@@ -52,8 +50,7 @@ class PasswordController
      *     )
      * )
      *
-     * @Method("POST")
-     * @Route("/reset-request")
+     * @Route("/reset-request", methods={"POST"})
      * @Serialize()
      * @Deserialize(PasswordResetRequestDto::class, validate=true, param="request")
      *
@@ -90,8 +87,7 @@ class PasswordController
      *     )
      * )
      *
-     * @Method("POST")
-     * @Route("/reset")
+     * @Route("/reset", methods={"POST"})
      * @Serialize()
      * @Deserialize(PasswordResetDto::class, validate=true, param="reset")
      *

@@ -8,10 +8,10 @@ use Damax\User\Application\Dto\PasswordResetDto;
 use Damax\User\Application\Service\PasswordService;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\PasswordResetRequestType;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\PasswordResetType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/password")

@@ -17,12 +17,11 @@ use Damax\User\Application\Service\UserLoginService;
 use Damax\User\Application\Service\UserService;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Pagerfanta\Pagerfanta;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swagger\Annotations as OpenApi;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
@@ -59,8 +58,7 @@ class UserController
      *     )
      * )
      *
-     * @Method("GET")
-     * @Route("")
+     * @Route("", methods={"GET"})
      * @Serialize()
      */
     public function listAction(Request $request): Pagerfanta
@@ -91,8 +89,7 @@ class UserController
      *     )
      * )
      *
-     * @Method("GET")
-     * @Route("/{id}")
+     * @Route("/{id}", methods={"GET"})
      * @Serialize()
      *
      * @throws NotFoundHttpException
@@ -123,8 +120,7 @@ class UserController
      *     )
      * )
      *
-     * @Method("PUT")
-     * @Route("/{id}/enable")
+     * @Route("/{id}/enable", methods={"PUT"})
      *
      * @throws NotFoundHttpException
      */
@@ -160,8 +156,7 @@ class UserController
      *     )
      * )
      *
-     * @Method("DELETE")
-     * @Route("/{id}/disable")
+     * @Route("/{id}/disable", methods={"DELETE"})
      *
      * @throws NotFoundHttpException
      */
@@ -200,8 +195,7 @@ class UserController
      *     )
      * )
      *
-     * @Method("GET")
-     * @Route("/{id}/logins")
+     * @Route("/{id}/logins", methods={"GET"})
      * @Serialize()
      */
     public function loginsAction(Request $request, string $id, UserLoginService $service): Pagerfanta
@@ -231,8 +225,7 @@ class UserController
      *     )
      * )
      *
-     * @Method("PUT")
-     * @Route("/{id}/role/{role}")
+     * @Route("/{id}/role/{role}", methods={"PUT"})
      *
      * @throws NotFoundHttpException
      */
@@ -269,8 +262,7 @@ class UserController
      *     ),
      * )
      *
-     * @Method("DELETE")
-     * @Route("/{id}/role/{role}")
+     * @Route("/{id}/role/{role}", methods={"DELETE"})
      *
      * @throws NotFoundHttpException
      */

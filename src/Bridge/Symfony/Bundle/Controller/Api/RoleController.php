@@ -14,12 +14,11 @@ use Damax\User\Application\Exception\RoleAlreadyExists;
 use Damax\User\Application\Exception\RoleNotFound;
 use Damax\User\Application\Service\RoleService;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Swagger\Annotations as OpenApi;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/roles")
@@ -47,8 +46,7 @@ class RoleController
      *     )
      * )
      *
-     * @Method("GET")
-     * @Route("")
+     * @Route("", methods={"GET"})
      * @Serialize({"user_role"})
      */
     public function listAction(): array
@@ -74,8 +72,7 @@ class RoleController
      *     )
      * )
      *
-     * @Method("GET")
-     * @Route("/{code}")
+     * @Route("/{code}", methods={"GET"})
      * @Serialize()
      *
      * @throws NotFoundHttpException
@@ -113,8 +110,7 @@ class RoleController
      *     )
      * )
      *
-     * @Method("POST")
-     * @Route("")
+     * @Route("", methods={"POST"})
      * @Serialize()
      * @Deserialize(RoleDto::class, validate=true, param="role")
      *
@@ -156,8 +152,7 @@ class RoleController
      *     )
      * )
      *
-     * @Method("PATCH")
-     * @Route("/{code}")
+     * @Route("/{code}", methods={"PATCH"})
      * @Serialize()
      * @Deserialize(RoleInfoDto::class, validate=true, param="info")
      *
@@ -193,8 +188,7 @@ class RoleController
      *     )
      * )
      *
-     * @Method("DELETE")
-     * @Route("/{code}")
+     * @Route("/{code}", methods={"DELETE"})
      *
      * @throws NotFoundHttpException
      */
