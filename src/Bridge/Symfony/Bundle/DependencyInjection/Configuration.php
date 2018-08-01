@@ -6,6 +6,7 @@ namespace Damax\User\Bridge\Symfony\Bundle\DependencyInjection;
 
 use Damax\User\Doctrine\Orm\UserEntity;
 use DateTimeZone;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -22,6 +23,8 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('damax_user');
         $rootNode
             ->children()
+                ->append($this->securityNode('security'))
+
                 ->enumNode('password_encoder')
                     ->values(['plain', 'security'])
                     ->defaultValue('security')
@@ -111,5 +114,18 @@ class Configuration implements ConfigurationInterface
         ;
 
         return $treeBuilder;
+    }
+
+    private function securityNode(string $name): ArrayNodeDefinition
+    {
+        return (new ArrayNodeDefinition($name))
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->enumNode('username_accessor')
+                    ->values(['mobilePhone', 'email'])
+                    ->defaultValue('mobilePhone')
+                ->end()
+            ->end()
+        ;
     }
 }

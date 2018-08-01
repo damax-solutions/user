@@ -10,11 +10,18 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class RoleUserAssembler implements UserAssembler
 {
+    private $usernameAccessor;
+
+    public function __construct(string $usernameAccessor)
+    {
+        $this->usernameAccessor = $usernameAccessor;
+    }
+
     public function assemble(UserModel $user): UserInterface
     {
         return new User(
             (string) $user->id(),
-            (string) $user->mobilePhone(),
+            (string) call_user_func([$user, $this->usernameAccessor]),
             array_map([$this, 'toRole'], $user->permissions()),
             $user->password()->password(),
             $user->password()->salt(),

@@ -41,6 +41,7 @@ class DamaxUserExtensionTest extends AbstractExtensionTestCase
 
         $this->assertContainerBuilderHasParameter('damax.user.user_class');
         $this->assertContainerBuilderHasParameter('damax.user.login_history_class');
+        $this->assertContainerBuilderHasParameter('damax.user.security.username_accessor', 'mobilePhone');
 
         $this->assertContainerBuilderHasAlias(NameFormatter::class, JamesBondNameFormatter::class);
         $this->assertContainerBuilderHasService(Mailer::class, SwiftMailer::class);

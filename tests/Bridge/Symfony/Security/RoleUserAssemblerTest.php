@@ -22,7 +22,7 @@ class RoleUserAssemblerTest extends TestCase
         $johndoe->assignRole(new AdminRole());
 
         /** @var User $user */
-        $user = (new RoleUserAssembler())->assemble($johndoe);
+        $user = (new RoleUserAssembler('mobilePhone'))->assemble($johndoe);
 
         $this->assertEquals('ce08c4e8-d9eb-435b-9eab-edc252b450e1', $user->getId());
         $this->assertEquals('123', $user->getUsername());

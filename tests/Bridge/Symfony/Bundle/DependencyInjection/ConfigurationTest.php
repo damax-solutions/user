@@ -44,6 +44,9 @@ class ConfigurationTest extends TestCase
             ],
             'locales' => ['en', 'ru'],
             'timezones' => DateTimeZone::listIdentifiers(DateTimeZone::EUROPE),
+            'security' => [
+                'username_accessor' => 'mobilePhone',
+            ],
         ]);
     }
 
@@ -74,6 +77,9 @@ class ConfigurationTest extends TestCase
                 'Europe/Riga',
                 'Europe/London',
             ],
+            'security' => [
+                'username_accessor' => 'email',
+            ],
         ];
 
         $this->assertProcessedConfigurationEquals([$config], [
@@ -98,6 +104,9 @@ class ConfigurationTest extends TestCase
             'timezones' => [
                 'Europe/Riga',
                 'Europe/London',
+            ],
+            'security' => [
+                'username_accessor' => 'email',
             ],
         ]);
     }

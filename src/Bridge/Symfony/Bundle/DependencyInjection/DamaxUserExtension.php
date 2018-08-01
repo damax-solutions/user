@@ -55,6 +55,7 @@ class DamaxUserExtension extends ConfigurableExtension
 
         $container->setParameter('damax.user.locales', $config['locales']);
         $container->setParameter('damax.user.timezones', $config['timezones']);
+        $container->setParameter('damax.user.security.username_accessor', $config['security']['username_accessor']);
     }
 
     private function configureNameFormatter(array $config, ContainerBuilder $container): self
