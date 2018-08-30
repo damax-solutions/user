@@ -4,8 +4,6 @@
 
 User authentication and management. 
 
-## Documentation
+## Contribute
 
-Topics:
-
-- [Development](doc/development.md)
+If you wish to contribute take a look how to [run the code locally](doc/development.md) in Docker.
