@@ -7,12 +7,12 @@ namespace Damax\User\Bridge\Symfony\Bundle\Controller\Standard;
 use Damax\User\Application\Command\RegisterUser;
 use Damax\User\Application\Service\RegistrationService;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\RegisterType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class RegistrationController extends Controller
+class RegistrationController extends AbstractController
 {
     /**
      * @Route("/register", name="registration")

@@ -38,7 +38,7 @@ class DebugMailerTest extends TestCase
             ->method('debug')
             ->with('Registration email sent.', [
                 'email' => 'john.doe@domain.abc',
-                'mobile' => '123',
+                'mobile' => '+123',
                 'first_name' => 'John',
                 'last_name' => 'Doe',
                 'middle_name' => null,
@@ -58,7 +58,7 @@ class DebugMailerTest extends TestCase
             ->method('debug')
             ->with('Password reset email sent.', [
                 'email' => 'john.doe@domain.abc',
-                'mobile' => '123',
+                'mobile' => '+123',
                 'token' => 'XYZ',
             ])
         ;
@@ -76,7 +76,7 @@ class DebugMailerTest extends TestCase
             ->method('debug')
             ->with('Email confirmation email sent.', [
                 'email' => 'john.doe@domain.abc',
-                'mobile' => '123',
+                'mobile' => '+123',
                 'token' => 'XYZ',
             ])
         ;

@@ -3,12 +3,6 @@
   "type": "library",
   "description": "User authentication and management.",
   "license": "MIT",
-  "autoload": {
-    "psr-4": { "Damax\\User\\": "src/" }
-  },
-  "autoload-dev": {
-    "psr-4": { "Damax\\User\\Tests\\": "tests/" }
-  },
   "require": {
     "php": ">=7.1",
     "beberlei/assert": "^2.9",
@@ -42,6 +36,17 @@
     "symfony/translation": "^4.0",
     "symfony/validator": "^4.0",
     "twig/twig": "^2.4"
+  },
+  "autoload": {
+    "psr-4": { "Damax\\User\\": "src/" }
+  },
+  "autoload-dev": {
+    "psr-4": { "Damax\\User\\Tests\\": "tests/" }
+  },
+  "scripts": {
+    "cs": "php-cs-fixer fix",
+    "test": "simple-phpunit",
+    "test-cc": "phpdbg -qrr ./vendor/bin/simple-phpunit --coverage-html=build/phpunit"
   },
   "config": {
     "sort-packages": true

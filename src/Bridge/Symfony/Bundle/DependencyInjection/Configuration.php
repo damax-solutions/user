@@ -14,13 +14,13 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
+        $treeBuilder = new TreeBuilder('damax_user');
 
         $emailValidator = function (string $email): bool {
             return !filter_var($email, FILTER_VALIDATE_EMAIL);
         };
 
-        $rootNode = $treeBuilder->root('damax_user');
+        $rootNode = $treeBuilder->getRootNode();
         $rootNode
             ->children()
                 ->append($this->securityNode('security'))

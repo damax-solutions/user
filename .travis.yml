@@ -3,22 +3,24 @@ sudo: false
 language: php
 
 php:
-    - 7.1
-    - 7.2
+  - 7.1
+  - 7.2
+  - 7.3
 
 env:
-    global:
-        - SYMFONY_PHPUNIT_VERSION=6.5
+  global:
+    - SYMFONY_PHPUNIT_VERSION=7.4
 
 cache:
-    directories:
-        - $HOME/.composer/cache
+  directories:
+    - $HOME/.composer/cache
 
 install:
-    - composer install --prefer-dist
+  - composer install --prefer-dist
 
 script:
-    - vendor/bin/simple-phpunit --coverage-clover=build/logs/clover.xml
+  - vendor/bin/php-cs-fixer fix --dry-run --diff
+  - vendor/bin/simple-phpunit --coverage-clover=build/logs/clover.xml
 
 after_script:
-    - vendor/bin/php-coveralls
+  - vendor/bin/php-coveralls

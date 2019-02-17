@@ -25,7 +25,7 @@ class RoleUserAssemblerTest extends TestCase
         $user = (new RoleUserAssembler('mobilePhone'))->assemble($johndoe);
 
         $this->assertEquals('ce08c4e8-d9eb-435b-9eab-edc252b450e1', $user->getId());
-        $this->assertEquals('123', $user->getUsername());
+        $this->assertEquals('+123', $user->getUsername());
         $this->assertEquals([new Role('ROLE_USER_CREATE'), new Role('ROLE_USER_EDIT'), new Role('ROLE_USER_DELETE'), 'ROLE_MEMBER'], $user->getRoles());
         $this->assertEquals('qwerty', $user->getPassword());
         $this->assertEquals('XYZ', $user->getSalt());

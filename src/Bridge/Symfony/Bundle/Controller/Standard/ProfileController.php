@@ -12,7 +12,7 @@ use Damax\User\Application\Service\UserService;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\ChangePasswordType;
 use Damax\User\Bridge\Symfony\Bundle\Form\Type\ProfileType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route("/profile")
  * @Security("has_role('ROLE_MEMBER')")
  */
-class ProfileController extends Controller
+class ProfileController extends AbstractController
 {
     /**
      * @Route("", methods={"GET"}, name="profile_view")
